@@ -1,5 +1,5 @@
-/* Set the verified inbox before launch. No requests are stored by this static site. */
-const REVIEW_EMAIL = '';
+/* Requests open in the visitor's email app. This static site stores no requests. */
+const REVIEW_EMAIL = 'fousedigital@gmail.com';
 
 const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('#site-nav');

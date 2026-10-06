@@ -12,11 +12,11 @@ python3 -m http.server 8765
 
 Open `http://localhost:8765`. The site uses `index.html`, `styles.css`, and `script.js`; no build step is required.
 
-## Connect review requests before launch
+## Review requests
 
-The destination is intentionally unset. No personal or placeholder email is included. While unset, the form explains that online requests are unavailable and never claims to send or store a request.
+The form is connected to the business inbox configured in `REVIEW_EMAIL` at the top of `script.js`. The address is not displayed in the page copy.
 
-Set `REVIEW_EMAIL` at the top of `script.js` to a verified business inbox. The form will prepare a URL-encoded email containing the visitor's details. Visitors must send it in their own email app. This is not a server-backed form, and requires an email application configured on their device.
+The form prepares a URL-encoded email containing the visitor's details. Visitors must send it in their own email app. This is not a server-backed form, and requires an email application configured on their device. Change `REVIEW_EMAIL` to update the destination.
 
 For direct submissions without an email app, replace the mailto flow with a verified HTTPS form service or backend. Validate submissions server-side, add spam protection, show success only after confirmed delivery, and update the form's delivery and privacy text to match the provider. Never put private API credentials in the browser script.
 
