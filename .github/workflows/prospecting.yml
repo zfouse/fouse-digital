@@ -22,7 +22,8 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Load durable ledger
         run: |
-          if git ls-remote --exit-code --heads origin prospect-ledger; then
+          git ls-remote --heads origin prospect-ledger > "$RUNNER_TEMP/prospect-ledger-ref"
+          if test -s "$RUNNER_TEMP/prospect-ledger-ref"; then
             git fetch origin prospect-ledger
             git worktree add state FETCH_HEAD
           else
@@ -33,6 +34,7 @@ jobs:
       - name: Research and prepare drafts
         run: python prospecting/run.py
       - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('reports/*') != ''
         with:
           name: prospect-review-${{ github.run_id }}
           path: reports/
@@ -49,9 +51,16 @@ jobs:
             git push origin HEAD:refs/heads/prospect-ledger
           fi
       - name: Run summary
+        if: always() && hashFiles('reports/*') != ''
         run: |
           python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
           import json
+          from pathlib import Path
+          if Path('reports/diagnostic.json').exists():
+              r = json.load(open('reports/diagnostic.json'))
+              print(r['message'])
+              print('Download diagnostic.html/json from the artifact for endpoint attempts. Workflow remains failed.')
+              raise SystemExit(0)
           r = json.load(open('reports/review.json'))
           print(f"Qualified today: {r['qualified_today']}/10. New drafts: {len(r['new_leads'])}. Shortfall: {r['shortfall']}.")
           print('Download the prospect-review artifact and open review.html to review evidence and drafts. No emails were sent.')
