@@ -8,12 +8,18 @@ import ipaddress
 import json
 from pathlib import Path
 import socket
+import sys
 import time
 import urllib.error
 import urllib.parse
 import urllib.request
 import urllib.robotparser
 from zoneinfo import ZoneInfo
+
+if __package__:
+    from .discovery import DiscoveryFailed, discover, validate
+else:
+    from discovery import DiscoveryFailed, discover, validate
 
 AGENT = 'FouseDigitalResearch/1.0 (+https://zfouse.github.io/fouse-digital/)'
 BBOX = '38.40,-90.75,38.95,-89.95'
@@ -163,6 +169,8 @@ def run(candidates, state, target=10, auditor=audit):
 
 def render(report):
     esc = lambda x: html.escape(str(x))
+    if report.get('status') == 'discovery_failed':
+        return '<!doctype html><html lang="en"><meta charset="utf-8"><title>Discovery failed</title><h1>Discovery failed — research incomplete</h1><p>' + esc(report['message']) + '</p><pre>' + esc(json.dumps(report['discovery'], indent=2)) + '</pre></html>'
     cards = []
     for lead in report['new_leads']:
         cards.append('<article><h2>' + esc(lead['name']) + '</h2><pre>' + esc(json.dumps(lead, indent=2, ensure_ascii=False)) + '</pre></article>')
@@ -177,26 +185,48 @@ def main():
     args = p.parse_args()
     state_path = Path(args.state)
     state = json.loads(state_path.read_text()) if state_path.exists() else {}
-    if args.candidates:
-        candidates = json.loads(Path(args.candidates).read_text())['elements']
-    else:
-        _, _, text = fetch('https://overpass-api.de/api/interpreter', urllib.parse.urlencode({'data': QUERY}).encode(), timeout=60)
-        response = json.loads(text)
-        if response.get('remark'):
-            raise ValueError('Discovery incomplete: ' + response['remark'])
-        candidates = response['elements']
+    output = Path(args.output)
+    try:
+        if args.candidates:
+            candidates = validate(Path(args.candidates).read_text())
+            discovery = {'status': 'success', 'source': 'fixture', 'attempts': []}
+        else:
+            candidates, discovery = discover(QUERY, fetch)
+    except DiscoveryFailed as e:
+        report = {
+            'status': 'discovery_failed',
+            'date': dt.datetime.now(ZoneInfo('America/Chicago')).date().isoformat(),
+            'target': 10, 'qualified_today': None, 'shortfall': None,
+            'new_leads': [], 'skipped': [],
+            'message': 'Discovery failed. No research completed; existing ledger and prior lead reports preserved.',
+            'discovery': {'status': 'failed', 'attempts': e.attempts},
+            'attribution': '© OpenStreetMap contributors, ODbL https://www.openstreetmap.org/copyright',
+        }
+        output.mkdir(parents=True, exist_ok=True)
+        # Separate diagnostic files never overwrite a prior successful review.
+        (output / 'diagnostic.json').write_text(json.dumps(report, indent=2))
+        (output / 'diagnostic.html').write_text(render(report))
+        print(report['message'], file=sys.stderr)
+        return 2
     def polite_audit(url):
         time.sleep(1)
         return audit(url)
     report, state = run(candidates, state, auditor=polite_audit)
-    output = Path(args.output)
+    report['status'] = 'success'
+    report['discovery'] = discovery
     output.mkdir(parents=True, exist_ok=True)
     (output / 'review.json').write_text(json.dumps(report, indent=2, ensure_ascii=False))
     (output / 'review.html').write_text(render(report))
+    for name in ('diagnostic.json', 'diagnostic.html'):
+        (output / name).unlink(missing_ok=True)
     state_path.parent.mkdir(parents=True, exist_ok=True)
-    state_path.write_text(json.dumps(state, indent=2))
+    temporary = state_path.with_name(state_path.name + '.tmp')
+    temporary.write_text(json.dumps(state, indent=2))
+    temporary.replace(state_path)
     print(f"Qualified today: {report['qualified_today']}/10; new drafts: {len(report['new_leads'])}; shortfall: {report['shortfall']}")
+
+    return 0
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())

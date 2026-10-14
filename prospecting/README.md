@@ -18,7 +18,7 @@ A lead must have all of:
 
 Reports include source URLs, UTC check timestamp, exact observation, evidence and draft status. Missing viewport metadata is specifically an HTML-source observation; JavaScript could add it. HTTP observation does not assert HTTPS is unavailable. No claims about lost revenue, broken forms, speed, mobile usability or missing calls to action are inferred. Confirm behavior in a browser before using a draft. The system does not test form delivery or crawl other pages.
 
-Discovery makes one bounded Overpass request per run (45-second server timeout), considers at most 150 candidates, pauses one second per audit, limits each response to 1 MB and each website request to 15 seconds (discovery allows 60 seconds). robots errors other than 404 cause a skip. Network failures never become website findings. URL checks reject credentials, unusual ports and DNS addresses that are not globally routable, including redirected destinations. This is lightweight source inspection, not a browser sandbox; DNS resolution checks are not a guarantee against DNS rebinding.
+Discovery makes one request when healthy and at most six serial requests during an outage (45-second server timeout per query), considers at most 150 candidates, pauses one second per audit, limits each response to 1 MB and each website request to 15 seconds (discovery allows 60 seconds). robots errors other than 404 cause a skip. Network failures never become website findings. URL checks reject credentials, unusual ports and DNS addresses that are not globally routable, including redirected destinations. This is lightweight source inspection, not a browser sandbox; DNS resolution checks are not a guarantee against DNS rebinding.
 
 OpenStreetMap coverage is finite and uneven. The target is 10 **qualified** businesses per Chicago calendar day, not a promise. Shortfalls are recorded without relaxing qualification or inventing issues. OSM identifiers, normalized domains (including redirects) and normalized phone numbers are hashed for deduplication. Multiple branches of one domain or shared phone are intentionally treated as one prospect. Accepted leads remain deduplicated across days; failed or unqualified candidates may be checked again. Daily counts also prevent manual reruns generating more than 10 that day.
 
@@ -35,7 +35,7 @@ Reports are uploaded before the ledger is committed, so a report-upload failure 
 
 ## Cost
 
-Designed for $0 incremental cost: standard Linux Actions runners in this public repository, no dependency installations, no model calls, one public Overpass request per day, and small reports retained for 30 days. GitHub artifact storage has account-level allowances; avoid increasing report sizes/retention and keep the account's paid Actions budget at $0 if needed. No billing settings are changed by this PR.
+Designed for $0 incremental cost: standard Linux Actions runners in this public repository, no dependency installations, no model calls, one public Overpass request per healthy day (at most six during an outage), and small reports retained for 30 days. GitHub artifact storage has account-level allowances; avoid increasing report sizes/retention and keep the account's paid Actions budget at $0 if needed. No billing settings are changed by this PR.
 
 References: [GitHub Actions billing](https://docs.github.com/en/billing/concepts/product-billing/github-actions), [Overpass shared resource guidance](https://dev.overpass-api.de/overpass-doc/en/preface/commons.html). Free public Overpass service can throttle or be unavailable; the workflow fails rather than silently replacing discovery with a paid provider. OSM attribution is embedded in every report: [© OpenStreetMap contributors, ODbL](https://www.openstreetmap.org/copyright).
 
@@ -48,6 +48,20 @@ python3 prospecting/run.py --state /path/to/ledger.json --output /path/to/report
 
 Local runs require Python 3.9+ with system timezone data; CI uses 3.12. Keep the same ledger between runs. `--candidates /path/to/osm.json` substitutes an OSM-format discovery response, but still audits websites. Unit tests inject responses and never access the network. Tests cover truthful findings, healthy pages, robots denial, timeouts, location/category/contact qualification, domain/phone/rerun deduplication, daily quota, unsafe URL rejection and HTML escaping.
 
-## Validation in this PR
+## Discovery recovery
+
+The primary is `https://overpass-api.de/api/interpreter`; failover uses the independently operated `https://overpass.private.coffee/api/interpreter`, listed in the [OSM public instance directory](https://wiki.openstreetmap.org/wiki/Overpass_API#Public_Overpass_API_instances). The former Kumi hostname is not a third independent fallback. Public endpoints offer no availability guarantee.
+
+Each endpoint gets at most three attempts. HTTP 429/502/503/504, connection errors, DNS errors and timeouts use exponential waits of 30 then 60 seconds plus 0–5 seconds of random jitter. `Retry-After` seconds and HTTP dates are honored when longer; waits above 120 seconds abandon that endpoint for this run rather than retrying earlier than requested. Switching to the independent fallback also waits 30–35 seconds. No parallel requests or unbounded retries. Worst-case six requests plus five waits; individual waits are capped at 125 seconds including jitter. The existing 30-minute job limit remains the outer bound.
+
+Invalid JSON, invalid elements and HTTP-200 responses with an Overpass `remark` are incomplete discovery, never successful empty research. Non-transient HTTP errors (such as a bad query) fail immediately rather than repeating the same request against other servers. A healthy empty result remains successful discovery with an honest shortfall.
+
+If discovery fails, the process exits 2 before auditing or touching the ledger. It writes separate `diagnostic.json` and `diagnostic.html` files, preserving prior `review.json`/HTML if the output directory is reused. They include endpoint, timestamp, attempt number, sanitized reason, and backoff decision. Failed discovery has no reported qualified count or shortfall, rather than pretending zero leads were researched. Artifact upload and the run summary execute even after failure; ledger persistence still requires all earlier steps to succeed. Reports keep their existing 30-day retention. A later successful local run clears stale diagnostic files. Successful ledger updates now use a temporary file and atomic replacement. Ledger loading also distinguishes a missing branch from a GitHub transport failure; transport errors stop the workflow before an empty ledger can be initialized.
+
+## Validation history
 
 Eight offline tests pass; whitespace/diff checks pass. Two live discovery attempts on October 14, 2026 returned HTTP 504 from the public Overpass endpoint, including one with a 60-second client timeout. No live leads were fabricated and no ledger was written. Live discovery yield and complete scheduled execution remain unverified until the service responds and the workflow runs on main. This limitation is a reason to review the first run's shortfall, not to assume 10/day is achieved.
+
+Recovery tests additionally cover each retryable status, exponential jitter, endpoint ordering, timeout exhaustion, Retry-After seconds/dates, long rate-limit deferral, invalid/incomplete responses, permanent errors, byte-for-byte ledger preservation, prior-report preservation, first-run failure and recovery to a real successful result.
+
+Recovery validation: 20 automated tests pass locally, including executing the actual workflow ledger-loading shell block with a failed Git transport. Whitespace/diff checks pass. The website, schedule, qualification rules and draft-only policy are preserved.
