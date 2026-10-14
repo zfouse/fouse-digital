@@ -1,0 +1,58 @@
+name: Daily prospect review
+on:
+  schedule:
+    - cron: '23 13 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: prospect-ledger
+  cancel-in-progress: false
+jobs:
+  research:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test
+        run: python -m unittest discover -s tests -v
+      - name: Load durable ledger
+        run: |
+          if git ls-remote --exit-code --heads origin prospect-ledger; then
+            git fetch origin prospect-ledger
+            git worktree add state FETCH_HEAD
+          else
+            git worktree add --detach state
+            cd state
+            git switch --orphan prospect-ledger
+          fi
+      - name: Research and prepare drafts
+        run: python prospecting/run.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: prospect-review-${{ github.run_id }}
+          path: reports/
+          retention-days: 30
+          if-no-files-found: error
+      - name: Persist deduplication ledger
+        run: |
+          cd state
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add ledger.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update prospect deduplication ledger'
+            git push origin HEAD:refs/heads/prospect-ledger
+          fi
+      - name: Run summary
+        run: |
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          r = json.load(open('reports/review.json'))
+          print(f"Qualified today: {r['qualified_today']}/10. New drafts: {len(r['new_leads'])}. Shortfall: {r['shortfall']}.")
+          print('Download the prospect-review artifact and open review.html to review evidence and drafts. No emails were sent.')
+          PY

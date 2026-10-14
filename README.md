@@ -33,3 +33,7 @@ Confirm the proposed package inclusions and care scope before taking paid orders
 ## Accessibility and behavior
 
 Semantic page structure, visible focus states, a skip link, native form validation, keyboard-accessible FAQs, mobile navigation with Escape support, reduced-motion support, and mobile layouts. Navigation and FAQs work without JavaScript; email preparation requires JavaScript. The site uses system fonts and has no external tracking scripts.
+
+## Automated prospect review
+
+[Phase 1 prospecting setup, qualification, costs and review instructions](prospecting/README.md). Daily GitHub Actions research targets 10 qualified St. Louis-area service businesses, persists deduplication separately from Pages, and saves evidence and personalized drafts for review. No outreach is sent.
