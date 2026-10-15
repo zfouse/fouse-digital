@@ -40,7 +40,7 @@ def candidate(i, email=None):
 
 
 def confirmed(url, impact=50):
-    return {'code': 'broken_cta', 'status': 'verified', 'impact': impact, 'evidence_strength': 30,
+    return {'code': 'broken_cta', 'status': 'verified', 'verification': 'browser', 'impact': impact, 'evidence_strength': 30,
             'url': url, 'observation': 'The “Request a quote” link returned HTTP 404 on two checks.',
             'label': 'Request a quote', 'target': url+'/quote', 'evidence': 'Two 404 responses'}
 
@@ -54,7 +54,8 @@ class ConversionTests(unittest.TestCase):
                 issues = [f for f in result.findings if f['status'] == 'verified']
                 self.assertEqual(len(issues), 1)
                 self.assertEqual(issues[0]['code'], 'broken_cta')
-                self.assertIn(label, draft('Fixture Plumbing', issues[0])['body'])
+                self.assertIsNone(draft('Fixture Plumbing', issues[0]))
+                self.assertIn(label, draft('Fixture Plumbing', dict(issues[0],verification='browser'))['body'])
 
     def test_flaky_or_blocked_links_are_never_verified(self):
         for status in (403, 429, 500, 502, 503, 504):
@@ -120,6 +121,7 @@ class ConversionTests(unittest.TestCase):
         contacts=[{'kind':'email','value':'OFFICE@example.com'}]
         a=candidate(1,'office@example.com')
         b=dict(candidate(2,' Office@Example.com '),provider='overture',type='place')
+        b['tags']['name']=a['tags']['name']
         def auditor(url): return url,[confirmed(url)],[]
         report,state=run([a,b],{},auditor=auditor)
         self.assertEqual(len(report['new_leads']),1)

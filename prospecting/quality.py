@@ -2,27 +2,33 @@
 
 
 def verified(findings):
-    return [f for f in findings if f.get('status') == 'verified' and f.get('impact', 0) > 0]
+    return [f for f in findings if f.get('status') == 'verified' and f.get('verification') == 'browser' and f.get('impact', 0) > 0]
 
 
-def rank(findings, contacts, category):
+def rank(findings, contacts, category, business_fit=None):
     confirmed = verified(findings)
     impact = max((f['impact'] for f in confirmed), default=0)
     strength = max((f.get('evidence_strength', 0) for f in confirmed), default=0)
     fit = (15 if category in ('plumber', 'roofer', 'hvac', 'electrician', 'landscaper', 'painter', 'carpenter') else 0) + (5 if any(c['kind'] == 'email' for c in contacts) else 0)
-    total = impact + strength + fit if confirmed else 0
-    return {'score': total, 'impact': impact, 'evidence_strength': strength, 'fit': fit,
+    if business_fit is not None:
+        fit = business_fit['score'] if business_fit['eligible'] else 0
+    remediation = 5 if any(f.get('action') for f in confirmed) else 0
+    impact = min(45, impact)
+    total = impact + strength + fit + remediation if confirmed and (business_fit is None or business_fit['eligible']) else 0
+    return {'score': total, 'impact': impact, 'evidence_strength': strength, 'fit': fit, 'remediation': remediation,
             'priority': 'High' if total >= 85 else 'Medium' if total >= 65 else 'Browser review',
-            'reason': f'Observed customer contact-path impact {impact}/50; evidence {strength}/30; service/contact fit {fit}/20. Potential findings add no points.',
+            'reason': f'Observed customer contact-path impact {impact}/45; evidence {strength}/30; business fit {fit}/20; actionable remedy {remediation}/5. Potential findings add no points.',
             'limitations': 'Relative priority among audited prospects, not predicted lost leads or revenue.'}
 
 
 def draft(name, finding, category='service'):
-    if finding.get('status') != 'verified':
+    if finding.get('status') != 'verified' or finding.get('verification') != 'browser':
         return None
     label = finding.get('label', 'contact')
     if finding['code'] == 'broken_cta':
         offer = f'I can help repair the “{label}” link and check the route from your homepage to the inquiry page.'
+    elif finding['code'] == 'mobile_contact_clipped':
+        offer = 'I can help adjust the contact control’s responsive layout and recheck it at both phone widths.'
     elif finding['code'] == 'empty_contact_link':
         offer = 'I can help connect that button to the correct business contact and check the path on a phone.'
     else:

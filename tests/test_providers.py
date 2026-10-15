@@ -42,9 +42,9 @@ class ProviderIntegrationTests(unittest.TestCase):
             provider = Mock(return_value=([candidate()], {'release': 'release'}))
             rows, diagnostic, saved = discover_businesses('q', Mock(), Path(root)/'pool.json', [('test', provider)], NOW)
             def auditor(url):
-                return url, [{'code': 'broken_cta', 'status': 'verified', 'impact': 50, 'evidence_strength': 30, 'label': 'Contact', 'url': url, 'observation': 'Fixture observation', 'evidence': 'Fixture HTML'}], []
+                return url, [{'code': 'broken_cta', 'status': 'verified', 'verification': 'browser', 'impact': 50, 'evidence_strength': 30, 'label': 'Contact', 'url': url, 'observation': 'Fixture observation', 'evidence': 'Fixture HTML'}], []
             # Legacy OSM lead with same phone prevents a duplicate from Overture on another domain.
-            legacy = {'type': 'node', 'id': 1, 'tags': {'name': 'Fixture', 'craft': 'plumber', 'website': 'https://legacy.example', 'phone': '3145550100'}, 'lat': 38.6, 'lon': -90.2}
+            legacy = {'type': 'node', 'id': 1, 'tags': {'name': 'Fixture Plumbing', 'craft': 'plumber', 'website': 'https://legacy.example', 'phone': '3145550100'}, 'lat': 38.6, 'lon': -90.2}
             report, state = run([legacy], {}, auditor=auditor)
             report, _ = run(rows, state, auditor=auditor)
             self.assertEqual(report['new_leads'], [])
