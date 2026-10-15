@@ -1,0 +1,2802 @@
+{
+  "date": "2026-10-15",
+  "target": 10,
+  "qualified_today": 1,
+  "new_leads": [],
+  "review_queue": [
+    {
+      "name": "Averill Heating & Air Conditioning",
+      "category": "hvac",
+      "location": {
+        "lat": 38.69121170043945,
+        "lon": -90.39571380615234
+      },
+      "discovery_source": "https://explore.overturemaps.org/?id=ea51d6a7-1034-4ab0-a9f3-5bbdcd199079",
+      "provider": "overture",
+      "provenance": {
+        "release": "2026-09-23.1",
+        "category": "hvac_service",
+        "confidence": 0.9199122190475464,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "meta",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "555705147816105",
+            "update_time": "2026-09-14T00:00:00.000Z",
+            "confidence": 0.727091908454895,
+            "between": null,
+            "provider": "meta",
+            "resource": "meta",
+            "version": "2026-09-14"
+          },
+          {
+            "property": "/properties/confidence",
+            "dataset": "Overture",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": null,
+            "update_time": "2026-09-17T22:52:12Z",
+            "confidence": null,
+            "between": null,
+            "provider": "overture",
+            "resource": "confidence_calculation",
+            "version": "2026-09-17"
+          },
+          {
+            "property": "/properties/operating_status",
+            "dataset": "Overture-signals",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "9be0ee58-2c6c-4220-8310-12e697a5fa07",
+            "update_time": "2026-09-14T15:43:16Z",
+            "confidence": 1.0,
+            "between": null,
+            "provider": "overture",
+            "resource": "operating_status_signal",
+            "version": "2026-09-14"
+          }
+        ],
+        "attribution": "Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/"
+      },
+      "website": "http://www.classicairecare.com/about/averill",
+      "checked_at": "2026-10-15T17:48:49.468380+00:00",
+      "contacts": [
+        {
+          "kind": "phone",
+          "value": " (314) 200-1211",
+          "source": "http://www.classicairecare.com/about/averill",
+          "normalized": "3142001211",
+          "sources": [
+            "http://www.classicairecare.com/about/averill",
+            "http://www.classicairecare.com/contact-us",
+            "https://www.classicairecare.com/contact-us"
+          ]
+        },
+        {
+          "kind": "email",
+          "value": "info@classicairecare.com",
+          "source": "http://www.classicairecare.com/about/averill",
+          "normalized": "info@classicairecare.com",
+          "sources": [
+            "http://www.classicairecare.com/about/averill",
+            "http://www.classicairecare.com/contact-us",
+            "https://www.classicairecare.com/contact-us"
+          ]
+        },
+        {
+          "kind": "phone",
+          "value": "+13144273825",
+          "source": "https://explore.overturemaps.org/?id=ea51d6a7-1034-4ab0-a9f3-5bbdcd199079",
+          "normalized": "3144273825",
+          "sources": [
+            "https://explore.overturemaps.org/?id=ea51d6a7-1034-4ab0-a9f3-5bbdcd199079"
+          ]
+        },
+        {
+          "kind": "email",
+          "value": "averillhvac@aol.com",
+          "source": "https://explore.overturemaps.org/?id=ea51d6a7-1034-4ab0-a9f3-5bbdcd199079",
+          "normalized": "averillhvac@aol.com",
+          "sources": [
+            "https://explore.overturemaps.org/?id=ea51d6a7-1034-4ab0-a9f3-5bbdcd199079"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "http://www.classicairecare.com/about/averill",
+          "evidence": "anchor='Schedule Service today'; href='#'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "http://www.classicairecare.com/about/averill",
+          "evidence": "form 1; field count=12",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "http://www.classicairecare.com/about/averill",
+          "evidence": "form 2; field count=12",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "http://www.classicairecare.com/about/averill",
+          "evidence": "form 3; field count=12",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "http://www.classicairecare.com/about/averill",
+          "evidence": "form 4; field count=13",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "http://www.classicairecare.com/about/averill",
+          "evidence": "width values=['100', '1024', '1025', '1199', '120', '1200', '128', '1300']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "http://www.classicairecare.com/contact-us",
+          "evidence": "anchor='Schedule Service today'; href='#'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "http://www.classicairecare.com/contact-us",
+          "evidence": "form 1; field count=12",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "http://www.classicairecare.com/contact-us",
+          "evidence": "form 2; field count=12",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "http://www.classicairecare.com/contact-us",
+          "evidence": "form 3; field count=13",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "http://www.classicairecare.com/contact-us",
+          "evidence": "width values=['100', '1024', '1025', '1199', '120', '1200', '128', '1300']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://www.classicairecare.com/contact-us",
+          "evidence": "anchor='Schedule Service today'; href='#'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.classicairecare.com/contact-us",
+          "evidence": "form 1; field count=12",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.classicairecare.com/contact-us",
+          "evidence": "form 2; field count=12",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.classicairecare.com/contact-us",
+          "evidence": "form 3; field count=13",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.classicairecare.com/contact-us",
+          "evidence": "width values=['100', '1024', '1025', '1199', '120', '1200', '128', '1300']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        }
+      ],
+      "coverage": {
+        "pages": [
+          {
+            "url": "http://www.classicairecare.com/about/averill",
+            "forms": 4,
+            "cta_links": 13,
+            "booking_links": [
+              "#"
+            ]
+          },
+          {
+            "url": "http://www.classicairecare.com/contact-us",
+            "forms": 3,
+            "cta_links": 4,
+            "booking_links": [
+              "#"
+            ]
+          },
+          {
+            "url": "https://www.classicairecare.com/contact-us",
+            "forms": 3,
+            "cta_links": 4,
+            "booking_links": [
+              "#"
+            ]
+          }
+        ],
+        "link_checks": [
+          {
+            "url": "http://www.classicairecare.com/contact-us/",
+            "result": "loaded"
+          },
+          {
+            "url": "https://www.classicairecare.com/contact-us/",
+            "result": "loaded"
+          }
+        ],
+        "browser_checked": false,
+        "limitations": [
+          "No forms submitted or appointment/quote requests made.",
+          "No rendered/mobile or form-delivery test.",
+          "External booking flows and query-string links require browser review."
+        ]
+      },
+      "ranking": {
+        "score": 0,
+        "impact": 0,
+        "evidence_strength": 0,
+        "fit": 20,
+        "priority": "Browser review",
+        "reason": "Observed customer contact-path impact 0/50; evidence 0/30; service/contact fit 20/20. Potential findings add no points.",
+        "limitations": "Relative priority among audited prospects, not predicted lost leads or revenue."
+      }
+    },
+    {
+      "name": "Classic Aire Care",
+      "category": "hvac",
+      "location": {
+        "lat": 38.68292999267578,
+        "lon": -90.3945541381836
+      },
+      "discovery_source": "https://explore.overturemaps.org/?id=3968de1a-3d7e-4789-92fc-e3d442883075",
+      "provider": "overture",
+      "provenance": {
+        "release": "2026-09-23.1",
+        "category": "hvac_service",
+        "confidence": 0.9199122190475464,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "Microsoft",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "1407374891390823",
+            "update_time": "2024-10-17T21:12:13.553Z",
+            "confidence": 0.85,
+            "between": null,
+            "provider": "microsoft",
+            "resource": "microsoft",
+            "version": "2025-10-20"
+          },
+          {
+            "property": "/properties/confidence",
+            "dataset": "Overture",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": null,
+            "update_time": "2026-09-17T22:52:12Z",
+            "confidence": null,
+            "between": null,
+            "provider": "overture",
+            "resource": "confidence_calculation",
+            "version": "2026-09-17"
+          },
+          {
+            "property": "/properties/operating_status",
+            "dataset": "Overture-signals",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "474c1993-af4f-4f1b-8700-c296d4c0f1e5",
+            "update_time": "2026-09-14T15:43:16Z",
+            "confidence": 1.0,
+            "between": null,
+            "provider": "overture",
+            "resource": "operating_status_signal",
+            "version": "2026-09-14"
+          }
+        ],
+        "attribution": "Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/"
+      },
+      "website": "https://www.classicairecare.com/?utm_source=GMB&utm_medium=local",
+      "checked_at": "2026-10-15T17:49:45.379514+00:00",
+      "contacts": [
+        {
+          "kind": "phone",
+          "value": " (314) 200-1211",
+          "source": "https://www.classicairecare.com/?utm_source=GMB&utm_medium=local",
+          "normalized": "3142001211",
+          "sources": [
+            "https://www.classicairecare.com/?utm_source=GMB&utm_medium=local",
+            "https://www.classicairecare.com/contact-us",
+            "https://www.classicairecare.com/shop"
+          ]
+        },
+        {
+          "kind": "email",
+          "value": "info@classicairecare.com",
+          "source": "https://www.classicairecare.com/?utm_source=GMB&utm_medium=local",
+          "normalized": "info@classicairecare.com",
+          "sources": [
+            "https://www.classicairecare.com/?utm_source=GMB&utm_medium=local",
+            "https://www.classicairecare.com/contact-us",
+            "https://www.classicairecare.com/shop"
+          ]
+        },
+        {
+          "kind": "phone",
+          "value": "3149882501",
+          "source": "https://explore.overturemaps.org/?id=3968de1a-3d7e-4789-92fc-e3d442883075",
+          "normalized": "3149882501",
+          "sources": [
+            "https://explore.overturemaps.org/?id=3968de1a-3d7e-4789-92fc-e3d442883075"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://www.classicairecare.com/?utm_source=GMB&utm_medium=local",
+          "evidence": "anchor='Schedule Service today'; href='#'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.classicairecare.com/?utm_source=GMB&utm_medium=local",
+          "evidence": "form 1; field count=12",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.classicairecare.com/?utm_source=GMB&utm_medium=local",
+          "evidence": "form 2; field count=12",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.classicairecare.com/?utm_source=GMB&utm_medium=local",
+          "evidence": "form 3; field count=12",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.classicairecare.com/?utm_source=GMB&utm_medium=local",
+          "evidence": "form 4; field count=13",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.classicairecare.com/?utm_source=GMB&utm_medium=local",
+          "evidence": "form 5; field count=13",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.classicairecare.com/?utm_source=GMB&utm_medium=local",
+          "evidence": "width values=['100', '1024', '1025', '1199', '120', '1200', '128', '1300']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://www.classicairecare.com/contact-us",
+          "evidence": "anchor='Schedule Service today'; href='#'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.classicairecare.com/contact-us",
+          "evidence": "form 1; field count=12",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.classicairecare.com/contact-us",
+          "evidence": "form 2; field count=12",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.classicairecare.com/contact-us",
+          "evidence": "form 3; field count=13",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.classicairecare.com/contact-us",
+          "evidence": "width values=['100', '1024', '1025', '1199', '120', '1200', '128', '1300']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://www.classicairecare.com/shop",
+          "evidence": "anchor='Schedule Service today'; href='#'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.classicairecare.com/shop",
+          "evidence": "form 1; field count=13",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.classicairecare.com/shop",
+          "evidence": "width values=['100', '1024', '1025', '1199', '120', '1200', '128', '1300']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        }
+      ],
+      "coverage": {
+        "pages": [
+          {
+            "url": "https://www.classicairecare.com/?utm_source=GMB&utm_medium=local",
+            "forms": 5,
+            "cta_links": 18,
+            "booking_links": [
+              "#"
+            ]
+          },
+          {
+            "url": "https://www.classicairecare.com/contact-us",
+            "forms": 3,
+            "cta_links": 4,
+            "booking_links": [
+              "#"
+            ]
+          },
+          {
+            "url": "https://www.classicairecare.com/shop",
+            "forms": 1,
+            "cta_links": 4,
+            "booking_links": [
+              "#"
+            ]
+          }
+        ],
+        "link_checks": [
+          {
+            "url": "https://www.classicairecare.com/contact-us/",
+            "result": "loaded"
+          },
+          {
+            "url": "https://www.classicairecare.com/shop",
+            "result": "loaded"
+          }
+        ],
+        "browser_checked": false,
+        "limitations": [
+          "No forms submitted or appointment/quote requests made.",
+          "No rendered/mobile or form-delivery test.",
+          "External booking flows and query-string links require browser review."
+        ]
+      },
+      "ranking": {
+        "score": 0,
+        "impact": 0,
+        "evidence_strength": 0,
+        "fit": 20,
+        "priority": "Browser review",
+        "reason": "Observed customer contact-path impact 0/50; evidence 0/30; service/contact fit 20/20. Potential findings add no points.",
+        "limitations": "Relative priority among audited prospects, not predicted lost leads or revenue."
+      }
+    },
+    {
+      "name": "Fresh Air Heating & Cooling",
+      "category": "hvac",
+      "location": {
+        "lat": 38.66889190673828,
+        "lon": -90.664794921875
+      },
+      "discovery_source": "https://explore.overturemaps.org/?id=c3c35073-945d-409a-bad7-7c45771b3637",
+      "provider": "overture",
+      "provenance": {
+        "release": "2026-09-23.1",
+        "category": "hvac_service",
+        "confidence": 0.9898314980566502,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "Microsoft",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "562949963967013",
+            "update_time": "2025-07-13T06:46:09.547Z",
+            "confidence": 0.85,
+            "between": null,
+            "provider": "microsoft",
+            "resource": "microsoft",
+            "version": "2025-10-20"
+          },
+          {
+            "property": "/properties/confidence",
+            "dataset": "Overture",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": null,
+            "update_time": "2026-09-17T22:52:12Z",
+            "confidence": null,
+            "between": null,
+            "provider": "overture",
+            "resource": "confidence_calculation",
+            "version": "2026-09-17"
+          },
+          {
+            "property": "/properties/operating_status",
+            "dataset": "Overture-signals",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "a4bbe97c-a5b1-4170-9b6d-38ff232eea9d",
+            "update_time": "2026-09-14T15:43:16Z",
+            "confidence": 1.0,
+            "between": null,
+            "provider": "overture",
+            "resource": "operating_status_signal",
+            "version": "2026-09-14"
+          }
+        ],
+        "attribution": "Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/"
+      },
+      "website": "https://www.ineedfreshair.com/",
+      "checked_at": "2026-10-15T17:49:28.896854+00:00",
+      "contacts": [
+        {
+          "kind": "phone",
+          "value": "+16362008652",
+          "source": "https://www.ineedfreshair.com/",
+          "normalized": "6362008652",
+          "sources": [
+            "https://www.ineedfreshair.com/",
+            "https://www.ineedfreshair.com/send-a-message",
+            "https://www.ineedfreshair.com/specials"
+          ]
+        },
+        {
+          "kind": "phone",
+          "value": "6365300070",
+          "source": "https://explore.overturemaps.org/?id=c3c35073-945d-409a-bad7-7c45771b3637",
+          "normalized": "6365300070",
+          "sources": [
+            "https://explore.overturemaps.org/?id=c3c35073-945d-409a-bad7-7c45771b3637"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://www.ineedfreshair.com/",
+          "evidence": "anchor='Schedule An'; href='#'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://www.ineedfreshair.com/",
+          "evidence": "anchor='Schedule An Appointment'; href='#'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://www.ineedfreshair.com/",
+          "evidence": "anchor='Schedule'; href='#'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.ineedfreshair.com/",
+          "evidence": "form 4; field count=9",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "external_booking_review",
+          "observation": "Appointment booking uses an external service; the booking journey has not been tested.",
+          "url": "https://www.ineedfreshair.com/",
+          "evidence": "External booking links=['https://www.facebook.com/freshairheatingandcooling/', 'https://www.facebook.com/193602608712']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Inspect the booking journey without making an appointment."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.ineedfreshair.com/",
+          "evidence": "width values=['100', '1130', '120', '1254', '1369', '150', '190', '239']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://www.ineedfreshair.com/send-a-message",
+          "evidence": "anchor='Schedule An'; href='#'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://www.ineedfreshair.com/send-a-message",
+          "evidence": "anchor='Schedule'; href='#'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.ineedfreshair.com/send-a-message",
+          "evidence": "form 3; field count=13",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "external_booking_review",
+          "observation": "Appointment booking uses an external service; the booking journey has not been tested.",
+          "url": "https://www.ineedfreshair.com/send-a-message",
+          "evidence": "External booking links=['https://www.facebook.com/freshairheatingandcooling/', 'https://www.facebook.com/193602608712']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Inspect the booking journey without making an appointment."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.ineedfreshair.com/send-a-message",
+          "evidence": "width values=['100', '120', '1369', '150', '767']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://www.ineedfreshair.com/specials",
+          "evidence": "anchor='Schedule An'; href='#'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://www.ineedfreshair.com/specials",
+          "evidence": "anchor='Schedule'; href='#'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "external_booking_review",
+          "observation": "Appointment booking uses an external service; the booking journey has not been tested.",
+          "url": "https://www.ineedfreshair.com/specials",
+          "evidence": "External booking links=['https://www.facebook.com/freshairheatingandcooling/', 'https://www.facebook.com/193602608712']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Inspect the booking journey without making an appointment."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.ineedfreshair.com/specials",
+          "evidence": "width values=['100', '120', '1369', '150', '300', '767']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        }
+      ],
+      "coverage": {
+        "pages": [
+          {
+            "url": "https://www.ineedfreshair.com/",
+            "forms": 4,
+            "cta_links": 14,
+            "booking_links": [
+              "https://www.facebook.com/freshairheatingandcooling/",
+              "#",
+              "#",
+              "",
+              "https://www.ineedfreshair.com/specials",
+              "#",
+              "https://www.facebook.com/193602608712",
+              "#"
+            ]
+          },
+          {
+            "url": "https://www.ineedfreshair.com/send-a-message",
+            "forms": 3,
+            "cta_links": 10,
+            "booking_links": [
+              "https://www.facebook.com/freshairheatingandcooling/",
+              "#",
+              "#",
+              "https://www.facebook.com/193602608712",
+              "#"
+            ]
+          },
+          {
+            "url": "https://www.ineedfreshair.com/specials",
+            "forms": 2,
+            "cta_links": 17,
+            "booking_links": [
+              "https://www.facebook.com/freshairheatingandcooling/",
+              "#",
+              "#",
+              "/wp-content/plugins/mg/offers-print.php?uid=ac32a4a6-9a48-11ec-a501-00505682e317",
+              "/wp-content/plugins/mg/offers-print.php?uid=a73d032a-59ac-11eb-a85d-00505682e317",
+              "https://www.facebook.com/193602608712",
+              "#"
+            ]
+          }
+        ],
+        "link_checks": [
+          {
+            "url": "https://www.ineedfreshair.com/send-a-message",
+            "result": "loaded"
+          },
+          {
+            "url": "https://www.ineedfreshair.com/specials",
+            "result": "loaded"
+          }
+        ],
+        "browser_checked": false,
+        "limitations": [
+          "No forms submitted or appointment/quote requests made.",
+          "No rendered/mobile or form-delivery test.",
+          "External booking flows and query-string links require browser review."
+        ]
+      },
+      "ranking": {
+        "score": 0,
+        "impact": 0,
+        "evidence_strength": 0,
+        "fit": 15,
+        "priority": "Browser review",
+        "reason": "Observed customer contact-path impact 0/50; evidence 0/30; service/contact fit 15/20. Potential findings add no points.",
+        "limitations": "Relative priority among audited prospects, not predicted lost leads or revenue."
+      }
+    },
+    {
+      "name": "Weis Comfort Systems",
+      "category": "hvac",
+      "location": {
+        "lat": 38.53634262084961,
+        "lon": -90.4496078491211
+      },
+      "discovery_source": "https://explore.overturemaps.org/?id=b6a7e449-b810-44d9-a832-f2b03f5033f8",
+      "provider": "overture",
+      "provenance": {
+        "release": "2026-09-23.1",
+        "category": "hvac_service",
+        "confidence": 0.9199122190475464,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "Foursquare",
+            "license": "Apache-2.0",
+            "record_id": "53356c00498ef09c2515b086",
+            "update_time": "2025-04-02T00:00:00.000",
+            "confidence": 0.77,
+            "between": null,
+            "provider": "foursquare",
+            "resource": "foursquare",
+            "version": "2026-04-14"
+          },
+          {
+            "property": "/properties/confidence",
+            "dataset": "Overture",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": null,
+            "update_time": "2026-09-17T22:52:12Z",
+            "confidence": null,
+            "between": null,
+            "provider": "overture",
+            "resource": "confidence_calculation",
+            "version": "2026-09-17"
+          },
+          {
+            "property": "/properties/operating_status",
+            "dataset": "Overture-signals",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "60c8ea14-0bfd-454c-9db2-cc17f0742c8f",
+            "update_time": "2026-09-14T15:43:16Z",
+            "confidence": 1.0,
+            "between": null,
+            "provider": "overture",
+            "resource": "operating_status_signal",
+            "version": "2026-09-14"
+          }
+        ],
+        "attribution": "Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/"
+      },
+      "website": "https://www.classicairecare.com/about/weis",
+      "checked_at": "2026-10-15T17:55:52.001603+00:00",
+      "contacts": [
+        {
+          "kind": "phone",
+          "value": " (314) 200-1211",
+          "source": "https://www.classicairecare.com/about/weis",
+          "normalized": "3142001211",
+          "sources": [
+            "https://www.classicairecare.com/about/weis",
+            "https://www.classicairecare.com/contact-us",
+            "https://www.classicairecare.com/shop"
+          ]
+        },
+        {
+          "kind": "email",
+          "value": "info@classicairecare.com",
+          "source": "https://www.classicairecare.com/about/weis",
+          "normalized": "info@classicairecare.com",
+          "sources": [
+            "https://www.classicairecare.com/about/weis",
+            "https://www.classicairecare.com/contact-us",
+            "https://www.classicairecare.com/shop"
+          ]
+        },
+        {
+          "kind": "phone",
+          "value": "(636) 223-4697",
+          "source": "https://explore.overturemaps.org/?id=b6a7e449-b810-44d9-a832-f2b03f5033f8",
+          "normalized": "6362234697",
+          "sources": [
+            "https://explore.overturemaps.org/?id=b6a7e449-b810-44d9-a832-f2b03f5033f8"
+          ]
+        },
+        {
+          "kind": "email",
+          "value": "dweis@weiscomfort.com",
+          "source": "https://explore.overturemaps.org/?id=b6a7e449-b810-44d9-a832-f2b03f5033f8",
+          "normalized": "dweis@weiscomfort.com",
+          "sources": [
+            "https://explore.overturemaps.org/?id=b6a7e449-b810-44d9-a832-f2b03f5033f8"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://www.classicairecare.com/about/weis",
+          "evidence": "anchor='Schedule Service today'; href='#'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.classicairecare.com/about/weis",
+          "evidence": "form 1; field count=12",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.classicairecare.com/about/weis",
+          "evidence": "form 2; field count=12",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.classicairecare.com/about/weis",
+          "evidence": "form 3; field count=12",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.classicairecare.com/about/weis",
+          "evidence": "form 4; field count=13",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.classicairecare.com/about/weis",
+          "evidence": "width values=['100', '1024', '1025', '1199', '120', '1200', '128', '1300']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://www.classicairecare.com/contact-us",
+          "evidence": "anchor='Schedule Service today'; href='#'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.classicairecare.com/contact-us",
+          "evidence": "form 1; field count=12",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.classicairecare.com/contact-us",
+          "evidence": "form 2; field count=12",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.classicairecare.com/contact-us",
+          "evidence": "form 3; field count=13",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.classicairecare.com/contact-us",
+          "evidence": "width values=['100', '1024', '1025', '1199', '120', '1200', '128', '1300']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://www.classicairecare.com/shop",
+          "evidence": "anchor='Schedule Service today'; href='#'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.classicairecare.com/shop",
+          "evidence": "form 1; field count=13",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.classicairecare.com/shop",
+          "evidence": "width values=['100', '1024', '1025', '1199', '120', '1200', '128', '1300']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        }
+      ],
+      "coverage": {
+        "pages": [
+          {
+            "url": "https://www.classicairecare.com/about/weis",
+            "forms": 4,
+            "cta_links": 11,
+            "booking_links": [
+              "https://www.classicairecare.com/contact-us/",
+              "#"
+            ]
+          },
+          {
+            "url": "https://www.classicairecare.com/contact-us",
+            "forms": 3,
+            "cta_links": 4,
+            "booking_links": [
+              "#"
+            ]
+          },
+          {
+            "url": "https://www.classicairecare.com/shop",
+            "forms": 1,
+            "cta_links": 4,
+            "booking_links": [
+              "#"
+            ]
+          }
+        ],
+        "link_checks": [
+          {
+            "url": "https://www.classicairecare.com/contact-us/",
+            "result": "loaded"
+          },
+          {
+            "url": "https://www.classicairecare.com/shop",
+            "result": "loaded"
+          }
+        ],
+        "browser_checked": false,
+        "limitations": [
+          "No forms submitted or appointment/quote requests made.",
+          "No rendered/mobile or form-delivery test.",
+          "External booking flows and query-string links require browser review."
+        ]
+      },
+      "ranking": {
+        "score": 0,
+        "impact": 0,
+        "evidence_strength": 0,
+        "fit": 20,
+        "priority": "Browser review",
+        "reason": "Observed customer contact-path impact 0/50; evidence 0/30; service/contact fit 20/20. Potential findings add no points.",
+        "limitations": "Relative priority among audited prospects, not predicted lost leads or revenue."
+      }
+    },
+    {
+      "name": "Quality Roofing & Contracting",
+      "category": "roofer",
+      "location": {
+        "lat": 38.800880432128906,
+        "lon": -90.69253540039062
+      },
+      "discovery_source": "https://explore.overturemaps.org/?id=53184bbc-1a19-4df5-af22-ea7c77b98f1e",
+      "provider": "overture",
+      "provenance": {
+        "release": "2026-09-23.1",
+        "category": "roofing",
+        "confidence": 0.9199122190475464,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "BrightQuery",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "100344038",
+            "update_time": "2026-09-17T20:01:51.007Z",
+            "confidence": 0.95,
+            "between": null,
+            "provider": "brightquery",
+            "resource": "brightquery",
+            "version": "2026-09-08"
+          },
+          {
+            "property": "/properties/confidence",
+            "dataset": "Overture",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": null,
+            "update_time": "2026-09-17T22:52:12Z",
+            "confidence": null,
+            "between": null,
+            "provider": "overture",
+            "resource": "confidence_calculation",
+            "version": "2026-09-17"
+          },
+          {
+            "property": "/properties/operating_status",
+            "dataset": "Overture-signals",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "5801b9e6-b0c8-40c0-8527-a553948f5db7",
+            "update_time": "2026-09-14T15:43:16Z",
+            "confidence": 1.0,
+            "between": null,
+            "provider": "overture",
+            "resource": "operating_status_signal",
+            "version": "2026-09-14"
+          }
+        ],
+        "attribution": "Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/"
+      },
+      "website": "https://qualityroofing-contracting.com",
+      "checked_at": "2026-10-15T17:50:29.907187+00:00",
+      "contacts": [
+        {
+          "kind": "phone",
+          "value": "+16363793223",
+          "source": "https://qualityroofing-contracting.com",
+          "normalized": "6363793223",
+          "sources": [
+            "https://qualityroofing-contracting.com",
+            "https://qualityroofing-contracting.com/contact-us/",
+            "https://qualityroofing-contracting.com/residential-roof-replacement-services-st-louis/",
+            "https://explore.overturemaps.org/?id=53184bbc-1a19-4df5-af22-ea7c77b98f1e"
+          ]
+        },
+        {
+          "kind": "email",
+          "value": "qualityroof@hotmail.com",
+          "source": "https://qualityroofing-contracting.com",
+          "normalized": "qualityroof@hotmail.com",
+          "sources": [
+            "https://qualityroofing-contracting.com",
+            "https://qualityroofing-contracting.com/contact-us/",
+            "https://qualityroofing-contracting.com/residential-roof-replacement-services-st-louis/"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://qualityroofing-contracting.com",
+          "evidence": "anchor='REQUEST FREE ESTIMATE'; href='#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjI3NDgiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://qualityroofing-contracting.com",
+          "evidence": "anchor='FREE ESTIMATE'; href='#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjEyMDAiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://qualityroofing-contracting.com",
+          "evidence": "anchor='Get Free Estimate'; href='#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjEyMDAiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://qualityroofing-contracting.com",
+          "evidence": "anchor='GET YOUR FREE ESTIMATE NOW!'; href='#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjI3NDgiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://qualityroofing-contracting.com",
+          "evidence": "anchor='Get Your Free Estimate'; href='#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjEyMDAiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://qualityroofing-contracting.com",
+          "evidence": "width values=['100', '1000', '1024', '1050', '2560', '405', '450', '600']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://qualityroofing-contracting.com/contact-us/",
+          "evidence": "anchor='REQUEST FREE ESTIMATE'; href='#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjI3NDgiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://qualityroofing-contracting.com/contact-us/",
+          "evidence": "anchor='FREE ESTIMATE'; href='#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjEyMDAiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://qualityroofing-contracting.com/contact-us/",
+          "evidence": "width values=['100', '1000', '600', '601', '703']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://qualityroofing-contracting.com/residential-roof-replacement-services-st-louis/",
+          "evidence": "anchor='REQUEST FREE ESTIMATE'; href='#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjI3NDgiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://qualityroofing-contracting.com/residential-roof-replacement-services-st-louis/",
+          "evidence": "anchor='FREE ESTIMATE'; href='#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjEyMDAiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://qualityroofing-contracting.com/residential-roof-replacement-services-st-louis/",
+          "evidence": "anchor='Get Your Instant Quote'; href='#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjI3NDgiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://qualityroofing-contracting.com/residential-roof-replacement-services-st-louis/",
+          "evidence": "width values=['100', '1000', '1280', '600', '601', '703', '800']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        }
+      ],
+      "coverage": {
+        "pages": [
+          {
+            "url": "https://qualityroofing-contracting.com",
+            "forms": 3,
+            "cta_links": 10,
+            "booking_links": [
+              "https://qualityroofing-contracting.com/residential-roof-replacement-services-st-louis/"
+            ]
+          },
+          {
+            "url": "https://qualityroofing-contracting.com/contact-us/",
+            "forms": 3,
+            "cta_links": 6,
+            "booking_links": []
+          },
+          {
+            "url": "https://qualityroofing-contracting.com/residential-roof-replacement-services-st-louis/",
+            "forms": 3,
+            "cta_links": 7,
+            "booking_links": []
+          }
+        ],
+        "link_checks": [
+          {
+            "url": "https://qualityroofing-contracting.com/contact-us/",
+            "result": "loaded"
+          },
+          {
+            "url": "https://qualityroofing-contracting.com/residential-roof-replacement-services-st-louis/",
+            "result": "loaded"
+          }
+        ],
+        "browser_checked": false,
+        "limitations": [
+          "No forms submitted or appointment/quote requests made.",
+          "No rendered/mobile or form-delivery test.",
+          "External booking flows and query-string links require browser review."
+        ]
+      },
+      "ranking": {
+        "score": 0,
+        "impact": 0,
+        "evidence_strength": 0,
+        "fit": 20,
+        "priority": "Browser review",
+        "reason": "Observed customer contact-path impact 0/50; evidence 0/30; service/contact fit 20/20. Potential findings add no points.",
+        "limitations": "Relative priority among audited prospects, not predicted lost leads or revenue."
+      }
+    },
+    {
+      "name": "Tesson Roofing & Exteriors Llc",
+      "category": "roofer",
+      "location": {
+        "lat": 38.536685943603516,
+        "lon": -90.45343780517578
+      },
+      "discovery_source": "https://explore.overturemaps.org/?id=c35f8094-1cf4-4d77-8668-73b940c3e1d2",
+      "provider": "overture",
+      "provenance": {
+        "release": "2026-09-23.1",
+        "category": "roofing",
+        "confidence": 0.9199122190475464,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "BrightQuery",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "99830707",
+            "update_time": "2026-09-17T20:01:51.007Z",
+            "confidence": 0.95,
+            "between": null,
+            "provider": "brightquery",
+            "resource": "brightquery",
+            "version": "2026-09-08"
+          },
+          {
+            "property": "/properties/confidence",
+            "dataset": "Overture",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": null,
+            "update_time": "2026-09-17T22:52:12Z",
+            "confidence": null,
+            "between": null,
+            "provider": "overture",
+            "resource": "confidence_calculation",
+            "version": "2026-09-17"
+          },
+          {
+            "property": "/properties/operating_status",
+            "dataset": "Overture-signals",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "d0462d79-04bc-43d6-b87a-ac5af8c6b8b3",
+            "update_time": "2026-09-14T15:43:16Z",
+            "confidence": 1.0,
+            "between": null,
+            "provider": "overture",
+            "resource": "operating_status_signal",
+            "version": "2026-09-14"
+          }
+        ],
+        "attribution": "Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/"
+      },
+      "website": "https://tessonroofing.com/",
+      "checked_at": "2026-10-15T17:51:53.591514+00:00",
+      "contacts": [
+        {
+          "kind": "phone",
+          "value": "+13149321042",
+          "source": "https://tessonroofing.com/",
+          "normalized": "3149321042",
+          "sources": [
+            "https://tessonroofing.com/",
+            "https://tessonroofing.com/contact-best-roofers-st-louis-mo",
+            "https://tessonroofing.com/free-estimate"
+          ]
+        },
+        {
+          "kind": "phone",
+          "value": "3147429342",
+          "source": "https://tessonroofing.com/",
+          "normalized": "3147429342",
+          "sources": [
+            "https://tessonroofing.com/"
+          ]
+        },
+        {
+          "kind": "email",
+          "value": "support@tessonroofing.com",
+          "source": "https://tessonroofing.com/",
+          "normalized": "support@tessonroofing.com",
+          "sources": [
+            "https://tessonroofing.com/",
+            "https://tessonroofing.com/contact-best-roofers-st-louis-mo",
+            "https://tessonroofing.com/free-estimate"
+          ]
+        },
+        {
+          "kind": "phone",
+          "value": "13142544210",
+          "source": "https://explore.overturemaps.org/?id=c35f8094-1cf4-4d77-8668-73b940c3e1d2",
+          "normalized": "3142544210",
+          "sources": [
+            "https://explore.overturemaps.org/?id=c35f8094-1cf4-4d77-8668-73b940c3e1d2"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://tessonroofing.com/",
+          "evidence": "form 1; field count=9",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://tessonroofing.com/",
+          "evidence": "form 2; field count=9",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "external_booking_review",
+          "observation": "Appointment booking uses an external service; the booking journey has not been tested.",
+          "url": "https://tessonroofing.com/",
+          "evidence": "External booking links=['https://www.facebook.com/TessonRoofing/', 'https://www.facebook.com/TessonRoofing/']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Inspect the booking journey without making an appointment."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://tessonroofing.com/",
+          "evidence": "width values=['1024', '1025', '120', '150', '1530', '1600', '1650', '1920']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://tessonroofing.com/contact-best-roofers-st-louis-mo",
+          "evidence": "form 1; field count=9",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "external_booking_review",
+          "observation": "Appointment booking uses an external service; the booking journey has not been tested.",
+          "url": "https://tessonroofing.com/contact-best-roofers-st-louis-mo",
+          "evidence": "External booking links=['https://www.facebook.com/TessonRoofing/', 'https://www.facebook.com/TessonRoofing/', 'https://www.facebook.com/TessonRoofing/']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Inspect the booking journey without making an appointment."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://tessonroofing.com/contact-best-roofers-st-louis-mo",
+          "evidence": "width values=['1024', '1025', '120', '150', '1600', '1650', '216', '425']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://tessonroofing.com/free-estimate",
+          "evidence": "anchor='Request A Free Estimate'; href='#form'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://tessonroofing.com/free-estimate",
+          "evidence": "form 1; field count=9",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser."
+        },
+        {
+          "code": "external_booking_review",
+          "observation": "Appointment booking uses an external service; the booking journey has not been tested.",
+          "url": "https://tessonroofing.com/free-estimate",
+          "evidence": "External booking links=['https://www.facebook.com/TessonRoofing/', 'https://www.facebook.com/TessonRoofing/']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Inspect the booking journey without making an appointment."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://tessonroofing.com/free-estimate",
+          "evidence": "width values=['1024', '1025', '120', '150', '1600', '1650', '216', '425']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        }
+      ],
+      "coverage": {
+        "pages": [
+          {
+            "url": "https://tessonroofing.com/",
+            "forms": 2,
+            "cta_links": 6,
+            "booking_links": [
+              "https://www.facebook.com/TessonRoofing/",
+              "https://www.facebook.com/TessonRoofing/"
+            ]
+          },
+          {
+            "url": "https://tessonroofing.com/contact-best-roofers-st-louis-mo",
+            "forms": 1,
+            "cta_links": 6,
+            "booking_links": [
+              "https://www.facebook.com/TessonRoofing/",
+              "https://www.facebook.com/TessonRoofing/",
+              "https://www.facebook.com/TessonRoofing/"
+            ]
+          },
+          {
+            "url": "https://tessonroofing.com/free-estimate",
+            "forms": 1,
+            "cta_links": 4,
+            "booking_links": [
+              "https://www.facebook.com/TessonRoofing/",
+              "https://www.facebook.com/TessonRoofing/"
+            ]
+          }
+        ],
+        "link_checks": [
+          {
+            "url": "https://tessonroofing.com/contact-best-roofers-st-louis-mo",
+            "result": "loaded"
+          },
+          {
+            "url": "https://tessonroofing.com/free-estimate",
+            "result": "loaded"
+          }
+        ],
+        "browser_checked": false,
+        "limitations": [
+          "No forms submitted or appointment/quote requests made.",
+          "No rendered/mobile or form-delivery test.",
+          "External booking flows and query-string links require browser review."
+        ]
+      },
+      "ranking": {
+        "score": 0,
+        "impact": 0,
+        "evidence_strength": 0,
+        "fit": 20,
+        "priority": "Browser review",
+        "reason": "Observed customer contact-path impact 0/50; evidence 0/30; service/contact fit 20/20. Potential findings add no points.",
+        "limitations": "Relative priority among audited prospects, not predicted lost leads or revenue."
+      }
+    },
+    {
+      "name": "AAA Home Services",
+      "category": "hvac",
+      "location": {
+        "lat": 38.814998626708984,
+        "lon": -90.71870422363281
+      },
+      "discovery_source": "https://explore.overturemaps.org/?id=ddad65bc-7bf9-4742-b54b-972ac5d4282c",
+      "provider": "overture",
+      "provenance": {
+        "release": "2026-09-23.1",
+        "category": "hvac_service",
+        "confidence": 0.85,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "Microsoft",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "1688849863180750",
+            "update_time": "2017-08-02T19:11:47.933Z",
+            "confidence": 0.85,
+            "between": null,
+            "provider": "microsoft",
+            "resource": "microsoft",
+            "version": "2025-10-20"
+          },
+          {
+            "property": "/properties/confidence",
+            "dataset": "Overture",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": null,
+            "update_time": "2026-09-17T22:52:12Z",
+            "confidence": null,
+            "between": null,
+            "provider": "overture",
+            "resource": "confidence_calculation",
+            "version": "2026-09-17"
+          }
+        ],
+        "attribution": "Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/"
+      },
+      "website": "https://www.aaastl.com/",
+      "checked_at": "2026-10-15T17:50:55.482053+00:00",
+      "contacts": [
+        {
+          "kind": "phone",
+          "value": "6363973200",
+          "source": "https://www.aaastl.com/",
+          "normalized": "6363973200",
+          "sources": [
+            "https://www.aaastl.com/",
+            "https://www.aaastl.com/request-service-form",
+            "https://www.aaastl.com/air-conditioning-repair-service",
+            "https://explore.overturemaps.org/?id=ddad65bc-7bf9-4742-b54b-972ac5d4282c"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "external_booking_review",
+          "observation": "Appointment booking uses an external service; the booking journey has not been tested.",
+          "url": "https://www.aaastl.com/",
+          "evidence": "External booking links=['https://www.facebook.com/aaa.services/', 'https://www.facebook.com/aaa.appliance.sales.repair', 'https://www.facebook.com/AAAHomeHVACElectricPlumbing/']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Inspect the booking journey without making an appointment."
+        },
+        {
+          "code": "viewport",
+          "observation": "No device-width viewport declaration was found in this page’s HTML; mobile layout requires browser inspection.",
+          "url": "https://www.aaastl.com/",
+          "evidence": "Parsed meta tags; no rendered layout test.",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": ""
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.aaastl.com/",
+          "evidence": "width values=['1024', '1025', '1200', '147', '183', '195', '220', '544']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        },
+        {
+          "code": "external_booking_review",
+          "observation": "Appointment booking uses an external service; the booking journey has not been tested.",
+          "url": "https://www.aaastl.com/request-service-form",
+          "evidence": "External booking links=['https://www.facebook.com/aaa.services/', 'https://www.facebook.com/aaa.appliance.sales.repair', 'https://www.facebook.com/AAAHomeHVACElectricPlumbing/']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Inspect the booking journey without making an appointment."
+        },
+        {
+          "code": "viewport",
+          "observation": "No device-width viewport declaration was found in this page’s HTML; mobile layout requires browser inspection.",
+          "url": "https://www.aaastl.com/request-service-form",
+          "evidence": "Parsed meta tags; no rendered layout test.",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": ""
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.aaastl.com/request-service-form",
+          "evidence": "width values=['1024', '1025', '147', '183', '195', '220', '544', '767']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        },
+        {
+          "code": "external_booking_review",
+          "observation": "Appointment booking uses an external service; the booking journey has not been tested.",
+          "url": "https://www.aaastl.com/air-conditioning-repair-service",
+          "evidence": "External booking links=['https://www.facebook.com/aaa.services/', 'https://www.facebook.com/aaa.appliance.sales.repair', 'https://www.facebook.com/AAAHomeHVACElectricPlumbing/']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Inspect the booking journey without making an appointment."
+        },
+        {
+          "code": "viewport",
+          "observation": "No device-width viewport declaration was found in this page’s HTML; mobile layout requires browser inspection.",
+          "url": "https://www.aaastl.com/air-conditioning-repair-service",
+          "evidence": "Parsed meta tags; no rendered layout test.",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": ""
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.aaastl.com/air-conditioning-repair-service",
+          "evidence": "width values=['1024', '1025', '147', '183', '195', '220', '544', '767']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        }
+      ],
+      "coverage": {
+        "pages": [
+          {
+            "url": "https://www.aaastl.com/",
+            "forms": 0,
+            "cta_links": 9,
+            "booking_links": [
+              "https://www.facebook.com/aaa.services/",
+              "https://www.facebook.com/aaa.appliance.sales.repair",
+              "https://www.facebook.com/AAAHomeHVACElectricPlumbing/",
+              "https://www.facebook.com/aaa.appliance.sales.repair",
+              "https://www.facebook.com/AAAHomeHVACElectricPlumbing/"
+            ]
+          },
+          {
+            "url": "https://www.aaastl.com/request-service-form",
+            "forms": 0,
+            "cta_links": 3,
+            "booking_links": [
+              "https://www.facebook.com/aaa.services/",
+              "https://www.facebook.com/aaa.appliance.sales.repair",
+              "https://www.facebook.com/AAAHomeHVACElectricPlumbing/",
+              "https://www.facebook.com/aaa.appliance.sales.repair",
+              "https://www.facebook.com/AAAHomeHVACElectricPlumbing/"
+            ]
+          },
+          {
+            "url": "https://www.aaastl.com/air-conditioning-repair-service",
+            "forms": 0,
+            "cta_links": 8,
+            "booking_links": [
+              "/",
+              "https://www.facebook.com/aaa.services/",
+              "https://www.facebook.com/aaa.appliance.sales.repair",
+              "https://www.facebook.com/AAAHomeHVACElectricPlumbing/",
+              "https://www.facebook.com/aaa.appliance.sales.repair",
+              "https://www.facebook.com/AAAHomeHVACElectricPlumbing/"
+            ]
+          }
+        ],
+        "link_checks": [
+          {
+            "url": "https://www.aaastl.com/request-service-form",
+            "result": "loaded"
+          },
+          {
+            "url": "https://www.aaastl.com/air-conditioning-repair-service",
+            "result": "loaded"
+          }
+        ],
+        "browser_checked": false,
+        "limitations": [
+          "No forms submitted or appointment/quote requests made.",
+          "No rendered/mobile or form-delivery test.",
+          "External booking flows and query-string links require browser review."
+        ]
+      },
+      "ranking": {
+        "score": 0,
+        "impact": 0,
+        "evidence_strength": 0,
+        "fit": 15,
+        "priority": "Browser review",
+        "reason": "Observed customer contact-path impact 0/50; evidence 0/30; service/contact fit 15/20. Potential findings add no points.",
+        "limitations": "Relative priority among audited prospects, not predicted lost leads or revenue."
+      }
+    },
+    {
+      "name": "ARS Construction",
+      "category": "roofer",
+      "location": {
+        "lat": 38.57615661621094,
+        "lon": -90.63614654541016
+      },
+      "discovery_source": "https://explore.overturemaps.org/?id=8fe42a42-0dfa-49f3-862c-fbda832248b3",
+      "provider": "overture",
+      "provenance": {
+        "release": "2026-09-23.1",
+        "category": "roofing",
+        "confidence": 0.9199122190475464,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "Microsoft",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "1125899910305603",
+            "update_time": "2022-02-24T22:39:05.900Z",
+            "confidence": 0.85,
+            "between": null,
+            "provider": "microsoft",
+            "resource": "microsoft",
+            "version": "2025-10-20"
+          },
+          {
+            "property": "/properties/confidence",
+            "dataset": "Overture",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": null,
+            "update_time": "2026-09-17T22:52:12Z",
+            "confidence": null,
+            "between": null,
+            "provider": "overture",
+            "resource": "confidence_calculation",
+            "version": "2026-09-17"
+          },
+          {
+            "property": "/properties/operating_status",
+            "dataset": "Overture-signals",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "15d8fa44-2341-47e5-b8f3-2e5e91ea1ab1",
+            "update_time": "2026-09-14T15:43:16Z",
+            "confidence": 1.0,
+            "between": null,
+            "provider": "overture",
+            "resource": "operating_status_signal",
+            "version": "2026-09-14"
+          }
+        ],
+        "attribution": "Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/"
+      },
+      "website": "https://arsbuild.com/",
+      "checked_at": "2026-10-15T17:49:23.235985+00:00",
+      "contacts": [
+        {
+          "kind": "phone",
+          "value": "8444457663",
+          "source": "https://explore.overturemaps.org/?id=8fe42a42-0dfa-49f3-862c-fbda832248b3",
+          "normalized": "8444457663",
+          "sources": [
+            "https://explore.overturemaps.org/?id=8fe42a42-0dfa-49f3-862c-fbda832248b3"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://arsbuild.com/",
+          "evidence": "anchor='Estimate & Inspection'; href='#'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "external_booking_review",
+          "observation": "Appointment booking uses an external service; the booking journey has not been tested.",
+          "url": "https://arsbuild.com/",
+          "evidence": "External booking links=['https://www.facebook.com/ARSBuild', 'http://Facebook.com/ARSBuild']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Inspect the booking journey without making an appointment."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://arsbuild.com/",
+          "evidence": "width values=['1080', '1729', '1978', '2048', '300', '418', '460', '767']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://arsbuild.com/freeconstructioninspection/",
+          "evidence": "anchor='Estimate & Inspection'; href='#'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "external_booking_review",
+          "observation": "Appointment booking uses an external service; the booking journey has not been tested.",
+          "url": "https://arsbuild.com/freeconstructioninspection/",
+          "evidence": "External booking links=['https://www.facebook.com/ARSBuild', 'http://Facebook.com/ARSBuild']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Inspect the booking journey without making an appointment."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://arsbuild.com/freeconstructioninspection/",
+          "evidence": "width values=['2048', '460', '767', '800']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://arsbuild.com/contact-us/",
+          "evidence": "anchor='Estimate & Inspection'; href='#'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser."
+        },
+        {
+          "code": "external_booking_review",
+          "observation": "Appointment booking uses an external service; the booking journey has not been tested.",
+          "url": "https://arsbuild.com/contact-us/",
+          "evidence": "External booking links=['https://www.facebook.com/ARSBuild', 'http://Facebook.com/ARSBuild']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Inspect the booking journey without making an appointment."
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://arsbuild.com/contact-us/",
+          "evidence": "width values=['2048', '460', '767', '800']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        }
+      ],
+      "coverage": {
+        "pages": [
+          {
+            "url": "https://arsbuild.com/",
+            "forms": 0,
+            "cta_links": 8,
+            "booking_links": [
+              "https://www.facebook.com/ARSBuild",
+              "https://arsbuild.com/free-roof-inspection/",
+              "http://Facebook.com/ARSBuild"
+            ]
+          },
+          {
+            "url": "https://arsbuild.com/freeconstructioninspection/",
+            "forms": 0,
+            "cta_links": 7,
+            "booking_links": [
+              "https://www.facebook.com/ARSBuild",
+              "https://arsbuild.com/free-roof-inspection/",
+              "http://Facebook.com/ARSBuild"
+            ]
+          },
+          {
+            "url": "https://arsbuild.com/contact-us/",
+            "forms": 0,
+            "cta_links": 7,
+            "booking_links": [
+              "https://www.facebook.com/ARSBuild",
+              "https://arsbuild.com/free-roof-inspection/",
+              "http://Facebook.com/ARSBuild"
+            ]
+          }
+        ],
+        "link_checks": [
+          {
+            "url": "https://arsbuild.com/freeconstructioninspection/",
+            "result": "loaded"
+          },
+          {
+            "url": "https://arsbuild.com/contact-us/",
+            "result": "loaded"
+          }
+        ],
+        "browser_checked": false,
+        "limitations": [
+          "No forms submitted or appointment/quote requests made.",
+          "No rendered/mobile or form-delivery test.",
+          "External booking flows and query-string links require browser review."
+        ]
+      },
+      "ranking": {
+        "score": 0,
+        "impact": 0,
+        "evidence_strength": 0,
+        "fit": 15,
+        "priority": "Browser review",
+        "reason": "Observed customer contact-path impact 0/50; evidence 0/30; service/contact fit 15/20. Potential findings add no points.",
+        "limitations": "Relative priority among audited prospects, not predicted lost leads or revenue."
+      }
+    },
+    {
+      "name": "Krystal Klear Water",
+      "category": "plumber",
+      "location": {
+        "lat": 38.61219024658203,
+        "lon": -90.35472869873047
+      },
+      "discovery_source": "https://explore.overturemaps.org/?id=17677dc2-3748-4978-b78a-18140a164c98",
+      "provider": "overture",
+      "provenance": {
+        "release": "2026-09-23.1",
+        "category": "plumbing",
+        "confidence": 0.9199122190475464,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "Foursquare",
+            "license": "Apache-2.0",
+            "record_id": "389187e3f06c41d733c988ba",
+            "update_time": "2025-03-20T00:00:00.000",
+            "confidence": 0.77,
+            "between": null,
+            "provider": "foursquare",
+            "resource": "foursquare",
+            "version": "2026-04-14"
+          },
+          {
+            "property": "/properties/confidence",
+            "dataset": "Overture",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": null,
+            "update_time": "2026-09-17T22:52:12Z",
+            "confidence": null,
+            "between": null,
+            "provider": "overture",
+            "resource": "confidence_calculation",
+            "version": "2026-09-17"
+          },
+          {
+            "property": "/properties/operating_status",
+            "dataset": "Overture-signals",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "aa37e457-f794-472d-a44f-2548b5e11c76",
+            "update_time": "2026-09-14T15:43:16Z",
+            "confidence": 1.0,
+            "between": null,
+            "provider": "overture",
+            "resource": "operating_status_signal",
+            "version": "2026-09-14"
+          }
+        ],
+        "attribution": "Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/"
+      },
+      "website": "https://www.aaastl.com",
+      "checked_at": "2026-10-15T17:53:53.323606+00:00",
+      "contacts": [
+        {
+          "kind": "phone",
+          "value": "6363973200",
+          "source": "https://www.aaastl.com",
+          "normalized": "6363973200",
+          "sources": [
+            "https://www.aaastl.com",
+            "https://www.aaastl.com/request-service-form",
+            "https://www.aaastl.com/air-conditioning-repair-service"
+          ]
+        },
+        {
+          "kind": "phone",
+          "value": "(314) 301-9120",
+          "source": "https://explore.overturemaps.org/?id=17677dc2-3748-4978-b78a-18140a164c98",
+          "normalized": "3143019120",
+          "sources": [
+            "https://explore.overturemaps.org/?id=17677dc2-3748-4978-b78a-18140a164c98"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "external_booking_review",
+          "observation": "Appointment booking uses an external service; the booking journey has not been tested.",
+          "url": "https://www.aaastl.com",
+          "evidence": "External booking links=['https://www.facebook.com/aaa.services/', 'https://www.facebook.com/aaa.appliance.sales.repair', 'https://www.facebook.com/AAAHomeHVACElectricPlumbing/']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Inspect the booking journey without making an appointment."
+        },
+        {
+          "code": "viewport",
+          "observation": "No device-width viewport declaration was found in this page’s HTML; mobile layout requires browser inspection.",
+          "url": "https://www.aaastl.com",
+          "evidence": "Parsed meta tags; no rendered layout test.",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": ""
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.aaastl.com",
+          "evidence": "width values=['1024', '1025', '1200', '147', '183', '195', '220', '544']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        },
+        {
+          "code": "external_booking_review",
+          "observation": "Appointment booking uses an external service; the booking journey has not been tested.",
+          "url": "https://www.aaastl.com/request-service-form",
+          "evidence": "External booking links=['https://www.facebook.com/aaa.services/', 'https://www.facebook.com/aaa.appliance.sales.repair', 'https://www.facebook.com/AAAHomeHVACElectricPlumbing/']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Inspect the booking journey without making an appointment."
+        },
+        {
+          "code": "viewport",
+          "observation": "No device-width viewport declaration was found in this page’s HTML; mobile layout requires browser inspection.",
+          "url": "https://www.aaastl.com/request-service-form",
+          "evidence": "Parsed meta tags; no rendered layout test.",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": ""
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.aaastl.com/request-service-form",
+          "evidence": "width values=['1024', '1025', '147', '183', '195', '220', '544', '767']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        },
+        {
+          "code": "external_booking_review",
+          "observation": "Appointment booking uses an external service; the booking journey has not been tested.",
+          "url": "https://www.aaastl.com/air-conditioning-repair-service",
+          "evidence": "External booking links=['https://www.facebook.com/aaa.services/', 'https://www.facebook.com/aaa.appliance.sales.repair', 'https://www.facebook.com/AAAHomeHVACElectricPlumbing/']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Inspect the booking journey without making an appointment."
+        },
+        {
+          "code": "viewport",
+          "observation": "No device-width viewport declaration was found in this page’s HTML; mobile layout requires browser inspection.",
+          "url": "https://www.aaastl.com/air-conditioning-repair-service",
+          "evidence": "Parsed meta tags; no rendered layout test.",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": ""
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.aaastl.com/air-conditioning-repair-service",
+          "evidence": "width values=['1024', '1025', '147', '183', '195', '220', '544', '767']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        }
+      ],
+      "coverage": {
+        "pages": [
+          {
+            "url": "https://www.aaastl.com",
+            "forms": 0,
+            "cta_links": 9,
+            "booking_links": [
+              "https://www.facebook.com/aaa.services/",
+              "https://www.facebook.com/aaa.appliance.sales.repair",
+              "https://www.facebook.com/AAAHomeHVACElectricPlumbing/",
+              "https://www.facebook.com/aaa.appliance.sales.repair",
+              "https://www.facebook.com/AAAHomeHVACElectricPlumbing/"
+            ]
+          },
+          {
+            "url": "https://www.aaastl.com/request-service-form",
+            "forms": 0,
+            "cta_links": 3,
+            "booking_links": [
+              "https://www.facebook.com/aaa.services/",
+              "https://www.facebook.com/aaa.appliance.sales.repair",
+              "https://www.facebook.com/AAAHomeHVACElectricPlumbing/",
+              "https://www.facebook.com/aaa.appliance.sales.repair",
+              "https://www.facebook.com/AAAHomeHVACElectricPlumbing/"
+            ]
+          },
+          {
+            "url": "https://www.aaastl.com/air-conditioning-repair-service",
+            "forms": 0,
+            "cta_links": 8,
+            "booking_links": [
+              "/",
+              "https://www.facebook.com/aaa.services/",
+              "https://www.facebook.com/aaa.appliance.sales.repair",
+              "https://www.facebook.com/AAAHomeHVACElectricPlumbing/",
+              "https://www.facebook.com/aaa.appliance.sales.repair",
+              "https://www.facebook.com/AAAHomeHVACElectricPlumbing/"
+            ]
+          }
+        ],
+        "link_checks": [
+          {
+            "url": "https://www.aaastl.com/request-service-form",
+            "result": "loaded"
+          },
+          {
+            "url": "https://www.aaastl.com/air-conditioning-repair-service",
+            "result": "loaded"
+          }
+        ],
+        "browser_checked": false,
+        "limitations": [
+          "No forms submitted or appointment/quote requests made.",
+          "No rendered/mobile or form-delivery test.",
+          "External booking flows and query-string links require browser review."
+        ]
+      },
+      "ranking": {
+        "score": 0,
+        "impact": 0,
+        "evidence_strength": 0,
+        "fit": 15,
+        "priority": "Browser review",
+        "reason": "Observed customer contact-path impact 0/50; evidence 0/30; service/contact fit 15/20. Potential findings add no points.",
+        "limitations": "Relative priority among audited prospects, not predicted lost leads or revenue."
+      }
+    },
+    {
+      "name": "Kyle's Landscape Service",
+      "category": "landscaper",
+      "location": {
+        "lat": 38.481048583984375,
+        "lon": -90.35330963134766
+      },
+      "discovery_source": "https://explore.overturemaps.org/?id=7b2d8ba7-b73e-4a49-a2ba-486ab07612d5",
+      "provider": "overture",
+      "provenance": {
+        "release": "2026-09-23.1",
+        "category": "landscaping",
+        "confidence": 0.9199122190475464,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "meta",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "228230047219048",
+            "update_time": "2026-09-14T00:00:00.000Z",
+            "confidence": 0.5538040995597839,
+            "between": null,
+            "provider": "meta",
+            "resource": "meta",
+            "version": "2026-09-14"
+          },
+          {
+            "property": "/properties/confidence",
+            "dataset": "Overture",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": null,
+            "update_time": "2026-09-17T22:52:12Z",
+            "confidence": null,
+            "between": null,
+            "provider": "overture",
+            "resource": "confidence_calculation",
+            "version": "2026-09-17"
+          },
+          {
+            "property": "/properties/operating_status",
+            "dataset": "Overture-signals",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "89fbf59a-cb80-4e2c-bf07-412408590bc7",
+            "update_time": "2026-09-14T15:43:16Z",
+            "confidence": 1.0,
+            "between": null,
+            "provider": "overture",
+            "resource": "operating_status_signal",
+            "version": "2026-09-14"
+          }
+        ],
+        "attribution": "Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/"
+      },
+      "website": "https://www.kyleslandscapeservice.com/",
+      "checked_at": "2026-10-15T17:51:23.736531+00:00",
+      "contacts": [
+        {
+          "kind": "phone",
+          "value": "(314) 948-8188",
+          "source": "https://www.kyleslandscapeservice.com/",
+          "normalized": "3149488188",
+          "sources": [
+            "https://www.kyleslandscapeservice.com/",
+            "https://www.kyleslandscapeservice.com/call-or-text-pop",
+            "https://www.kyleslandscapeservice.com/request-free-quote",
+            "https://explore.overturemaps.org/?id=7b2d8ba7-b73e-4a49-a2ba-486ab07612d5"
+          ]
+        },
+        {
+          "kind": "email",
+          "value": "info@kyleslandscape.com",
+          "source": "https://explore.overturemaps.org/?id=7b2d8ba7-b73e-4a49-a2ba-486ab07612d5",
+          "normalized": "info@kyleslandscape.com",
+          "sources": [
+            "https://explore.overturemaps.org/?id=7b2d8ba7-b73e-4a49-a2ba-486ab07612d5"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "external_booking_review",
+          "observation": "Appointment booking uses an external service; the booking journey has not been tested.",
+          "url": "https://www.kyleslandscapeservice.com/",
+          "evidence": "External booking links=['https://facebook.com/228230047219048']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Inspect the booking journey without making an appointment."
+        },
+        {
+          "code": "viewport",
+          "observation": "No device-width viewport declaration was found in this page’s HTML; mobile layout requires browser inspection.",
+          "url": "https://www.kyleslandscapeservice.com/",
+          "evidence": "Parsed meta tags; no rendered layout test.",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": ""
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.kyleslandscapeservice.com/",
+          "evidence": "width values=['1024', '1025', '1200', '130', '150', '180', '200', '218']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        },
+        {
+          "code": "external_booking_review",
+          "observation": "Appointment booking uses an external service; the booking journey has not been tested.",
+          "url": "https://www.kyleslandscapeservice.com/call-or-text-pop",
+          "evidence": "External booking links=['https://facebook.com/228230047219048']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Inspect the booking journey without making an appointment."
+        },
+        {
+          "code": "viewport",
+          "observation": "No device-width viewport declaration was found in this page’s HTML; mobile layout requires browser inspection.",
+          "url": "https://www.kyleslandscapeservice.com/call-or-text-pop",
+          "evidence": "Parsed meta tags; no rendered layout test.",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": ""
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.kyleslandscapeservice.com/call-or-text-pop",
+          "evidence": "width values=['1024', '1025', '130', '150', '180', '218', '220', '224']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        },
+        {
+          "code": "external_booking_review",
+          "observation": "Appointment booking uses an external service; the booking journey has not been tested.",
+          "url": "https://www.kyleslandscapeservice.com/request-free-quote",
+          "evidence": "External booking links=['https://facebook.com/228230047219048']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Inspect the booking journey without making an appointment."
+        },
+        {
+          "code": "viewport",
+          "observation": "No device-width viewport declaration was found in this page’s HTML; mobile layout requires browser inspection.",
+          "url": "https://www.kyleslandscapeservice.com/request-free-quote",
+          "evidence": "Parsed meta tags; no rendered layout test.",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": ""
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.kyleslandscapeservice.com/request-free-quote",
+          "evidence": "width values=['1024', '1025', '130', '180', '218', '220', '224', '250']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport."
+        }
+      ],
+      "coverage": {
+        "pages": [
+          {
+            "url": "https://www.kyleslandscapeservice.com/",
+            "forms": 1,
+            "cta_links": 14,
+            "booking_links": [
+              "https://facebook.com/228230047219048"
+            ]
+          },
+          {
+            "url": "https://www.kyleslandscapeservice.com/call-or-text-pop",
+            "forms": 0,
+            "cta_links": 14,
+            "booking_links": [
+              "https://facebook.com/228230047219048"
+            ]
+          },
+          {
+            "url": "https://www.kyleslandscapeservice.com/request-free-quote",
+            "forms": 1,
+            "cta_links": 15,
+            "booking_links": [
+              "https://facebook.com/228230047219048"
+            ]
+          }
+        ],
+        "link_checks": [
+          {
+            "url": "https://www.kyleslandscapeservice.com/call-or-text-pop",
+            "result": "loaded"
+          },
+          {
+            "url": "https://www.kyleslandscapeservice.com/request-free-quote",
+            "result": "loaded"
+          }
+        ],
+        "browser_checked": false,
+        "limitations": [
+          "No forms submitted or appointment/quote requests made.",
+          "No rendered/mobile or form-delivery test.",
+          "External booking flows and query-string links require browser review."
+        ]
+      },
+      "ranking": {
+        "score": 0,
+        "impact": 0,
+        "evidence_strength": 0,
+        "fit": 20,
+        "priority": "Browser review",
+        "reason": "Observed customer contact-path impact 0/50; evidence 0/30; service/contact fit 20/20. Potential findings add no points.",
+        "limitations": "Relative priority among audited prospects, not predicted lost leads or revenue."
+      }
+    }
+  ],
+  "audited_sites": 150,
+  "ranking_scope": "Highest priorities among websites audited within this run’s budget.",
+  "shortfall": 9,
+  "skipped": [
+    {
+      "source": "place/fc7ad4bf-fab8-4b93-bd56-ddb0c54cd660",
+      "reason": "gaierror"
+    },
+    {
+      "source": "place/bdd82196-266f-4c49-971b-ea0c0125aa30",
+      "reason": "gaierror"
+    },
+    {
+      "source": "place/485b2899-016a-4368-9cc6-9c35647aa961",
+      "reason": "HTTPError"
+    },
+    {
+      "source": "place/1dedc3e3-087e-4e5e-a71e-b96abdc5c8a9",
+      "reason": "gaierror"
+    },
+    {
+      "source": "place/54d1ec34-70d3-4e77-a215-05ecd66a4a66",
+      "reason": "gaierror"
+    },
+    {
+      "source": "place/f9bb6ee0-8571-48a4-a1bf-bfca40a48c70",
+      "reason": "URLError"
+    },
+    {
+      "source": "place/2ecdad46-a152-4b81-8ebf-7d813764f67c",
+      "reason": "URLError"
+    },
+    {
+      "source": "place/b51eb0fa-508a-448a-ab75-025876f644bd",
+      "reason": "gaierror"
+    },
+    {
+      "source": "place/3f678b83-2690-4fe0-a038-819254752830",
+      "reason": "ValueError"
+    },
+    {
+      "source": "place/5de976ce-c073-43ca-b9bd-85a214eff467",
+      "reason": "ValueError"
+    },
+    {
+      "source": "place/3eae524d-22fc-4001-9dfc-74d374680bfd",
+      "reason": "gaierror"
+    },
+    {
+      "source": "place/5e9ca29e-c6b3-4497-b7fd-bba34c687d9e",
+      "reason": "gaierror"
+    },
+    {
+      "source": "place/787d1ed7-929c-4011-aa14-13ef69b2c9c5",
+      "reason": "ValueError"
+    },
+    {
+      "source": "place/90327642-b0cb-4647-bd17-265210c0ffce",
+      "reason": "gaierror"
+    },
+    {
+      "source": "place/ba2bf6a6-e93a-490a-89a7-eaf637092b8f",
+      "reason": "HTTPError"
+    },
+    {
+      "source": "place/2562e5c1-53e2-4f8f-97ec-e3ed1fdad04d",
+      "reason": "ValueError"
+    },
+    {
+      "source": "place/cd4631c8-3b3d-4cab-b78b-5a68a6749e58",
+      "reason": "gaierror"
+    },
+    {
+      "source": "place/c933c573-5f21-40d4-a00e-db015dae0648",
+      "reason": "URLError"
+    },
+    {
+      "source": "place/22f1a66a-7c7a-4f94-949a-161999b73d03",
+      "reason": "HTTPError"
+    },
+    {
+      "source": "place/8b6aee35-6b91-4112-b146-008042e36947",
+      "reason": "URLError"
+    },
+    {
+      "source": "place/a5d8e302-4b1e-493b-a845-897c2ec4ebe5",
+      "reason": "HTTPError"
+    },
+    {
+      "source": "place/6740bf0d-6185-406c-810c-55e001554aed",
+      "reason": "gaierror"
+    },
+    {
+      "source": "place/cb22a258-4f25-44e4-9c09-06e1707925f2",
+      "reason": "gaierror"
+    },
+    {
+      "source": "place/e210a55c-77c1-428f-bc70-282179aacc48",
+      "reason": "gaierror"
+    },
+    {
+      "source": "place/c41dd213-c47f-4fc0-bc7b-c7aa108e895d",
+      "reason": "gaierror"
+    },
+    {
+      "source": "place/81b02a83-e1fe-4982-869e-16256d751275",
+      "reason": "HTTPError"
+    },
+    {
+      "source": "place/5dafff22-9524-4c51-a770-d18551f44fe8",
+      "reason": "gaierror"
+    },
+    {
+      "source": "place/2951652a-55d1-447c-a2fa-02c1be8c9100",
+      "reason": "ValueError"
+    },
+    {
+      "source": "place/51cdcd10-45e3-4ac4-b338-15c3fba0cc7c",
+      "reason": "gaierror"
+    },
+    {
+      "source": "place/e5825dd6-b434-4de7-a7ca-7bcd95ee98e2",
+      "reason": "HTTPError"
+    },
+    {
+      "source": "place/19ff51d9-5381-4108-9108-73ebb8dea7d7",
+      "reason": "HTTPError"
+    },
+    {
+      "source": "place/c6e937d2-cfb9-4442-aa44-0a10cd0023a9",
+      "reason": "HTTPError"
+    },
+    {
+      "source": "place/2c31698b-5eea-454c-a696-0e86b616a798",
+      "reason": "gaierror"
+    },
+    {
+      "source": "place/d3368e24-250f-467f-a9f5-15326d3d5d3c",
+      "reason": "TimeoutError"
+    },
+    {
+      "source": "place/c5a205fa-7512-4826-b758-71b30b817ec6",
+      "reason": "TimeoutError"
+    },
+    {
+      "source": "place/96ce1383-b0fd-447c-a93f-85651503743e",
+      "reason": "HTTPError"
+    },
+    {
+      "source": "place/e10c46f3-6a66-46c0-b9d2-8d10bb81826d",
+      "reason": "URLError"
+    },
+    {
+      "source": "place/d56b7928-f38e-4207-bbc9-fb4c9e8c54d4",
+      "reason": "gaierror"
+    },
+    {
+      "source": "place/63a3518a-cf5b-4b6b-8ac6-184f1e80ed16",
+      "reason": "gaierror"
+    }
+  ],
+  "attribution": "Overture Maps Foundation https://docs.overturemaps.org/attribution/ ; © OpenStreetMap contributors, ODbL https://www.openstreetmap.org/copyright",
+  "status": "success",
+  "discovery": {
+    "status": "success",
+    "source": "saved_pool",
+    "age_days": 0.56,
+    "fetched_at": "2026-10-15T04:17:44.533630+00:00",
+    "attempts": []
+  }
+}
