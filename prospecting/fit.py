@@ -5,7 +5,7 @@ from urllib.parse import urlsplit
 # Small, reviewable exclusions grounded in source identity; not fuzzy name guesses.
 KNOWN_LARGE = {'ferguson.com': 'major distributor', 'goodmanmfg.com': 'major manufacturer',
                'rotorooter.com': 'national service brand', 'mistersparky.com': 'national franchise brand',
-               'aireserv.com': 'national franchise brand', 'homedepot.com': 'major retailer',
+               'temperaturepro.com': 'national franchise brand', 'aireserv.com': 'national franchise brand', 'homedepot.com': 'major retailer',
                'lowes.com': 'major retailer', 'roofingsales.net': 'supplier/distributor'}
 LOCAL = re.compile(r'\b(locally owned|locally operated|family owned|family operated|owner operated|independently owned)\b', re.I)
 SUPPLIER = re.compile(r'\b(wholesale|distributor|manufacturer|supply store|equipment supplier|(?:plumbing|roofing|electrical|hvac|industrial) supply)\b', re.I)
@@ -36,10 +36,19 @@ def link_kind(url, text=''):
     return 'other'
 
 
+IDENTITY_HOSTS = {'accounts.google.com','login.microsoftonline.com','login.live.com'}
+
+
+def identity_page(url):
+    return host(url) in IDENTITY_HOSTS
+
+
 def business_fit(candidate, text=''):
     tags=candidate.get('tags',{})
     site=tags.get('website') or tags.get('contact:website') or ''
     domain=host(site)
+    if identity_page(site):
+        return {'eligible':False,'score':0,'ownership':'not_public_business_page','reasons':['Website leads to an identity-provider sign-in page, not a publicly auditable business inquiry path.'],'evidence_url':site}
     for suffix,reason in KNOWN_LARGE.items():
         if under(domain,suffix):
             return {'eligible':False,'score':0,'ownership':'known_large_brand','reasons':[f'{domain}: {reason}'],'evidence_url':site}

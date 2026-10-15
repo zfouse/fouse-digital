@@ -10,11 +10,11 @@ from urllib.parse import urlsplit, urljoin
 
 if __package__:
     from .rendered import SNAPSHOT, mobile_findings, native_contact_findings
-    from .fit import link_kind
+    from .fit import link_kind, identity_page
     from .findings import canonical_url, merge_findings
 else:
     from rendered import SNAPSHOT, mobile_findings, native_contact_findings
-    from fit import link_kind
+    from fit import link_kind, identity_page
     from findings import canonical_url, merge_findings
 
 CONTACT = re.compile(r'\b(contact|quote|estimate|call|request|consultation|book|schedule|appointment)\b',re.I)
@@ -85,6 +85,7 @@ def inspect(url, source_findings, checker=None, permission=None, budget_seconds=
                 parser=urllib.robotparser.RobotFileParser();parser.parse(text.splitlines());robots[origin]=parser
             return robots[origin].can_fetch(AGENT,target)
     permission=permission or (lambda target:False)
+    if identity_page(url):raise ValueError('Identity-provider sign-in is not a business conversion page')
     checker(url)
     if not permission(url): raise ValueError('Robots disallows browser verification')
     deadline=time.monotonic()+budget_seconds

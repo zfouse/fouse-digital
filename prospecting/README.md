@@ -157,3 +157,5 @@ python -m prospecting.validate_review --report /path/review.json --output /tmp/r
 ```
 
 The sample reuses sourced businesses and contacts, repeats current static/browser checks, and records actual outcomes and draftable findings in isolated output. It does not add validation drafts to the production ledger. See [verification investigation and actual live results](VERIFICATION-NOTES.md). Existing daily usage caps are not reset by an upgrade; same-day reruns respect already-consumed screening/browser budgets.
+
+Live validation also corrected private Google Sites redirects: known identity-provider sign-in pages never count as public business audits or qualified prospects. TemperaturePro is excluded as a national franchise brand using its own published franchise/locations evidence, consistent with existing brand filtering. These changes preserve public hosted business pages and do not invent an ownership claim about franchisees. Dashboard audit counts are attempts, and historical `browser_verified_sites` remains a compatibility field for attempts; `browser_attempts`, per-page outcomes and confirmed-problem counts are the explicit measures.

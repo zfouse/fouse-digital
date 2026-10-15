@@ -24,7 +24,7 @@ def render(report):
         ('Verified problem', [f['code'] for l in report.get('new_leads', []) for f in l.get('findings', []) if f.get('status') == 'verified' and f.get('verification') == 'browser']),
         ('Commercial suitability', [l.get('fit', {}).get('ownership', 'unknown') for l in report.get('new_leads', [])])]:
         groups[label] = dict(Counter(values))
-    breakdown = '<section><h2>Nationwide coverage</h2><p>Target: ' + e((report.get('geographic_target') or {}).get('name', 'Legacy/offline sample')) + '</p><p>Screened: ' + e(report.get('screened_businesses', 0)) + ' · Audited: ' + e(report.get('audited_sites', 0)) + ' · Browser checks: ' + e(report.get('browser_verified_sites', 0)) + '</p>' + ''.join('<details open><summary>' + e(label) + '</summary><ul>' + ''.join('<li>' + e(k) + ': ' + str(v) + '</li>' for k, v in counts.items()) + '</ul></details>' for label, counts in groups.items()) + '</section>'
+    breakdown = '<section><h2>Nationwide coverage</h2><p>Target: ' + e((report.get('geographic_target') or {}).get('name', 'Legacy/offline sample')) + '</p><p>Screened: ' + e(report.get('screened_businesses', 0)) + ' · Audit attempts: ' + e(report.get('audited_sites', 0)) + ' · Browser checks: ' + e(report.get('browser_verified_sites', 0)) + '</p>' + ''.join('<details open><summary>' + e(label) + '</summary><ul>' + ''.join('<li>' + e(k) + ': ' + str(v) + '</li>' for k, v in counts.items()) + '</ul></details>' for label, counts in groups.items()) + '</section>'
     cards = []
     for index, lead in enumerate(sorted(report.get('new_leads', []), key=lambda l: -l.get('ranking', {}).get('score', 0)), 1):
         ranking = lead.get('ranking', {})

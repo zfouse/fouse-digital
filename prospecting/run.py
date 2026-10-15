@@ -105,7 +105,7 @@ def run(candidates, state, target=10, auditor=audit, browser_verifier=None, limi
     today = dt.datetime.now(ZoneInfo(ledger_timezone)).date().isoformat()
     seen = set(state.get('seen', []))
     legacy_count = state.get('daily', {}).get(today, 0)
-    count = legacy_count if prior_qualified is None else prior_qualified
+    count = state.get('verified_daily', {}).get(today, legacy_count) if prior_qualified is None else prior_qualified
     usage = state.get('daily_usage', {}).get(today, {})
     screen_budget = max(0, limits['screened']-usage.get('screened', 0))
     browser_budget = max(0, limits['browser_checks']-usage.get('browser_checks', 0))
@@ -234,7 +234,7 @@ def run(candidates, state, target=10, auditor=audit, browser_verifier=None, limi
     state.setdefault('daily_usage', {})[today] = {'screened': usage.get('screened', 0)+screened, 'browser_checks': usage.get('browser_checks', 0)+verified_count}
     state['seen']=sorted(seen)
     state.setdefault('daily',{})[today]=legacy_count+len(leads)
-    if prior_qualified is not None:
+    if prior_qualified is not None or today in state.get('verified_daily', {}):
         state.setdefault('verified_daily',{})[today]=count+len(leads)
     state['entities']=previous_entities+[l['entity'] for l in leads]
     state['finding_seen']=sorted(used_roots)

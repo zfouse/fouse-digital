@@ -128,7 +128,7 @@ def native_contact_findings(page, url, snapshots, clean):
         control=page.locator(f'[data-fouse-research-id="{c["id"]}"]')
         try:
             control.click(trial=True,timeout=500)
-            if (control.get_attribute('href') or '').strip()!=href:
+            if (control.get_attribute('href',timeout=500) or '').strip()!=href:
                 continue
         except Exception:
             continue

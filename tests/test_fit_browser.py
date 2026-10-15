@@ -43,7 +43,7 @@ class FitAndFindingTests(unittest.TestCase):
         self.assertNotEqual(link_kind('https://notcalendly.com/a','Read more'),'booking')
 
     def test_large_distributor_and_national_chains_excluded_before_audits(self):
-        for site in ('https://www.ferguson.com/store/mo/st+louis/plumbingpvf-0564','https://rotorooter.com/stlouis','https://goodmanmfg.com'):
+        for site in ('https://www.ferguson.com/store/mo/st+louis/plumbingpvf-0564','https://rotorooter.com/stlouis','https://goodmanmfg.com','https://temperaturepro.com/'):
             self.assertFalse(business_fit(business(site=site))['eligible'])
         calls=[]
         report,_=run([business(site='https://ferguson.com')],{},auditor=lambda u:calls.append(u))
@@ -286,3 +286,14 @@ class ConversionVerificationRegressionTests(unittest.TestCase):
         self.assertGreater(result['coverage']['optional_requests_blocked'],0)
         self.assertEqual(result['coverage']['essential_resources_failed'],0)
         self.assertTrue(any(f['status']=='verified' for f in result['findings']))
+
+
+class PublicBusinessPageTests(unittest.TestCase):
+    def test_identity_redirect_is_not_a_complete_business_audit(self):
+        def getter(url):
+            if url.endswith('/robots.txt'):return url,'text/plain','User-agent: *\nAllow: /'
+            return 'https://accounts.google.com/v3/signin/identifier','text/html','<form><input name=email><input type=password></form>'
+        with self.assertRaisesRegex(ValueError,'identity-provider'):
+            analyze('https://sites.google.com/view/fixture',getter,'Test')
+        self.assertFalse(business_fit(business(site='https://accounts.google.com/v3/signin/identifier'))['eligible'])
+        self.assertTrue(business_fit(business(site='https://sites.google.com/view/public-fixture'))['eligible'])

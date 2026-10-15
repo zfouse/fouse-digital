@@ -72,3 +72,14 @@ class ReportingAndRotationTests(unittest.TestCase):
         self.assertEqual(calls,[contact,home]);self.assertEqual(result['coverage']['status'],'limited')
         self.assertEqual(result['findings'][0]['verification'],'browser')
         self.assertNotIn(external,calls)
+
+
+    def test_core_run_reuses_verified_daily_ledger_without_reviving_legacy_count(self):
+        today=dt.datetime.now(ZoneInfo('America/Chicago')).date().isoformat()
+        state={'daily':{today:1},'verified_daily':{today:0}}
+        report,state=run([candidate()],state,auditor=fake_audit)
+        self.assertEqual(report['qualified_today'],1)
+        self.assertEqual(state['daily'][today],2)
+        self.assertEqual(state['verified_daily'][today],1)
+        again,_=run([],state,auditor=fake_audit)
+        self.assertEqual(again['qualified_today'],1)
