@@ -1,0 +1,124 @@
+{
+  "mode": "isolated_read_only_review_validation",
+  "checked_at": "2026-10-15T21:53:34.933262+00:00",
+  "source_report_date": "2026-10-15",
+  "elapsed_seconds": 248.08,
+  "businesses_attempted": 10,
+  "browser_outcomes": {
+    "limited": 8,
+    "complete": 1,
+    "not_attempted": 1
+  },
+  "verified_draftable_businesses": 0,
+  "production_state_modified": false,
+  "outreach_sent": false,
+  "environment": "local macOS/Python 3.9; pinned Playwright 1.60.0 Chromium",
+  "source_actions_run": 38809157557,
+  "measurement_scope": "Exploratory read-only recheck during development; does not establish throughput or a verified-yield improvement.",
+  "page_outcomes": {
+    "limited": 16,
+    "complete": 2
+  },
+  "results": [
+    {
+      "name": "AK Mow & Snow",
+      "website": "https://akmowandsnow.com/",
+      "source": "https://explore.overturemaps.org/?id=0eb21197-b597-4b1e-9aaf-2aa8611a5a5a",
+      "baseline_browser_status": "limited",
+      "browser_status": "limited",
+      "pages_attempted": 2,
+      "verified_draftable": false,
+      "error": null
+    },
+    {
+      "name": "Megawatt Electric, LLC",
+      "website": "https://www.megawattelectric.com/",
+      "source": "https://explore.overturemaps.org/?id=95e3afed-097a-427f-8f13-e94d560e5cfc",
+      "baseline_browser_status": "complete",
+      "browser_status": "complete",
+      "pages_attempted": 2,
+      "verified_draftable": false,
+      "error": null
+    },
+    {
+      "name": "Reds Roofing & Renovations LLC",
+      "website": "https://redsroofingak.com/",
+      "source": "https://explore.overturemaps.org/?id=ca8ee638-605f-4470-bf6d-0fae78a17b99",
+      "baseline_browser_status": "limited",
+      "browser_status": "limited",
+      "pages_attempted": 2,
+      "verified_draftable": false,
+      "error": null
+    },
+    {
+      "name": "Flow Star Plumbing and Heating",
+      "website": "https://flowstarak.com/",
+      "source": "https://explore.overturemaps.org/?id=f87f7818-1390-471f-b7bc-c83616a5f600",
+      "baseline_browser_status": "limited",
+      "browser_status": "not_attempted",
+      "pages_attempted": 0,
+      "verified_draftable": false,
+      "error": "URLError: <urlopen error [Errno 54] Connection reset by peer>"
+    },
+    {
+      "name": "General Roofing",
+      "website": "https://generalroofingak.com/",
+      "source": "https://explore.overturemaps.org/?id=409cb9f5-b476-4d3b-84d8-61cd04a77ec3",
+      "baseline_browser_status": "limited",
+      "browser_status": "limited",
+      "pages_attempted": 2,
+      "verified_draftable": false,
+      "error": null
+    },
+    {
+      "name": "Alaska Sewer & Drain LLC",
+      "website": "https://www.aksewer.com/",
+      "source": "https://explore.overturemaps.org/?id=6391055a-6f13-4636-b2fa-6c2e3710c05d",
+      "baseline_browser_status": "limited",
+      "browser_status": "limited",
+      "pages_attempted": 2,
+      "verified_draftable": false,
+      "error": null
+    },
+    {
+      "name": "Drain Masters",
+      "website": "https://www.drainmastersak.com/",
+      "source": "https://explore.overturemaps.org/?id=35e7323c-6db2-45d2-90b4-88976492283f",
+      "baseline_browser_status": "limited",
+      "browser_status": "limited",
+      "pages_attempted": 2,
+      "verified_draftable": false,
+      "error": null
+    },
+    {
+      "name": "Diamond Heating and AirTemp",
+      "website": "https://www.diamondheatingalaska.com/",
+      "source": "https://explore.overturemaps.org/?id=8066a1f8-01b8-4b32-b75b-216555aff411",
+      "baseline_browser_status": "limited",
+      "browser_status": "limited",
+      "pages_attempted": 2,
+      "verified_draftable": false,
+      "error": null
+    },
+    {
+      "name": "A-1 Lawn & Landscaping",
+      "website": "https://www.a1lawn.com/",
+      "source": "https://explore.overturemaps.org/?id=f6cece8d-7a03-430a-a3fd-dedf00f9b0cf",
+      "baseline_browser_status": "limited",
+      "browser_status": "limited",
+      "pages_attempted": 2,
+      "verified_draftable": false,
+      "error": null
+    },
+    {
+      "name": "Earhart Roofing Company",
+      "website": "https://www.earhartroofing.com/",
+      "source": "https://explore.overturemaps.org/?id=1d3e2f26-c6ce-4290-86a9-504271c3e869",
+      "baseline_browser_status": "limited",
+      "browser_status": "limited",
+      "pages_attempted": 2,
+      "verified_draftable": false,
+      "error": null
+    }
+  ]
+}

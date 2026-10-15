@@ -16,24 +16,26 @@ import urllib.request
 from zoneinfo import ZoneInfo
 
 if __package__:
+    from .reporting import carryover
     from .geography import load_config, select_region, fingerprint, advance, matches
     from .discovery import DiscoveryFailed, validate
     from .providers import discover_businesses
     from .conversion import analyze
     from .contacts import deduplicate, hashes
-    from .quality import rank, verified, draft
+    from .quality import rank, verified, draft, serviceable
     from .dashboard import render
     from .history import snapshot
     from .fit import business_fit
     from .findings import canonical_url, merge_findings, same_business
     from .browser_verify import verify as verify_browser
 else:
+    from reporting import carryover
     from geography import load_config, select_region, fingerprint, advance, matches
     from discovery import DiscoveryFailed, validate
     from providers import discover_businesses
     from conversion import analyze
     from contacts import deduplicate, hashes
-    from quality import rank, verified, draft
+    from quality import rank, verified, draft, serviceable
     from dashboard import render
     from history import snapshot
     from fit import business_fit
@@ -98,11 +100,12 @@ def audit(url, getter=fetch):
     return analyze(url, getter, AGENT)
 
 
-def run(candidates, state, target=10, auditor=audit, browser_verifier=None, limits=None, region=None, ledger_timezone='America/Chicago'):
+def run(candidates, state, target=10, auditor=audit, browser_verifier=None, limits=None, region=None, ledger_timezone='America/Chicago', prior_qualified=None):
     limits = limits or {'screened': 100, 'browser_checks': 12, 'static_seconds': 300, 'total_seconds': 900}
     today = dt.datetime.now(ZoneInfo(ledger_timezone)).date().isoformat()
     seen = set(state.get('seen', []))
-    count = state.get('daily', {}).get(today, 0)
+    legacy_count = state.get('daily', {}).get(today, 0)
+    count = state.get('verified_daily', {}).get(today, legacy_count) if prior_qualified is None else prior_qualified
     usage = state.get('daily_usage', {}).get(today, {})
     screen_budget = max(0, limits['screened']-usage.get('screened', 0))
     browser_budget = max(0, limits['browser_checks']-usage.get('browser_checks', 0))
@@ -179,9 +182,10 @@ def run(candidates, state, target=10, auditor=audit, browser_verifier=None, limi
             pool.append(lead)
         except (ValueError,OSError,urllib.error.URLError) as e:
             skipped.append({'source':record['source'],'reason':type(e).__name__})
-    weights={'broken_cta':60,'empty_contact_link':40,'cta_fragment':20,'mobile_width':12,'form_submit':12,'form_labels':8}
+    weights={'broken_cta':60,'empty_contact_link':55,'cta_fragment':35,'form_submit':20,'form_labels':12,'mobile_width':4,'viewport':0,'long_form':0}
     pool.sort(key=lambda lead:-(lead['fit']['score']+max((weights.get(f['code'],0) for f in lead['findings']),default=0)))
     verified_count=0
+    browser_outcomes=[]
     for lead in pool:
         result=lead.pop('_result')
         if browser_verifier and verified_count<browser_budget and time.monotonic()-started<limits['total_seconds']:
@@ -190,14 +194,20 @@ def run(candidates, state, target=10, auditor=audit, browser_verifier=None, limi
             lead['findings']=merge_findings(result.findings)
             lead['coverage']=result.coverage
             verified_count+=1
+            browser_outcomes.append({'name':lead['name'],'website':lead['website'],
+                'status':result.coverage.get('browser',{}).get('status','unknown'),
+                'confirmed_problems':len(verified(lead['findings'])),
+                'reason':result.coverage.get('browser',{}).get('reason'),
+                'dynamic_requests_blocked':result.coverage.get('browser',{}).get('dynamic_requests_blocked',0),
+                'essential_resources_failed':result.coverage.get('browser',{}).get('essential_resources_failed',0)})
         else:
             lead['findings']=[dict(f,status='potential',impact=0,evidence_strength=8) if f.get('verification')!='browser' else f for f in lead['findings']]
         lead['coverage'].pop('source_text',None)
         lead['ranking']=rank(lead['findings'],lead['contacts'],lead['category'],lead['fit'])
-    eligible=sorted((l for l in pool if verified(l['findings'])),key=lambda l:(-l['ranking']['score'],l['name']))
+    eligible=sorted((l for l in pool if serviceable(l['findings'])),key=lambda l:(-l['ranking']['score'],l['name']))
     leads=[];related_identities=[];used_roots=set(previous_findings)
     for lead in eligible:
-        confirmed=[f for f in verified(lead['findings']) if f['root_cause_id'] not in used_roots]
+        confirmed=[f for f in serviceable(lead['findings']) if f['root_cause_id'] not in used_roots]
         if not confirmed:
             primary=next((p for p in leads if set(f['root_cause_id'] for f in verified(p['findings'])).intersection(f['root_cause_id'] for f in verified(lead['findings']))),None)
             if primary: primary['related_businesses'].append(lead['entity'])
@@ -211,7 +221,7 @@ def run(candidates, state, target=10, auditor=audit, browser_verifier=None, limi
         used_roots.update(f['root_cause_id'] for f in confirmed)
         seen.update(lead['_keys'])
     review_queue=[]
-    for lead in (l for l in pool if not verified(l['findings']) and l['findings']):
+    for lead in (l for l in pool if not serviceable(l['findings']) and l['findings']):
         roots=set(f['root_cause_id'] for f in lead['findings'])
         related=next((q for q in review_queue if roots.intersection(f['root_cause_id'] for f in q['findings'])),None)
         if related:
@@ -223,18 +233,23 @@ def run(candidates, state, target=10, auditor=audit, browser_verifier=None, limi
         lead.pop('_keys',None)
     state.setdefault('daily_usage', {})[today] = {'screened': usage.get('screened', 0)+screened, 'browser_checks': usage.get('browser_checks', 0)+verified_count}
     state['seen']=sorted(seen)
-    state.setdefault('daily',{})[today]=count+len(leads)
+    state.setdefault('daily',{})[today]=legacy_count+len(leads)
+    if prior_qualified is not None or today in state.get('verified_daily', {}):
+        state.setdefault('verified_daily',{})[today]=count+len(leads)
     state['entities']=previous_entities+[l['entity'] for l in leads]
     state['finding_seen']=sorted(used_roots)
     relationships=state.get('related_entities',[])
     for relation in related_identities:
         if relation not in relationships: relationships.append(relation)
     state['related_entities']=relationships
-    return {'date':today,'target':target,'qualified_today':count+len(leads),'new_leads':leads,
+    return {'date':today,'target':target,'qualified_today':count+len(leads),'qualified_before_run':count,'historical_daily_total':legacy_count+len(leads),
+            'newly_qualified':len(leads),'new_drafts':sum(bool(l.get('draft')) for l in leads),'new_leads':leads,
+            'count_explanation':'Verified daily total includes accepted earlier browser-evidenced prospects, not source-only or excluded legacy records. New prospects/drafts belong to this run. Historical daily totals remain preserved separately; carryover is not a live re-verification.',
             'daily_usage':state['daily_usage'][today],'screened_businesses':screened,'elapsed_seconds':round(time.monotonic()-started,2),'geographic_target':region,'limits':limits,
-            'review_queue':review_queue,'audited_sites':checked,'browser_verified_sites':verified_count,
+            'review_queue':review_queue,'audited_sites':checked,'browser_verified_sites':verified_count,'browser_attempts':verified_count,'browser_outcomes':browser_outcomes,
+            'sites_with_confirmed_problems':sum(x['confirmed_problems']>0 for x in browser_outcomes),
             'related_identities':related_identities,'excluded_businesses':excluded[:30],'shortfall':max(0,target-count-len(leads)), 'skipped':skipped,
-            'ranking_scope':'Local-fit candidates and browser-confirmed problems in the bounded audited sample.',
+            'ranking_scope':'Serviceable local-fit candidates and browser-confirmed problems in the bounded audited sample.',
             'attribution':'Overture Maps Foundation https://docs.overturemaps.org/attribution/ ; © OpenStreetMap contributors, ODbL https://www.openstreetmap.org/copyright'},state
 
 
@@ -277,8 +292,11 @@ def main():
     def polite_audit(url):
         time.sleep(1)
         return audit(url)
+    today = dt.datetime.now(ZoneInfo(config['ledger_timezone'])).date().isoformat()
+    prior_qualified, reconciliation = carryover(state, state_path.parent, today)
     report, state = run(candidates, state, target=config['limits']['qualified'], auditor=polite_audit, browser_verifier=verify_browser,
-                        limits=config['limits'], region=None if args.candidates else region, ledger_timezone=config['ledger_timezone'])
+                        limits=config['limits'], region=None if args.candidates else region, ledger_timezone=config['ledger_timezone'], prior_qualified=prior_qualified)
+    report['daily_reconciliation'] = reconciliation
     report['country_policy'] = config['countries']['US']
     report['discovered_businesses'] = len(candidates)
     if not args.candidates:

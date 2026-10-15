@@ -5,8 +5,15 @@ def verified(findings):
     return [f for f in findings if f.get('status') == 'verified' and f.get('verification') == 'browser' and f.get('impact', 0) > 0]
 
 
+SERVICEABLE_CODES = {'broken_cta','mobile_contact_clipped','empty_contact_link'}
+
+
+def serviceable(findings):
+    return [f for f in verified(findings) if f['code'] in SERVICEABLE_CODES]
+
+
 def rank(findings, contacts, category, business_fit=None):
-    confirmed = verified(findings)
+    confirmed = serviceable(findings)
     impact = max((f['impact'] for f in confirmed), default=0)
     strength = max((f.get('evidence_strength', 0) for f in confirmed), default=0)
     fit = (15 if category in ('plumber', 'roofer', 'hvac', 'electrician', 'landscaper', 'painter', 'carpenter') else 0) + (5 if any(c['kind'] == 'email' for c in contacts) else 0)

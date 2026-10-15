@@ -217,3 +217,14 @@ class ConversionTests(unittest.TestCase):
             self.assertFalse(any(method=='POST' or path=='/send' for method,path in calls))
         finally:
             server.shutdown(); server.server_close(); thread.join()
+
+
+class ValuelessAttributeRegressionTests(unittest.TestCase):
+    def test_valueless_html_attributes_do_not_abort_business_research(self):
+        from prospecting.conversion import Page,analyze
+        html='<meta name><a href style aria-label>Contact</a><form action method><input name aria-label><button type>Send</button></form>'
+        page=Page(html)
+        self.assertEqual(page.links[0]['href'],'')
+        self.assertEqual(page.links[0]['text'],'Contact')
+        result=analyze('https://fixture.example/',lambda url:(url,'text/html',html),'Test')
+        self.assertFalse(any(f.get('status')=='verified' for f in result.findings))

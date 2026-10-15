@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Top Gun Plumbing & Rooter Service",
+    "source": "https://explore.overturemaps.org/?id=dfbde411-200c-43a8-9a09-66bf6ef32fe6",
+    "website": "https://sites.google.com/view/top-gun-plumbing-rooter-servic/home",
+    "outcome": "ValueError: Website redirects to an identity-provider sign-in page; no public business page audited"
+  },
+  {
+    "name": "Kingwood TX Hot Water & Water Heaters",
+    "source": "https://explore.overturemaps.org/?id=611d6512-c613-4499-b1d9-808d93467d42",
+    "website": "https://sites.google.com/view/kingwoodtxhotwaterwaterheaters/home",
+    "outcome": "ValueError: Website redirects to an identity-provider sign-in page; no public business page audited"
+  }
+]

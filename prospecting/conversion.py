@@ -10,11 +10,11 @@ import urllib.robotparser
 
 if __package__:
     from .contacts import canonical, deduplicate
-    from .fit import link_kind
+    from .fit import link_kind, identity_page
     from .findings import merge_findings
 else:
     from contacts import canonical, deduplicate
-    from fit import link_kind
+    from fit import link_kind, identity_page
     from findings import merge_findings
 
 CTA = re.compile(r'\b(contact|quote|estimate|book|booking|schedule|appointment|call|request|consultation)\b', re.I)
@@ -34,7 +34,9 @@ class Page(HTMLParser):
         self.feed(text)
 
     def handle_starttag(self, tag, attrs):
-        a = dict(attrs)
+        # HTMLParser represents present-but-valueless attributes as None. Browsers
+        # treat their string value as empty; preserve key presence for hidden/etc.
+        a = {key: value if value is not None else '' for key,value in attrs}
         if tag in ('script', 'style'):
             self.hidden_depth += 1
         if a.get('id'):
@@ -128,6 +130,8 @@ def analyze(url, getter, agent):
             # Redirects can introduce another site's rules; do not inspect its body before permission.
             if not allowed(final):
                 raise ValueError('redirect robots disallows audit')
+        if identity_page(final):
+            raise ValueError('Website redirects to an identity-provider sign-in page; no public business page audited')
         if 'text/html' not in kind or CHALLENGE.search(text):
             raise ValueError('Not an inspectable HTML page')
         return final, text, Page(text)

@@ -1,0 +1,165 @@
+{
+  "date": "2026-10-15",
+  "target": 10,
+  "qualified_today": 0,
+  "qualified_before_run": 0,
+  "historical_daily_total": 0,
+  "newly_qualified": 0,
+  "new_drafts": 0,
+  "screened_businesses": 100,
+  "audited_sites": 96,
+  "browser_attempts": 12,
+  "sites_with_confirmed_problems": 0,
+  "elapsed_seconds": 367.48,
+  "geographic_target": {
+    "id": "TX-0",
+    "name": "Texas",
+    "country": "US",
+    "kind": "state",
+    "states": [
+      "TX"
+    ],
+    "bbox": [
+      -95.77,
+      29.46,
+      -94.97,
+      30.06
+    ],
+    "timezone": "America/Chicago",
+    "language": "en"
+  },
+  "discovered_businesses": 2862,
+  "discovery": {
+    "status": "success",
+    "source": "overture",
+    "attempts": [
+      {
+        "provider": "overture",
+        "outcome": "success",
+        "count": 2862,
+        "release": "2026-09-23.1"
+      }
+    ]
+  },
+  "limits": {
+    "screened": 100,
+    "qualified": 10,
+    "browser_checks": 12,
+    "static_seconds": 300,
+    "total_seconds": 900
+  },
+  "mode": "isolated_full_pipeline",
+  "production_state_modified": false,
+  "outreach_sent": false,
+  "measurement_scope": "Completed scratch run before the final identity-redirect and TemperaturePro suitability exclusions. These slots were unqualified and were subsequently excluded by targeted validation.",
+  "browser_outcomes": [
+    {
+      "name": "Toilet Repair Richmond TX",
+      "website": "https://toiletrepairrichmond.com/",
+      "status": "limited",
+      "confirmed_problems": 0,
+      "reason": null,
+      "dynamic_requests_blocked": 1,
+      "essential_resources_failed": 0
+    },
+    {
+      "name": "S Roofing and Construction",
+      "website": "https://sroofingandconstruction.com/",
+      "status": "limited",
+      "confirmed_problems": 0,
+      "reason": null,
+      "dynamic_requests_blocked": 2,
+      "essential_resources_failed": 2
+    },
+    {
+      "name": "TemperaturePro",
+      "website": "https://temperaturepro.com/kingwood-tx/",
+      "status": "limited",
+      "confirmed_problems": 0,
+      "reason": null,
+      "dynamic_requests_blocked": 6,
+      "essential_resources_failed": 6
+    },
+    {
+      "name": "roofing-restoration.com",
+      "website": "http://www.roofing-restoration.com/",
+      "status": "limited",
+      "confirmed_problems": 0,
+      "reason": null,
+      "dynamic_requests_blocked": 8,
+      "essential_resources_failed": 12
+    },
+    {
+      "name": "Upper Hand Roofing & Construction",
+      "website": "https://www.upperhandconstruction.com/",
+      "status": "limited",
+      "confirmed_problems": 0,
+      "reason": null,
+      "dynamic_requests_blocked": 19,
+      "essential_resources_failed": 3
+    },
+    {
+      "name": "MJS Mechanical Services, Inc.",
+      "website": "https://www.mjsmechanicalservice.com/",
+      "status": "limited",
+      "confirmed_problems": 0,
+      "reason": null,
+      "dynamic_requests_blocked": 8,
+      "essential_resources_failed": 2
+    },
+    {
+      "name": "Frost Roofing & Renovations",
+      "website": "http://www.frostroof.com/",
+      "status": "limited",
+      "confirmed_problems": 0,
+      "reason": null,
+      "dynamic_requests_blocked": 10,
+      "essential_resources_failed": 0
+    },
+    {
+      "name": "Taurus Mechanical Inc",
+      "website": "http://www.houstonheatandcooling.com/",
+      "status": "limited",
+      "confirmed_problems": 0,
+      "reason": null,
+      "dynamic_requests_blocked": 1,
+      "essential_resources_failed": 1
+    },
+    {
+      "name": "Ultimate Radiant Barrier LLC",
+      "website": "http://www.ultimateradiantbarrier.com/",
+      "status": "limited",
+      "confirmed_problems": 0,
+      "reason": null,
+      "dynamic_requests_blocked": 4,
+      "essential_resources_failed": 0
+    },
+    {
+      "name": "Kingwood TX Hot Water & Water Heaters",
+      "website": "https://sites.google.com/view/kingwoodtxhotwaterwaterheaters/home",
+      "status": "complete",
+      "confirmed_problems": 0,
+      "reason": null,
+      "dynamic_requests_blocked": 0,
+      "essential_resources_failed": 0
+    },
+    {
+      "name": "Air Duct Cleaning & Installation Experts TX",
+      "website": "https://www.airqualityexpertstx.com/",
+      "status": "limited",
+      "confirmed_problems": 0,
+      "reason": null,
+      "dynamic_requests_blocked": 9,
+      "essential_resources_failed": 9
+    },
+    {
+      "name": "Top Gun Plumbing & Rooter Service",
+      "website": "https://sites.google.com/view/top-gun-plumbing-rooter-servic/home",
+      "status": "complete",
+      "confirmed_problems": 0,
+      "reason": null,
+      "dynamic_requests_blocked": 0,
+      "essential_resources_failed": 0
+    }
+  ]
+}
