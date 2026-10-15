@@ -9,7 +9,7 @@ def candidate(i=1, website='https://example.com', **tags):
 
 
 def fake_audit(url):
-    return url, [{'code': 'broken_cta', 'status': 'verified', 'impact': 50, 'evidence_strength': 30, 'label': 'Get a quote', 'url': url, 'observation': 'The quote link returned 404 twice.', 'evidence': 'GET statuses 404,404'}], []
+    return url, [{'code': 'broken_cta', 'status': 'verified', 'verification': 'browser', 'impact': 50, 'evidence_strength': 30, 'label': 'Get a quote', 'url': url, 'observation': 'The quote link returned 404 twice.', 'evidence': 'GET statuses 404,404'}], []
 
 
 class ProspectingTests(unittest.TestCase):

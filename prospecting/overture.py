@@ -30,11 +30,16 @@ def normalize(row, release):
     contacts = [{'kind': kind, 'value': value, 'source': source}
                 for kind, field in (('phone', 'phones'), ('email', 'emails'))
                 for value in row.get(field) or [] if isinstance(value, str) and value.strip()]
-    return {'provider': 'overture', 'type': 'place', 'id': row['id'],
+    result = {'provider': 'overture', 'type': 'place', 'id': row['id'],
             'lat': lat, 'lon': lon, 'source': source,
             'tags': {'name': name, 'website': sites[0], 'craft': trade},
             'contacts': contacts, 'provenance': {'release': release, 'category': category,
-            'confidence': row['confidence'], 'sources': row.get('sources') or [], 'attribution': CREDIT}}
+            'confidence': row['confidence'], 'brand': row.get('brand'), 'sources': row.get('sources') or [], 'attribution': CREDIT}}
+    if __package__:
+        from .fit import business_fit
+    else:
+        from fit import business_fit
+    return result if business_fit(result)['eligible'] else None
 
 
 def read_json(url):
@@ -82,6 +87,8 @@ def load():
             (pc.field('bbox', 'ymin') >= BBOX[1]) & (pc.field('bbox', 'ymin') <= BBOX[3]) &
             pc.field('taxonomy', 'primary').isin(list(TRADES)) & (pc.field('confidence') >= .8))
     columns = ['id', 'names', 'bbox', 'websites', 'emails', 'phones', 'taxonomy', 'confidence', 'sources', 'operating_status']
+    if 'brand' in dataset.schema.names:
+        columns.append('brand')
     candidates = []
     # Disable speculative parallel reads; predicate/projection pushdown avoids planet downloads.
     for batch in dataset.to_batches(filter=filt, columns=columns, batch_size=2048,

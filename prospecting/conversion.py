@@ -1,6 +1,7 @@
 """Bounded GET-only conversion-path analysis. Never submit forms or click booking."""
 from dataclasses import dataclass
 import re
+import json
 import time
 from html.parser import HTMLParser
 import urllib.error
@@ -9,8 +10,12 @@ import urllib.robotparser
 
 if __package__:
     from .contacts import canonical, deduplicate
+    from .fit import link_kind
+    from .findings import merge_findings
 else:
     from contacts import canonical, deduplicate
+    from fit import link_kind
+    from findings import merge_findings
 
 CTA = re.compile(r'\b(contact|quote|estimate|book|booking|schedule|appointment|call|request|consultation)\b', re.I)
 CHALLENGE = re.compile(r'<title[^>]*>\s*(just a moment|access denied|attention required|verify you are human)', re.I)
@@ -20,6 +25,7 @@ class Page(HTMLParser):
     def __init__(self, text):
         super().__init__(convert_charrefs=True)
         self.links, self.forms, self.ids, self.labels = [], [], set(), set()
+        self.text = []
         self.viewport = False
         self.current_link = None
         self.current_form = None
@@ -65,6 +71,8 @@ class Page(HTMLParser):
             self.implicit_label = max(0, self.implicit_label-1)
 
     def handle_data(self, data):
+        if not self.hidden_depth:
+            self.text.append(data)
         if self.current_link is not None and not self.hidden_depth:
             self.current_link['text'] += data
 
@@ -87,7 +95,7 @@ def finding(code, observation, url, evidence, verified=False, impact=0, action='
     return {'code': code, 'observation': observation, 'url': url, 'evidence': evidence,
             'status': 'verified' if verified else 'potential',
             'impact': impact, 'evidence_strength': (30 if code == 'broken_cta' else 24) if verified else 8,
-            'action': action, **extra}
+            'action': action, 'verification': 'source', **extra}
 
 
 def analyze(url, getter, agent):
@@ -163,7 +171,7 @@ def analyze(url, getter, agent):
             checks.append({'url': target, 'result': type(e).__name__})
             findings.append(finding('link_unchecked', 'A contact destination needs browser inspection; network or access rules prevented inspection.', final, f'{target}: {type(e).__name__}', target=target))
     for page_url, body, page in queue:
-        pages.append({'url': page_url, 'forms': len(page.forms), 'cta_links': sum(bool(CTA.search(l['text'])) for l in page.links), 'booking_links': [l['href'] for l in page.links if re.search(r'book|schedule|appointment', l['text'], re.I)]})
+        pages.append({'url': page_url, 'forms': len(page.forms), 'cta_links': sum(bool(CTA.search(l['text'])) for l in page.links), 'booking_links': [l['href'] for l in page.links if link_kind(urllib.parse.urljoin(page_url,l['href']),l['text']) == 'booking']})
         for link in page.links:
             href = link['href'].strip()
             kind = 'email' if href.lower().startswith('mailto:') else 'phone' if href.lower().startswith('tel:') else None
@@ -184,22 +192,23 @@ def analyze(url, getter, agent):
             if form['search'] or any(f.get('type') == 'search' for f in form['fields']):
                 continue
             fields = form['fields']
+            form_signature=json.dumps({'action':urllib.parse.urljoin(page_url,form['action']) if form['action'] not in ('','#') else 'current_document','method':form['method'],'fields':[(f.get('name'),f.get('type'),f.get('id')) for f in fields]},sort_keys=True)
             if not fields:
                 continue
             unlabeled = [f.get('name') or f.get('id') or f.get('type', 'text') for f in fields if not (f.get('aria-label') or f.get('aria-labelledby') or f.get('title') or f.get('implicit_label') or f.get('id') in page.labels)]
             if unlabeled:
                 findings.append(finding('form_labels', 'A non-search form has fields without accessible labels in the fetched HTML; rendered behavior needs checking.', page_url,
-                    f'form {index}; fields={unlabeled[:8]}', action='Inspect rendered labels and add clear field instructions if confirmed.'))
+                    f'form {index}; fields={unlabeled[:8]}', action='Inspect rendered labels and add clear field instructions if confirmed.',signature=form_signature))
             action = urllib.parse.urljoin(page_url, form['action'])
             if page_url.startswith('https:') and action.startswith('http:'):
-                findings.append(finding('form_insecure_action', 'An HTTPS page declares an HTTP form destination; JavaScript handling and browser behavior need inspection.', page_url, f'form {index}; action={action}', action='Inspect the inquiry flow without submitting customer information.'))
+                findings.append(finding('form_insecure_action', 'An HTTPS page declares an HTTP form destination; JavaScript handling and browser behavior need inspection.', page_url, f'form {index}; action={action}', action='Inspect the inquiry flow without submitting customer information.',signature=form_signature))
             if not form['submit']:
                 findings.append(finding('form_submit', 'A non-search form has no native submit control in the fetched HTML; JavaScript may provide one.', page_url,
-                    f'form {index}; action={form["action"]!r}', action='Inspect the rendered inquiry flow without submitting it.'))
+                    f'form {index}; action={form["action"]!r}', action='Inspect the rendered inquiry flow without submitting it.',signature=form_signature))
             if len(fields) > 8:
                 findings.append(finding('long_form', 'A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.', page_url,
-                    f'form {index}; field count={len(fields)}', action='Review initial inquiry friction in a browser.'))
-        external_booking = [l['href'] for l in page.links if re.search(r'book|schedule|appointment', l['text'], re.I) and urllib.parse.urlsplit(urllib.parse.urljoin(page_url, l['href'])).netloc != origin.netloc]
+                    f'form {index}; field count={len(fields)}', action='Review initial inquiry friction in a browser.',signature=form_signature))
+        external_booking = [l['href'] for l in page.links if link_kind(urllib.parse.urljoin(page_url,l['href']),l['text']) == 'booking' and urllib.parse.urlsplit(urllib.parse.urljoin(page_url, l['href'])).netloc != origin.netloc]
         if external_booking:
             findings.append(finding('external_booking_review', 'Appointment booking uses an external service; the booking journey has not been tested.', page_url, f'External booking links={external_booking[:3]}', action='Inspect the booking journey without making an appointment.'))
         if not page.viewport:
@@ -211,7 +220,6 @@ def analyze(url, getter, agent):
     if not any(p['forms'] or p['cta_links'] for p in pages):
         findings.append(finding('cta_missing', 'No contact calls to action or forms were identified in the inspected HTML; menus, images or JavaScript may provide them.', final,
             f'Inspected {len(pages)} page(s); source analysis only.', action='Inspect the rendered contact path on desktop and mobile.'))
-    unique = {(f['code'], f['url'], f.get('target', ''), f['evidence']): f for f in findings}
-    return AuditResult(final, list(unique.values()), deduplicate(contacts),
-                       {'pages': pages, 'link_checks': checks, 'browser_checked': False,
+    return AuditResult(final, merge_findings(findings), deduplicate(contacts),
+                       {'pages': pages, 'link_checks': checks, 'browser_checked': False, 'source_text': ' '.join(home.text)[:100000],
                         'limitations': ['No forms submitted or appointment/quote requests made.', 'No rendered/mobile or form-delivery test.', 'External booking flows and query-string links require browser review.']})
