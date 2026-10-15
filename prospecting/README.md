@@ -1,69 +1,52 @@
-# Phase 1 prospect research
+# Daily prospect review
 
-## Existing deployment and implementation
+The existing static GitHub Pages website and customer email form are unchanged. Research runs in GitHub Actions, targets **10 qualified St. Louis-area service businesses per Chicago calendar day**, and prepares email drafts only. There is no sending, form submission, SMTP integration, paid query service, new account or API key.
 
-Inspected October 14, 2026: `main` serves the static site from `/` through the existing GitHub Pages legacy build at https://zfouse.github.io/fouse-digital/. No application backend, database, package dependencies, or custom workflows existed. The customer form prepares email to `fousedigital@gmail.com` in the visitor's email app. This research system uses the same repository and GitHub Actions; it does not change the customer form or site deployment.
+## Discovery strategy
 
-Python 3.12 standard library only. No API keys, paid AI services, new accounts, email sending, form submission, or SMTP integration. Personalized drafts use deterministic templates populated with the business name, website and actual observation. They do not require a language-model subscription.
+`providers.py` orchestrates independently replaceable providers. Each returns candidate dictionaries and diagnostic metadata. A candidate carries provider/stable ID, coordinates, name, trade, website, sourced contacts and provenance. Add another `(name, callable)` to the provider list; the common audit and ledger paths do not need provider-specific changes.
 
-## Qualification and evidence
+1. **Recent saved pool:** reuse `pool.json` for seven days, avoiding unnecessary daily data downloads.
+2. **Overture Places:** read the latest release from the public STAC catalog. Select only regional GeoParquet shards, project needed fields and filter coordinates, trade and confidence through Apache Arrow. Access is anonymous S3, not an Overpass query. Extraction has a 180-second subprocess deadline and per-request/connect limits. There is no full-planet download, paid SQL service or credential discovery. The STAC index is capped at 5 MB, intersecting files at eight, candidates at 5,000. Current regional query intersects one shard; projected range reads avoid downloading that whole file.
+3. **Outage pool:** if refresh fails, reuse a saved pool up to 45 days old, explicitly reporting `discovery.status=degraded` and its original age. A cached listing is a discovery hint; its website is audited again before any draft is generated. Cache reads never reset its age.
+4. **Overpass:** only when there is no usable pool and Overture fails, use the existing bounded serial Overpass failover. It now also retries HTTP 500, which caused the fallback failure in the latest live run. Maximum three requests per endpoint, exponential backoff/jitter and Retry-After handling remain in place. Permanent query/auth errors stop that provider. No unlimited retries.
 
-A lead must have all of:
+Provider failure never becomes an invented business or a website issue. If all providers fail and the pool is unavailable/expired, the command exits 2, writes separate HTML/JSON diagnostics, and leaves the ledger, pool and prior reports intact. Actions uploads the diagnostic artifact and preserves a failed workflow status. A healthy empty Overpass result is an honest shortfall, not fabricated leads.
 
-- An OpenStreetMap name and service trade (plumbing, electrical, HVAC, roofing, carpentry, painting, landscaping).
-- Coordinates inside the St. Louis metro research box: latitude 38.40–38.95, longitude -90.75–-89.95. This includes nearby Illinois communities, not a verified service radius.
-- A website returning HTML, with robots permission for the homepage audit.
-- A public phone or email from OSM tags or a homepage `tel:`/`mailto:` link, with its source. Public listing contact data may be stale; ownership and deliverability are not verified.
-- At least one observed homepage issue: response remains HTTP, or fetched HTML lacks a device-width viewport declaration.
+`ledger.json` and the pool persist on the existing `prospect-ledger` branch, separately from Pages. Pool changes and ledger changes are pushed in the same commit after report upload succeeds. The ledger retains all existing hashes/counts; OSM keys keep their old format. Provider IDs plus normalized domains and phone numbers deduplicate both within and across providers. Shared domains/phones intentionally suppress additional branches. Writes use temporary files and atomic replacement. Discovery cache never marks a lead as researched.
 
-Reports include source URLs, UTC check timestamp, exact observation, evidence and draft status. Missing viewport metadata is specifically an HTML-source observation; JavaScript could add it. HTTP observation does not assert HTTPS is unavailable. No claims about lost revenue, broken forms, speed, mobile usability or missing calls to action are inferred. Confirm behavior in a browser before using a draft. The system does not test form delivery or crawl other pages.
+## Qualification, contacts and truthful audits
 
-Discovery makes one request when healthy and at most six serial requests during an outage (45-second server timeout per query), considers at most 150 candidates, pauses one second per audit, limits each response to 1 MB and each website request to 15 seconds (discovery allows 60 seconds). robots errors other than 404 cause a skip. Network failures never become website findings. URL checks reject credentials, unusual ports and DNS addresses that are not globally routable, including redirected destinations. This is lightweight source inspection, not a browser sandbox; DNS resolution checks are not a guarantee against DNS rebinding.
+A lead needs a named service trade, website, location inside latitude 38.40–38.95 / longitude -90.75–-89.95, public contact information and an observed homepage issue. Overture maps exact taxonomy categories for plumbing, HVAC, electrical, roofing, landscaping, carpentry and painting; confidence must be at least 0.8 and known closed records are excluded. Retail suppliers and unrelated categories are excluded. Coordinates are listing locations, not a claimed service radius.
 
-OpenStreetMap coverage is finite and uneven. The target is 10 **qualified** businesses per Chicago calendar day, not a promise. Shortfalls are recorded without relaxing qualification or inventing issues. OSM identifiers, normalized domains (including redirects) and normalized phone numbers are hashed for deduplication. Multiple branches of one domain or shared phone are intentionally treated as one prospect. Accepted leads remain deduplicated across days; failed or unqualified candidates may be checked again. Daily counts also prevent manual reruns generating more than 10 that day.
+Contacts are copied from explicit public dataset fields or homepage `mailto:`/`tel:` links and retain their source URLs. The release, original source records, licenses and confidence accompany Overture leads. No guessed email addresses, inferred phone numbers, fabricated contacts or promised deliverability. Directory data can be stale; review source evidence before outreach.
 
-## Operation and review
+Website audits respect robots rules (unknown robots errors cause a skip; 404 allows inspection), URL safety checks, response-size caps and a one-second pause per audit. Only two source-level observations qualify: the fetched homepage still uses HTTP, or its HTML lacks a `width=device-width` viewport declaration. These are not claims that HTTPS is unavailable or that a site is broken on mobile. JavaScript-rendered metadata and form delivery are not tested. No lost-revenue, speed, broken-form or conversion claims are invented. Review observations in a browser before using a draft.
 
-1. Merge the PR. The daily workflow activates on `main`; no secrets or setup accounts are needed. Existing repository rules must allow Actions to create/update `prospect-ledger` with its repository token.
-2. Open Actions → **Daily prospect review**. It runs daily at 13:23 UTC (8:23 a.m. Chicago daylight time / 7:23 a.m. standard time); GitHub scheduling can be delayed. **Run workflow** allows a manual run on main.
-3. Download `prospect-review-<run ID>` from the completed run, unzip, and open `review.html`. `review.json` contains the same data for later import. Review contacts, sources and observations, then copy any draft you choose to use. Nothing sends an email.
-4. Check the run summary for counts/shortfalls and the run status for failures. Discovery errors fail the run and do not alter the ledger. Website errors are recorded as skips without sensitive response bodies.
+Reports include the exact observation, evidence URL, timestamp, contacts and personalized draft. They never send. The daily cap remains 10 including reruns. At most 150 unseen websites and ten minutes of audit work are attempted per run; errors are skipped. Candidates rotate deterministically each day so unsuccessful entries cannot permanently block the rest of the pool. Discovery success does not guarantee ten qualified leads; shortfalls remain visible.
 
-Reports are uploaded before the ledger is committed, so a report-upload failure cannot mark unseen drafts as processed. A failed ledger push leaves the report available but requires resolving the branch permission/conflict before the next run; those leads may recur. Concurrency serializes scheduled and manual runs. The ledger lives on a separate branch and is not deployed to Pages. Do not delete/reset `prospect-ledger` unless deliberately resetting deduplication. Reports expire after 30 days; download reports you want to retain. The ledger persists independently of artifact expiration. There is no authenticated CRM or long-term draft archive in this static deployment.
+## Review and operation
 
-**Visibility:** this repository is public. Authenticated GitHub users with repository read access can access Actions artifacts; treat review reports and drafts as accessible, not private. They contain public business contact information only. Do not add private notes or client data. The ledger contains hashes and daily counts only. A private review workspace would require a separate infrastructure decision.
+After merge, **Daily prospect review** runs at 13:23 UTC daily (8:23 a.m. Chicago daylight time / 7:23 a.m. standard time). GitHub can delay scheduled runs. No setup secrets are required. Repository rules must permit Actions to update `prospect-ledger`; GitHub lookup failures stop rather than treating the ledger as missing.
 
-## Cost
+Open the completed run, download `prospect-review-<run ID>`, and open `review.html`. `review.json` contains the same data. Failures provide `diagnostic.html/json`. Reports expire after 30 days; download anything you want to retain. Pool/ledger persist independently. Do not delete `prospect-ledger` to fix a transient API outage.
 
-Designed for $0 incremental cost: standard Linux Actions runners in this public repository, no dependency installations, no model calls, one public Overpass request per healthy day (at most six during an outage), and small reports retained for 30 days. GitHub artifact storage has account-level allowances; avoid increasing report sizes/retention and keep the account's paid Actions budget at $0 if needed. No billing settings are changed by this PR.
+**Visibility:** the repository is public. The pool branch now includes public discovery listings, contacts and provenance, in addition to hashed deduplication data. GitHub Actions reports and drafts should also be treated as accessible, not private. Do not add private customer data or notes. This is not an authenticated CRM or permanent draft archive.
 
-References: [GitHub Actions billing](https://docs.github.com/en/billing/concepts/product-billing/github-actions), [Overpass shared resource guidance](https://dev.overpass-api.de/overpass-doc/en/preface/commons.html). Free public Overpass service can throttle or be unavailable; the workflow fails rather than silently replacing discovery with a paid provider. OSM attribution is embedded in every report: [© OpenStreetMap contributors, ODbL](https://www.openstreetmap.org/copyright).
+`Prospecting tests` supports an optional manual **read-only live validation** run on a selected branch. It uses isolated scratch state, writes only report artifacts (seven-day retention), and never pushes production ledger/pool changes. This lets a PR be tested on a GitHub-hosted runner before merging.
 
-## Local use and tests
+## Setup, cost and tests
 
 ```sh
+python3 -m pip install -r prospecting/requirements.txt
 python3 -m unittest discover -s tests -v
 python3 prospecting/run.py --state /path/to/ledger.json --output /path/to/reports
 ```
 
-Local runs require Python 3.9+ with system timezone data; CI uses 3.12. Keep the same ledger between runs. `--candidates /path/to/osm.json` substitutes an OSM-format discovery response, but still audits websites. Unit tests inject responses and never access the network. Tests cover truthful findings, healthy pages, robots denial, timeouts, location/category/contact qualification, domain/phone/rerun deduplication, daily quota, unsafe URL rejection and HTML escaping.
+CI uses Python 3.12. Apache Arrow is pinned in `requirements.txt`; the rest uses the standard library. `--candidates /path/to/osm.json` remains available for OSM-format fixtures, but still audits websites. Unit/integration tests use fixtures and local Parquet files, not public endpoints. Tests cover schema normalization, geography/trades/closed-record filtering, source/contact preservation, actual Parquet projection/filtering, provider continuation, subprocess limits, cache freshness/expiration, degraded outage recovery, cross-provider legacy deduplication, report/draft generation, ledger preservation, retries and workflow ledger loading.
 
-## Discovery recovery
+Designed for $0 incremental cost: standard public-repository Linux Actions runners, anonymous public datasets, no model calls or paid APIs. Normal days use the saved pool; refresh is weekly. Small reports expire automatically. Account-level artifact storage allowances still apply; no billing settings are changed. Sources remain best-effort, and release schema changes may require maintenance.
 
-The primary is `https://overpass-api.de/api/interpreter`; failover uses the independently operated `https://overpass.private.coffee/api/interpreter`, listed in the [OSM public instance directory](https://wiki.openstreetmap.org/wiki/Overpass_API#Public_Overpass_API_instances). The former Kumi hostname is not a third independent fallback. Public endpoints offer no availability guarantee.
+See [GitHub Actions billing](https://docs.github.com/en/billing/concepts/product-billing/github-actions), [Overture access](https://docs.overturemaps.org/getting-data/cloud-sources/), [Places guide](https://docs.overturemaps.org/guides/places/), and [source evaluation and live results](DISCOVERY-NOTES.md).
 
-Each endpoint gets at most three attempts. HTTP 429/502/503/504, connection errors, DNS errors and timeouts use exponential waits of 30 then 60 seconds plus 0–5 seconds of random jitter. `Retry-After` seconds and HTTP dates are honored when longer; waits above 120 seconds abandon that endpoint for this run rather than retrying earlier than requested. Switching to the independent fallback also waits 30–35 seconds. No parallel requests or unbounded retries. Worst-case six requests plus five waits; individual waits are capped at 125 seconds including jitter. The existing 30-minute job limit remains the outer bound.
-
-Invalid JSON, invalid elements and HTTP-200 responses with an Overpass `remark` are incomplete discovery, never successful empty research. Non-transient HTTP errors (such as a bad query) fail immediately rather than repeating the same request against other servers. A healthy empty result remains successful discovery with an honest shortfall.
-
-If discovery fails, the process exits 2 before auditing or touching the ledger. It writes separate `diagnostic.json` and `diagnostic.html` files, preserving prior `review.json`/HTML if the output directory is reused. They include endpoint, timestamp, attempt number, sanitized reason, and backoff decision. Failed discovery has no reported qualified count or shortfall, rather than pretending zero leads were researched. Artifact upload and the run summary execute even after failure; ledger persistence still requires all earlier steps to succeed. Reports keep their existing 30-day retention. A later successful local run clears stale diagnostic files. Successful ledger updates now use a temporary file and atomic replacement. Ledger loading also distinguishes a missing branch from a GitHub transport failure; transport errors stop the workflow before an empty ledger can be initialized.
-
-## Validation history
-
-Eight offline tests pass; whitespace/diff checks pass. Two live discovery attempts on October 14, 2026 returned HTTP 504 from the public Overpass endpoint, including one with a 60-second client timeout. No live leads were fabricated and no ledger was written. Live discovery yield and complete scheduled execution remain unverified until the service responds and the workflow runs on main. This limitation is a reason to review the first run's shortfall, not to assume 10/day is achieved.
-
-Recovery tests additionally cover each retryable status, exponential jitter, endpoint ordering, timeout exhaustion, Retry-After seconds/dates, long rate-limit deferral, invalid/incomplete responses, permanent errors, byte-for-byte ledger preservation, prior-report preservation, first-run failure and recovery to a real successful result.
-
-Recovery validation: 20 automated tests pass locally, including executing the actual workflow ledger-loading shell block with a failed Git transport. Whitespace/diff checks pass. The website, schedule, qualification rules and draft-only policy are preserved.
-
-Live recovery validation on October 14, 2026 exercised the real six-request limit: the primary returned HTTP 504 on three attempts; the independent fallback timed out on three attempts. Observed backoffs were approximately 32/65 seconds on the primary and 32/63 seconds on the fallback, plus the switch cooldown. Recovery stopped after exhaustion and recorded diagnostics; this discovery-only check did not audit businesses or touch any ledger. Live successful fallback and the changed main-branch Actions failure-report upload remain unverified until those services respond and the PR is merged. The tests verify both successful failover and complete failure without depending on public-service availability.
+Reports retain OpenStreetMap attribution where applicable (ODbL) and Overture source-level licenses. Overture Places is published under CDLA Permissive 2.0 / Apache 2.0 depending on source; preserve its source notices when redistributing. [Overture attribution and licensing](https://docs.overturemaps.org/attribution/), [OpenStreetMap copyright](https://www.openstreetmap.org/copyright).

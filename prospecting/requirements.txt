@@ -1,0 +1,2 @@
+# Apache Arrow reads public GeoParquet; no account, API key or billed query engine.
+pyarrow==21.0.0
