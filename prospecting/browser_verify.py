@@ -288,7 +288,7 @@ def verify(result):
             payload=json.loads(out.read_text()) if out.exists() else {}
             if child.returncode or 'findings' not in payload:
                 raise RuntimeError(payload.get('error','Browser worker failed'))
-            result.findings=payload['findings'];result.coverage['browser']=payload['coverage'];result.coverage['browser_checked']=True
+            result.findings=payload['findings'];result.coverage['browser']=payload['coverage'];result.coverage['browser_checked']=payload['coverage'].get('browser_checked',False)
             result.coverage['limitations']=payload['coverage']['limitations']
         except (OSError,ValueError,RuntimeError,subprocess.SubprocessError) as e:
             result.findings=[dict(f,status='potential',impact=0,evidence_strength=8,verification='browser_unavailable') if f.get('status')=='verified' else f for f in result.findings]

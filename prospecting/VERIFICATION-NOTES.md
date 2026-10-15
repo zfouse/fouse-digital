@@ -36,7 +36,7 @@ Ten browser slots were limited; two were reported complete but were actually Goo
 
 The sample also surfaced TemperaturePro's national brand homepage as an unknown-ownership prospect. It is now excluded consistently with existing national franchise filters, grounded in the company's [own franchise description](https://temperaturepro.com/own-a-franchise/) and [national locations list](https://temperaturepro.com/locations/). This does not assert that its franchisees lack local ownership; a national franchise website is outside this pipeline's independent-operator purchasing fit.
 
-The full-run measurements precede these final suitability exclusions, so they are not a claim that the final filters have already produced a higher live qualification rate. All twelve slots produced **zero verified/draftable businesses (0%)**. The code now avoids spending future browser slots on the observed sign-in and known-brand false candidates. A broader suitable-business cohort is needed to establish increased yield. The final automated suite contains **90 passing tests**, including exact behavior for these exclusions.
+The full-run measurements precede these final suitability exclusions, so they are not a claim that the final filters have already produced a higher live qualification rate. All twelve slots produced **zero verified/draftable businesses (0%)**. The code now avoids spending future browser slots on the observed sign-in and known-brand false candidates. A broader suitable-business cohort is needed to establish increased yield. The final automated suite contains **91 passing tests**, including exact behavior for these exclusions.
 
 ## Remaining limits
 

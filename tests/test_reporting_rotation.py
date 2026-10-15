@@ -83,3 +83,17 @@ class ReportingAndRotationTests(unittest.TestCase):
         self.assertEqual(state['verified_daily'][today],1)
         again,_=run([],state,auditor=fake_audit)
         self.assertEqual(again['qualified_today'],1)
+
+
+    def test_unavailable_worker_never_reports_browser_inspection_completed(self):
+        from unittest.mock import patch
+        from types import SimpleNamespace
+        from prospecting.browser_verify import verify
+        from prospecting.conversion import AuditResult
+        def worker(command,**kwargs):
+            Path(command[-1]).write_text(json.dumps({'findings':[],'coverage':{'status':'unavailable','browser_checked':False,'limitations':['No document inspected']}}))
+            return SimpleNamespace(returncode=0)
+        with patch('prospecting.browser_verify.subprocess.run',side_effect=worker):
+            result=verify(AuditResult('https://fixture.example',[],[],{}))
+        self.assertFalse(result.coverage['browser_checked'])
+        self.assertEqual(result.coverage['browser']['status'],'unavailable')
