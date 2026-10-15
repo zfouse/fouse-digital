@@ -16,7 +16,7 @@ from prospecting.run import main, run, render
 ROW = {'id': 'fixture-id', 'names': {'primary': 'Fixture Plumbing'}, 'websites': ['https://fixture.example'],
        'bbox': {'xmin': -90.2, 'xmax': -90.2, 'ymin': 38.6, 'ymax': 38.6}, 'phones': ['3145550100'],
        'emails': ['test@fixture.example'], 'taxonomy': {'primary': 'plumbing'}, 'confidence': .95,
-       'operating_status': 'open', 'sources': [{'dataset': 'Fixture', 'license': 'CDLA-Permissive-2.0'}]}
+       'addresses': [{'country': 'US', 'region': 'MO', 'locality': 'St. Louis'}], 'operating_status': 'open', 'sources': [{'dataset': 'Fixture', 'license': 'CDLA-Permissive-2.0'}]}
 NOW = dt.datetime(2026, 10, 14, tzinfo=dt.timezone.utc)
 
 
@@ -33,7 +33,7 @@ class ProviderIntegrationTests(unittest.TestCase):
         row = copy.deepcopy(ROW)
         row.update(phones=[], emails=[])
         self.assertEqual(normalize(row, 'release')['contacts'], [])
-        for changed in ({'operating_status': 'permanently_closed'}, {'confidence': .5}, {'websites': []}, {'bbox': {'xmin': 0, 'ymin': 0}}, {'taxonomy': {'primary': 'paint_store'}}):
+        for changed in ({'operating_status': 'permanently_closed'}, {'confidence': .5}, {'websites': []}, {'bbox': {'xmin': 999, 'ymin': 999}}, {'taxonomy': {'primary': 'paint_store'}}):
             row = dict(ROW, **changed)
             self.assertIsNone(normalize(row, 'release'))
 
@@ -115,7 +115,7 @@ class ProviderIntegrationTests(unittest.TestCase):
             with patch('sys.argv', ['run', '--state', str(state), '--output', str(Path(root)/'reports')]), patch('prospecting.run.discover_businesses', return_value=([candidate()], {'status': 'success'}, saved)), patch('prospecting.run.audit', return_value=('https://fixture.example', [], [])), patch('prospecting.run.time.sleep'):
                 self.assertEqual(main(), 0)
             self.assertEqual(json.loads(state.read_text())['seen'], ['old-record'])
-            self.assertEqual(json.loads((Path(root)/'pool.json').read_text()), saved)
+            self.assertEqual(json.loads(next((Path(root)/'pools').glob('*.json')).read_text()), saved)
             self.assertTrue((Path(root)/'licenses/CDLA-Permissive-2.0.txt').exists())
             self.assertTrue((Path(root)/'reports/licenses/Apache-2.0.txt').exists())
 
@@ -137,7 +137,7 @@ class ProviderIntegrationTests(unittest.TestCase):
             buffer = io.BytesIO(); pq.write_table(index, buffer)
             actual_dataset = ds.dataset
             with patch('prospecting.overture.read_json', return_value={'latest': '2026-09-23.1'}), patch('prospecting.overture.urllib.request.urlopen', return_value=io.BytesIO(buffer.getvalue())), patch.object(fs, 'S3FileSystem', return_value=fs.LocalFileSystem()), patch.object(ds, 'dataset', side_effect=lambda *a, **kw: actual_dataset(path)):
-                rows, release = load()
+                rows, release = load({'id':'fixture', 'country':'US', 'kind':'metro', 'states':['MO'], 'bbox':[-90.75,38.4,-89.95,38.95], 'timezone':'America/Chicago', 'language':'en'})
             self.assertEqual(len(rows), 1)
             self.assertEqual(rows[0]['id'], 'fixture-id')
             self.assertEqual(rows[0]['contacts'][1]['value'], 'test@fixture.example')

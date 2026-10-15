@@ -1,0 +1,4 @@
+[
+  {"id":"chicago-metro","name":"Chicago metropolitan area sample","kind":"metro","country":"US","states":["IL","IN"],"bbox":[-88.2,41.5,-87.3,42.2],"timezone":"America/Chicago","language":"en"},
+  {"id":"denver-city","name":"Denver city sample","kind":"city","country":"US","states":["CO"],"localities":["Denver"],"bbox":[-105.12,39.6,-104.6,39.95],"timezone":"America/Denver","language":"en"}
+]

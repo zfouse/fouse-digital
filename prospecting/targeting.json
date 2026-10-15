@@ -1,0 +1,12 @@
+{
+  "country": "US",
+  "ledger_timezone": "America/Chicago",
+  "countries": {
+    "US": {"enabled": true, "language": "en", "timezone": "America/Chicago", "outreach": "draft_only", "compliance": {"review_required_before_sending": true, "requirements": ["truthful headers and subject", "sender postal address", "opt-out and suppression handling", "federal and applicable state review"], "source": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business"}},
+    "CA": {"enabled": false, "language": "en", "timezone": "America/Toronto", "outreach": "blocked", "compliance": {"status": "not_reviewed", "requirements": ["consent and applicable law review", "language and timezone review"]}},
+    "GB": {"enabled": false, "language": "en", "timezone": "Europe/London", "outreach": "blocked", "compliance": {"status": "not_reviewed", "requirements": ["lawful basis and applicable law review", "language and timezone review"]}}
+  },
+  "targeting": {"states": [], "regions": []},
+  "limits": {"screened": 100, "qualified": 10, "browser_checks": 12, "static_seconds": 300, "total_seconds": 900},
+  "planned_capacity": {"enabled": false, "screened_range": [500, 1000], "qualified_range": [25, 50], "activation": "Requires measured live benchmark, provider budget and workflow review; never relax verification to fill a quota."}
+}

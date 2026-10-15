@@ -16,6 +16,7 @@ import urllib.request
 from zoneinfo import ZoneInfo
 
 if __package__:
+    from .geography import load_config, select_region, fingerprint, advance, matches
     from .discovery import DiscoveryFailed, validate
     from .providers import discover_businesses
     from .conversion import analyze
@@ -27,6 +28,7 @@ if __package__:
     from .findings import canonical_url, merge_findings, same_business
     from .browser_verify import verify as verify_browser
 else:
+    from geography import load_config, select_region, fingerprint, advance, matches
     from discovery import DiscoveryFailed, validate
     from providers import discover_businesses
     from conversion import analyze
@@ -39,8 +41,7 @@ else:
     from browser_verify import verify as verify_browser
 
 AGENT = 'FouseDigitalResearch/1.0 (+https://zfouse.github.io/fouse-digital/)'
-BBOX = '38.40,-90.75,38.95,-89.95'
-QUERY = f'''[out:json][timeout:45];nwr["craft"~"^(plumber|electrician|hvac|roofer|carpenter|painter|landscaper)$"]["name"]({BBOX});out center tags;'''
+QUERY = ''  # Geographic production discovery uses scoped Overture address filters.
 
 
 def safe_url(url):
@@ -97,10 +98,14 @@ def audit(url, getter=fetch):
     return analyze(url, getter, AGENT)
 
 
-def run(candidates, state, target=10, auditor=audit, browser_verifier=None):
-    today = dt.datetime.now(ZoneInfo('America/Chicago')).date().isoformat()
+def run(candidates, state, target=10, auditor=audit, browser_verifier=None, limits=None, region=None, ledger_timezone='America/Chicago'):
+    limits = limits or {'screened': 100, 'browser_checks': 12, 'static_seconds': 300, 'total_seconds': 900}
+    today = dt.datetime.now(ZoneInfo(ledger_timezone)).date().isoformat()
     seen = set(state.get('seen', []))
     count = state.get('daily', {}).get(today, 0)
+    usage = state.get('daily_usage', {}).get(today, {})
+    screen_budget = max(0, limits['screened']-usage.get('screened', 0))
+    browser_budget = max(0, limits['browser_checks']-usage.get('browser_checks', 0))
     previous_entities = state.get('entities', [])
     previous_findings = set(state.get('finding_seen', []))
     pool, skipped, excluded = [], [], []
@@ -109,15 +114,19 @@ def run(candidates, state, target=10, auditor=audit, browser_verifier=None):
     # Reserve browser time after the static sample instead of verifying the first sites encountered.
     candidates = sorted(candidates, key=lambda c: hashlib.sha256((today + str(c.get('id'))).encode()).hexdigest())
     checked = 0
+    screened = 0
     for c in candidates:
-        if count >= target or checked >= 100 or time.monotonic()-started >= 300:
+        if count >= target or screened >= screen_budget or time.monotonic()-started >= limits['static_seconds']:
             break
+        screened += 1
+        if region is not None and not matches(c, region):
+            continue
         tags=c.get('tags', {})
         location=c.get('center') or c
         lat,lon=location.get('lat'),location.get('lon')
         if tags.get('craft') not in ('plumber','electrician','hvac','roofer','carpenter','painter','landscaper') or not tags.get('name'):
             continue
-        if not isinstance(lat,(float,int)) or not isinstance(lon,(float,int)) or not (38.4<=lat<=38.95 and -90.75<=lon<=-89.95):
+        if not isinstance(lat,(float,int)) or not isinstance(lon,(float,int)) or not (-90<=lat<=90 and -180<=lon<=180):
             continue
         url=tags.get('website') or tags.get('contact:website')
         if not url: continue
@@ -130,7 +139,7 @@ def run(candidates, state, target=10, auditor=audit, browser_verifier=None):
         provider_string=('osm:'+c['type']+':'+str(c['id'])) if provider=='osm' else provider+':'+str(c['id'])
         provider_key=hashlib.sha256(provider_string.encode()).hexdigest()
         if provider_key in seen: continue
-        record={'provider':provider,'id':c['id'],'name':tags['name'],'website':url,'source':c.get('source') or f"https://www.openstreetmap.org/{c['type']}/{c['id']}"}
+        record={'provider':provider,'id':c['id'],'name':tags['name'],'website':url,'geography':c.get('geography',{}),'source':c.get('source') or f"https://www.openstreetmap.org/{c['type']}/{c['id']}"}
         try:
             cached=audit_cache.get(canonical_url(url))
             if cached is None:
@@ -156,7 +165,7 @@ def run(candidates, state, target=10, auditor=audit, browser_verifier=None):
                 skipped.append({'source':record['source'],'reason':'legacy_domain_seen_identity_unknown'});continue
             findings=merge_findings(findings)
             if not findings: continue
-            lead={'name':tags['name'],'category':tags['craft'],'location':{'lat':lat,'lon':lon},
+            lead={'name':tags['name'],'category':tags['craft'],'location':{'lat':lat,'lon':lon}, 'geography':c.get('geography',{}),
                   'discovery_source':record['source'],'provider':provider,'provenance':c.get('provenance',{}),
                   'website':final,'checked_at':dt.datetime.now(dt.timezone.utc).isoformat(),'contacts':contacts,
                   'findings':findings,'coverage':getattr(result,'coverage',{}),'fit':fit,'entity':record,
@@ -175,7 +184,7 @@ def run(candidates, state, target=10, auditor=audit, browser_verifier=None):
     verified_count=0
     for lead in pool:
         result=lead.pop('_result')
-        if browser_verifier and verified_count<12 and time.monotonic()-started<900:
+        if browser_verifier and verified_count<browser_budget and time.monotonic()-started<limits['total_seconds']:
             result.findings=lead['findings']
             result=browser_verifier(result)
             lead['findings']=merge_findings(result.findings)
@@ -212,6 +221,7 @@ def run(candidates, state, target=10, auditor=audit, browser_verifier=None):
             review_queue.append(lead)
     for lead in pool:
         lead.pop('_keys',None)
+    state.setdefault('daily_usage', {})[today] = {'screened': usage.get('screened', 0)+screened, 'browser_checks': usage.get('browser_checks', 0)+verified_count}
     state['seen']=sorted(seen)
     state.setdefault('daily',{})[today]=count+len(leads)
     state['entities']=previous_entities+[l['entity'] for l in leads]
@@ -221,6 +231,7 @@ def run(candidates, state, target=10, auditor=audit, browser_verifier=None):
         if relation not in relationships: relationships.append(relation)
     state['related_entities']=relationships
     return {'date':today,'target':target,'qualified_today':count+len(leads),'new_leads':leads,
+            'daily_usage':state['daily_usage'][today],'screened_businesses':screened,'elapsed_seconds':round(time.monotonic()-started,2),'geographic_target':region,'limits':limits,
             'review_queue':review_queue,'audited_sites':checked,'browser_verified_sites':verified_count,
             'related_identities':related_identities,'excluded_businesses':excluded[:30],'shortfall':max(0,target-count-len(leads)), 'skipped':skipped,
             'ranking_scope':'Local-fit candidates and browser-confirmed problems in the bounded audited sample.',
@@ -229,25 +240,29 @@ def run(candidates, state, target=10, auditor=audit, browser_verifier=None):
 
 def main():
     p = argparse.ArgumentParser()
+    p.add_argument('--config', help='Geographic targeting and bounded daily limits JSON')
     p.add_argument('--state', default='state/ledger.json')
     p.add_argument('--output', default='reports')
     p.add_argument('--candidates', help='Offline OSM-format JSON fixture')
     args = p.parse_args()
+    config = load_config(args.config) if args.config else load_config()
     state_path = Path(args.state)
     state = json.loads(state_path.read_text()) if state_path.exists() else {}
     output = Path(args.output)
+    region = select_region(config, state)
+    pool_path = state_path.parent / 'pools' / (fingerprint(region) + '.json')
     pool = None
     try:
         if args.candidates:
             candidates = validate(Path(args.candidates).read_text())
             discovery = {'status': 'success', 'source': 'fixture', 'attempts': []}
         else:
-            candidates, discovery, pool = discover_businesses(QUERY, fetch, state_path.parent / 'pool.json')
+            candidates, discovery, pool = discover_businesses(QUERY, fetch, pool_path, region=region)
     except DiscoveryFailed as e:
         report = {
             'status': 'discovery_failed',
-            'date': dt.datetime.now(ZoneInfo('America/Chicago')).date().isoformat(),
-            'target': 10, 'qualified_today': None, 'shortfall': None,
+            'date': dt.datetime.now(ZoneInfo(config['ledger_timezone'])).date().isoformat(),
+            'target': config['limits']['qualified'], 'geographic_target': region, 'qualified_today': None, 'shortfall': None,
             'new_leads': [], 'skipped': [],
             'message': 'Discovery failed. No research completed; existing ledger and prior lead reports preserved.',
             'discovery': {'status': 'failed', 'attempts': e.attempts},
@@ -262,7 +277,12 @@ def main():
     def polite_audit(url):
         time.sleep(1)
         return audit(url)
-    report, state = run(candidates, state, auditor=polite_audit, browser_verifier=verify_browser)
+    report, state = run(candidates, state, target=config['limits']['qualified'], auditor=polite_audit, browser_verifier=verify_browser,
+                        limits=config['limits'], region=None if args.candidates else region, ledger_timezone=config['ledger_timezone'])
+    report['country_policy'] = config['countries']['US']
+    report['discovered_businesses'] = len(candidates)
+    if not args.candidates:
+        advance(state, region, config)
     report['status'] = 'degraded' if discovery.get('status') == 'degraded' else 'success'
     report['discovery'] = discovery
     output.mkdir(parents=True, exist_ok=True)
@@ -279,12 +299,12 @@ def main():
     temporary.write_text(json.dumps(state, indent=2))
     temporary.replace(state_path)
     if pool is not None:
-        pool_path = state_path.parent / 'pool.json'
+        pool_path.parent.mkdir(parents=True, exist_ok=True)
         temp_pool = pool_path.with_suffix('.tmp')
         temp_pool.write_text(json.dumps(pool, indent=2))
         temp_pool.replace(pool_path)
         shutil.copytree(Path(__file__).with_name('licenses'), state_path.parent / 'licenses', dirs_exist_ok=True)
-    print(f"Qualified today: {report['qualified_today']}/10; new drafts: {len(report['new_leads'])}; shortfall: {report['shortfall']}")
+    print(f"Qualified today: {report['qualified_today']}/{report['target']}; new drafts: {len(report['new_leads'])}; shortfall: {report['shortfall']}")
 
     return 0
 

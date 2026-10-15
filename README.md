@@ -36,4 +36,4 @@ Semantic page structure, visible focus states, a skip link, native form validati
 
 ## Automated prospect review
 
-[Phase 1 prospecting setup, qualification, costs and review instructions](prospecting/README.md). Daily GitHub Actions research targets 10 qualified St. Louis-area service businesses, persists deduplication separately from Pages, and saves evidence and personalized drafts for review. No outreach is sent.
+[Phase 1 prospecting setup, qualification, costs and review instructions](prospecting/README.md). Daily GitHub Actions research rotates across U.S. states, with configurable city/metro targets and conservative limits of 100 screened candidates and 10 qualified service-business prospects, persists deduplication separately from Pages, and saves evidence and personalized drafts for review. No outreach is sent.
