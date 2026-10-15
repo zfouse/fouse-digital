@@ -34,7 +34,9 @@ class Page(HTMLParser):
         self.feed(text)
 
     def handle_starttag(self, tag, attrs):
-        a = dict(attrs)
+        # HTMLParser represents present-but-valueless attributes as None. Browsers
+        # treat their string value as empty; preserve key presence for hidden/etc.
+        a = {key: value if value is not None else '' for key,value in attrs}
         if tag in ('script', 'style'):
             self.hidden_depth += 1
         if a.get('id'):

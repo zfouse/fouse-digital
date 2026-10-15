@@ -7,6 +7,8 @@ from zoneinfo import ZoneInfo
 
 STATES = json.loads(Path(__file__).with_name('us-states.json').read_text())['states']
 ZONES = {**dict.fromkeys('AK'.split(), 'America/Anchorage'), **dict.fromkeys('HI'.split(), 'Pacific/Honolulu'), **dict.fromkeys('CA NV WA OR'.split(), 'America/Los_Angeles'), **dict.fromkeys('AZ'.split(), 'America/Phoenix'), **dict.fromkeys('CO UT NM WY MT ID'.split(), 'America/Denver'), **dict.fromkeys('CT DE FL GA IN KY MA MD ME MI NC NH NJ NY OH PA RI SC VA VT WV DC'.split(), 'America/New_York')}
+# Opportunity ordering only breaks ties; least-visited states always come first.
+STATE_ORDER = 'TX FL CA NC GA OH PA IL AZ CO VA TN NY MI MA MD WA SC NJ IN WI MO MN AL LA KY OR OK CT IA MS AR KS NV UT NE NM WV ID NH ME RI HI MT DE SD ND AK DC VT WY'.split()
 DEFAULT_CONFIG = Path(__file__).with_name('targeting.json')
 
 
@@ -80,10 +82,11 @@ def select_region(config, state):
     if regions:
         region = dict(regions[rotation.get('cursor', 0) % len(regions)])
     else:
-        states = targeting.get('states', []) or sorted(STATES)
-        code = states[rotation.get('cursor', 0) % len(states)]
+        states = targeting.get('states', []) or STATE_ORDER
+        visits = rotation.get('tiles', {})
+        code = min(states, key=lambda s: (visits.get(s, 0), states.index(s)))
         grid = tiles(code)
-        tile = rotation.get('tiles', {}).get(code, 0) % len(grid)
+        tile = rotation.get('next_tiles', {}).get(code, rotation.get('tiles', {}).get(code, 0)) % len(grid)
         region = {'id': f'{code}-{tile}', 'name': STATES[code]['name'], 'country': 'US',
                   'kind': 'state', 'states': [code], 'bbox': grid[tile],
                   'timezone': ZONES.get(code, 'America/Chicago'), 'language': 'en'}
@@ -98,6 +101,7 @@ def advance(state, region, config):
         code = region['states'][0]
         counters = rotation.setdefault('tiles', {})
         counters[code] = counters.get(code, 0)+1
+        rotation.setdefault('next_tiles', {})[code] = int(region['id'].rsplit('-',1)[1])+1
     rotation['last_completed'] = region
 
 

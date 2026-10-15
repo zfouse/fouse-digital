@@ -137,11 +137,24 @@ class ReadOnlyBrowserTests(unittest.TestCase):
                 cls.calls.append(('POST',self.path));self.send_response(200);self.end_headers()
             def do_GET(self):
                 cls.calls.append(('GET',self.path))
-                if self.path=='/missing':
+                if self.path in ('/missing','/missing.css'):
                     self.send_response(404);self.end_headers();return
                 if self.path.startswith('/mobile'):
                     body='<meta name="viewport" content="width=device-width"><a style="display:block;width:650px" href="/contact">Request quote</a>'
+                    if self.path in ('/mobile-clipped','/mobile-limited','/mobile-css-missing','/mobile-analytics'):
+                        body='<meta name="viewport" content="width=device-width"><style>body{overflow:hidden}a{display:block;margin-left:300px;width:200px;text-align:center}</style><a href="/contact">Request quote</a>'
+                    if self.path=='/mobile-offcanvas':body='<style>body{overflow:hidden}a{display:block;margin-left:500px;width:200px}</style><a href=/contact>Request quote</a>'
+                    if self.path=='/mobile-css-missing':body+='<link rel=stylesheet href=/missing.css>'
+                    if self.path=='/mobile-analytics':body+='<script src=https://www.google-analytics.com/analytics.js></script>'
                     if self.path=='/mobile-limited': body+="<script>fetch('/data-needed-for-widget')</script>"
+                elif self.path.startswith('/native'):
+                    body='<meta name="viewport" content="width=device-width"><a href="tel:">Call now</a>'
+                    if self.path=='/native-hover':body+="<script>document.querySelector('a').addEventListener('mouseenter',e=>e.target.href='tel:3145550100')</script>"
+                    if self.path=='/native-delegated':body+="<script>document.addEventListener('click',e=>{e.preventDefault()})</script>"
+                elif self.path=='/inert-booking':
+                    body='<meta name="viewport" content="width=device-width"><a href="#">Book appointment</a>'
+                elif self.path=='/inquiry-clipped':
+                    body='<meta name="viewport" content="width=device-width"><style>body{overflow:hidden}button{margin-left:300px;width:220px}</style><form action="/book" method=post><input name=email aria-label=Email><textarea name=message aria-label=Message></textarea><button>Send inquiry</button></form>'
                 elif self.path=='/router':
                     body='''<meta name="viewport" content="width=device-width"><a id="client-contact" href="/missing">Request quote</a><script>document.addEventListener('click',e=>{if(e.target.id==='client-contact'){e.preventDefault();let d=document.createElement('div');d.setAttribute('role','dialog');d.innerHTML='<form><input aria-label=Email><button>Send</button></form>';document.body.append(d)}})</script>'''
                 else:
@@ -170,7 +183,7 @@ class ReadOnlyBrowserTests(unittest.TestCase):
         self.assertEqual(len(result['coverage']['viewports']),2)
 
     def test_repeated_mobile_contact_clipping_uses_actual_layout(self):
-        result=inspect(self.base+'/mobile',[],checker=lambda u:u,permission=lambda u:True)
+        result=inspect(self.base+'/mobile-clipped',[],checker=lambda u:u,permission=lambda u:True)
         issues=[f for f in result['findings'] if f['code']=='mobile_contact_clipped']
         self.assertEqual(len(issues),1)
         self.assertEqual(issues[0]['status'],'verified')
@@ -220,3 +233,56 @@ class RegressionIntegrationTests(unittest.TestCase):
         self.assertEqual(len(merged),1)
         self.assertEqual(merged[0]['verification'],'browser')
         self.assertEqual(len(merged[0]['evidence_records']),2)
+
+
+class ConversionVerificationRegressionTests(unittest.TestCase):
+    setUpClass = classmethod(ReadOnlyBrowserTests.setUpClass.__func__)
+    tearDownClass = classmethod(ReadOnlyBrowserTests.tearDownClass.__func__)
+    def test_wide_box_with_fully_visible_contact_label_is_harmless(self):
+        result=inspect(self.base+'/mobile',[],checker=lambda u:u,permission=lambda u:True)
+        self.assertFalse(any(f['code']=='mobile_contact_clipped' for f in result['findings']))
+
+    def test_empty_native_phone_is_verified_without_dialing(self):
+        source={'code':'empty_contact_link','status':'verified','verification':'source','impact':42,'url':self.base+'/native','target':'tel:','label':'Call now','evidence':'source empty tel'}
+        result=inspect(self.base+'/native',[source],checker=lambda u:u,permission=lambda u:True)
+        confirmed=[f for f in result['findings'] if f['code']=='empty_contact_link' and f['status']=='verified']
+        self.assertEqual(len(confirmed),1)
+        self.assertEqual(len(result['findings']),1)
+        self.assertIn('"activated": false',confirmed[0]['evidence'])
+        self.assertIsNotNone(draft('Fixture',confirmed[0]))
+
+    def test_delegated_click_handler_keeps_empty_phone_unverified(self):
+        for path in ('/native-delegated','/native-hover'):
+            with self.subTest(path=path):
+                result=inspect(self.base+path,[],checker=lambda u:u,permission=lambda u:True)
+                self.assertFalse(any(f['status']=='verified' for f in result['findings']))
+
+    def test_inert_booking_confirmed_without_navigation_or_booking(self):
+        before=len(self.calls)
+        result=inspect(self.base+'/inert-booking',[],checker=lambda u:u,permission=lambda u:True)
+        self.assertTrue(any(f['code']=='inert_contact_control' and f['status']=='verified' for f in result['findings']))
+        self.assertTrue(result['coverage']['booking_checks'])
+        self.assertFalse(any(method=='POST' or path.startswith('/book') for method,path in self.calls[before:]))
+
+    def test_inquiry_submit_clipping_without_submission(self):
+        before=len(self.calls)
+        result=inspect(self.base+'/inquiry-clipped',[],checker=lambda u:u,permission=lambda u:True)
+        self.assertTrue(any(f['code']=='mobile_contact_clipped' and f['label']=='Send inquiry' and f['status']=='verified' for f in result['findings']))
+        self.assertTrue(result['coverage']['form_checks'][0]['forms'][0]['inquiry'])
+        self.assertFalse(any(method=='POST' or path.startswith('/book') for method,path in self.calls[before:]))
+
+
+    def test_closed_offcanvas_control_is_not_a_mobile_defect(self):
+        result=inspect(self.base+'/mobile-offcanvas',[],checker=lambda u:u,permission=lambda u:True)
+        self.assertFalse(any(f['status']=='verified' for f in result['findings']))
+
+    def test_failed_stylesheet_keeps_clipping_unverified(self):
+        result=inspect(self.base+'/mobile-css-missing',[],checker=lambda u:u,permission=lambda u:True)
+        self.assertEqual(result['coverage']['status'],'limited')
+        self.assertFalse(any(f['status']=='verified' for f in result['findings']))
+
+    def test_optional_analytics_does_not_invent_a_functional_render_failure(self):
+        result=inspect(self.base+'/mobile-analytics',[],checker=lambda u:u,permission=lambda u:True)
+        self.assertGreater(result['coverage']['optional_requests_blocked'],0)
+        self.assertEqual(result['coverage']['essential_resources_failed'],0)
+        self.assertTrue(any(f['status']=='verified' for f in result['findings']))

@@ -91,7 +91,7 @@ class GeographyTests(unittest.TestCase):
         self.assertEqual(again['new_leads'],[])
         exhausted,_=run(rows,state,target=3,auditor=fake_audit,limits=limits,region=REGION)
         self.assertEqual(exhausted['screened_businesses'],0)
-        html=render(report);self.assertIn('qualified today / 3',html);self.assertIn('CO',html);self.assertIn('Commercial suitability',html)
+        html=render(report);self.assertIn('verified daily total / 3',html);self.assertIn('CO',html);self.assertIn('Commercial suitability',html)
 
     def test_discovery_failure_preserves_rotation_ledger_and_legacy_pool(self):
         with tempfile.TemporaryDirectory() as root:

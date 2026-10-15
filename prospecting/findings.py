@@ -26,7 +26,7 @@ def root_key(f):
     if urlsplit(target).scheme not in ('http','https'):
         signature=signature or (f.get('target','')+'|'+f.get('label',''))
         target=f.get('url','')
-    if code in ('viewport','mobile_width','mobile_overflow','mobile_contact_clipped','external_booking_review','empty_contact_link'):
+    if code in ('viewport','mobile_width','mobile_overflow','mobile_contact_clipped','external_booking_review','empty_contact_link','inert_contact_control'):
         target='//' + (urlsplit(f.get('url','')).hostname or '').removeprefix('www.')
     if code in ('form_labels','form_submit','long_form','form_insecure_action'):
         if signature:

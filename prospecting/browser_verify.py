@@ -9,9 +9,11 @@ import time
 from urllib.parse import urlsplit, urljoin
 
 if __package__:
+    from .rendered import SNAPSHOT, mobile_findings, native_contact_findings
     from .fit import link_kind
     from .findings import canonical_url, merge_findings
 else:
+    from rendered import SNAPSHOT, mobile_findings, native_contact_findings
     from fit import link_kind
     from findings import canonical_url, merge_findings
 
@@ -24,15 +26,25 @@ def safe_document(url):
     return p.scheme in ('http','https') and not p.query and not UNSAFE.search(p.path)
 
 
+OPTIONAL_HOSTS = {'google-analytics.com','doubleclick.net','clarity.ms','hotjar.com'}
+
+
+def optional_resource(url):
+    host=(urlsplit(url).hostname or '').lower()
+    return any(host==domain or host.endswith('.'+domain) for domain in OPTIONAL_HOSTS)
+
+
 class Guard:
     def __init__(self, checker, homepage, permission):
         self.checker=checker;self.permission=permission
         self.documents={canonical_url(homepage)}
         self.interacting=False;self.click_navigation_target=None;self.blocked=0;self.dynamic_blocked=0;self.essential_failed=0;self.requests=0
-        self.checked=set()
+        self.checked=set();self.optional_blocked=0;self.render_incomplete=False
 
     def route(self, route):
         req=route.request
+        if optional_resource(req.url):
+            self.optional_blocked+=1;route.abort();return
         self.requests+=1
         resource=req.resource_type
         parsed=urlsplit(req.url)
@@ -52,7 +64,7 @@ class Guard:
             self.blocked+=1;route.abort()
 
 
-def inspect(url, source_findings, checker=None, permission=None):
+def inspect(url, source_findings, checker=None, permission=None, budget_seconds=60):
     from playwright.sync_api import sync_playwright, Error
     if checker is None:
         if __package__:
@@ -75,12 +87,12 @@ def inspect(url, source_findings, checker=None, permission=None):
     permission=permission or (lambda target:False)
     checker(url)
     if not permission(url): raise ValueError('Robots disallows browser verification')
-    deadline=time.monotonic()+60
+    deadline=time.monotonic()+budget_seconds
     def remaining(maximum=12000):
         return max(1,min(maximum,int((deadline-time.monotonic())*1000)))
     guard=Guard(checker,url,permission)
     findings=[dict(f,status='potential',impact=0,evidence_strength=8,verification='awaiting_browser') if f.get('status')=='verified' else dict(f) for f in source_findings]
-    coverage={'status':'complete','browser_checked':True,'viewports':[],'controls':[],'booking_checks':[],'dismissed':[],
+    coverage={'status':'complete','browser_checked':True,'viewports':[],'controls':[],'booking_checks':[],'phone_checks':[],'form_checks':[],'dismissed':[],
               'limitations':['No forms filled/submitted or bookings made.','Dynamic data requests and popup-triggered network requests blocked.','Booking availability and form delivery remain untested.']}
     with sync_playwright() as p:
         browser=p.chromium.launch(headless=True)
@@ -95,12 +107,38 @@ def inspect(url, source_findings, checker=None, permission=None):
         context.on('page',lambda created:created.on('pageerror',lambda error:setattr(guard,'essential_failed',guard.essential_failed+1)))
         page=context.new_page()
         context.on('page',lambda popup:popup.close() if popup.opener() else None)
-        context.on('requestfailed',lambda req:setattr(guard,'essential_failed',guard.essential_failed+int(req.resource_type in ('script','stylesheet'))))
+        context.on('response',lambda response:setattr(guard,'essential_failed',guard.essential_failed+int(response.status>=400 and response.request.resource_type in ('script','stylesheet') and not optional_resource(response.url))))
+        context.on('requestfailed',lambda req:setattr(guard,'essential_failed',guard.essential_failed+int(req.resource_type in ('script','stylesheet') and not optional_resource(req.url))))
         try:
             response=page.goto(url,wait_until='domcontentloaded',timeout=remaining())
             if not response or response.status>=400 or re.search(r'just a moment|access denied|verify you are human',page.title(),re.I):
                 raise ValueError('Browser reached error/challenge page')
+            try:
+                page.wait_for_load_state('load',timeout=remaining(3000))
+            except Error:
+                guard.render_incomplete=True
             page.wait_for_timeout(min(400,remaining(400)))
+            # Inspect rendered contact text and inquiry submits, not wide CSS boxes alone.
+            snapshots=[]
+            for width in (375,390):
+                if time.monotonic()>=deadline: break
+                page.set_viewport_size({'width':width,'height':844})
+                page.evaluate('window.scrollTo(0,0)')
+                page.wait_for_timeout(min(250,remaining(250)))
+                snap=page.evaluate(SNAPSHOT);snapshots.append(snap)
+                coverage['viewports'].append({'width':width,'scroll_width':snap['scroll_width']})
+                for c in snap['controls']:
+                    if c['href'].lower().startswith('tel:'):
+                        coverage['phone_checks'].append({'width':width,'text':c['text'],'href':c['href'],'visible':c['visible'],
+                            'destination_present':bool(c['href'].split(':',1)[1].strip()),'activated':False,'call_completion_tested':False})
+                    if link_kind(urljoin(url,c['href']),c['text'])=='booking':
+                        coverage['booking_checks'].append({'width':width,'text':c['text'],'url':urljoin(url,c['href']),
+                            'visible':c['visible'],'activated':False,'completion_tested':False})
+                coverage['form_checks'].append({'width':width,'forms':snap['forms'],'submission_tested':False})
+            clean=not guard.dynamic_blocked and not guard.essential_failed and not guard.render_incomplete
+            findings.extend(mobile_findings(url,snapshots,clean))
+            findings.extend(native_contact_findings(page,url,snapshots,clean))
+            page.set_viewport_size({'width':1280,'height':900})
             # Only controls outside forms; trial clicks test actionability without navigation.
             controls=page.locator('a,button').all()[:250]
             visible=[]
@@ -150,7 +188,7 @@ def inspect(url, source_findings, checker=None, permission=None):
                     except Error:
                         status=None
                     after=check.locator('[role=dialog]:visible,dialog:visible,form:visible').count()
-                    if status in (404,410) and not guard.essential_failed and not guard.dynamic_blocked:
+                    if status in (404,410) and not guard.essential_failed and not guard.dynamic_blocked and not guard.render_incomplete:
                         f.update(status='verified',impact=50,evidence_strength=30,verification='browser',
                             observation=f'Clicking the visible “{match["text"]}” contact link led to HTTP {status} in Chromium after two matching source checks.',
                             evidence=f['evidence']+f'; actual browser click HTTP {status}; actionable visible link')
@@ -161,30 +199,13 @@ def inspect(url, source_findings, checker=None, permission=None):
                 finally:
                     if check: check.close()
                     guard.interacting=False;guard.click_navigation_target=None
-            # Render at two phone widths. Repeated overflow alone is potential unless a contact control is clipped.
-            clipped={}
-            for width in (375,390):
-                if time.monotonic()>=deadline: break
-                page.set_viewport_size({'width':width,'height':844});page.wait_for_timeout(min(200,remaining(200)))
-                metrics=page.evaluate("""()=>({width:innerWidth,scroll:document.documentElement.scrollWidth,controls:[...document.querySelectorAll('a,button')].filter(el=>!el.closest('form,[hidden],[inert],[aria-hidden="true"]')).map(el=>{let r=el.getBoundingClientRect(),s=getComputedStyle(el);return {text:(el.getAttribute('aria-label')||el.innerText||'').trim().slice(0,100),href:el.getAttribute('href')||'',left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,visible:s.display!=='none'&&s.visibility!=='hidden'&&s.opacity!=='0'}})})""")
-                coverage['viewports'].append({'width':width,'scroll_width':metrics['scroll']})
-                for c in metrics['controls']:
-                    if c['visible'] and c['width']>0 and c['top']>=0 and c['top']<844 and c['left']>=0 and c['right']>width+16 and CONTACT.search(c['text']) and link_kind(c['href'],c['text'])!='social':
-                        key=(c['text'],c['href']);clipped.setdefault(key,[]).append({'width':width,'right':round(c['right'],1)})
-            for (label,target),measurements in clipped.items():
-                if len(measurements)!=2: continue
-                proven=not guard.dynamic_blocked and not guard.essential_failed
-                findings.append({'code':'mobile_contact_clipped','status':'verified' if proven else 'potential','impact':35 if proven else 0,'evidence_strength':27 if proven else 8,
-                    'url':url,'target':urljoin(url,target) if target else url,'label':label,'signature':label,
-                    'observation':f'The “{label}” contact control extended beyond the viewport at both 375px and 390px in Chromium.',
-                    'evidence':json.dumps(measurements),'action':'Adjust the contact control’s responsive layout and recheck both phone widths.','verification':'browser' if proven else 'browser_limited'})
             rendered_forms=page.locator('form:visible').evaluate_all("""forms=>forms.filter(f=>f.getAttribute('role')!=='search'&&!f.querySelector('input[type=search]')).map(f=>({labeled:[...f.querySelectorAll('input:not([type=hidden]):not([type=submit]):not([type=button]),select,textarea')].filter(e=>e.getBoundingClientRect().width>0).every(e=>(e.labels&&e.labels.length)||e.getAttribute('aria-label')||e.title||(e.getAttribute('aria-labelledby')||'').split(' ').some(id=>document.getElementById(id)?.textContent.trim())),submit:!!f.querySelector('button:not([type=button]):not([type=reset]),input[type=submit],input[type=image]')}))""")
-            if rendered_forms and not guard.dynamic_blocked and not guard.essential_failed:
+            if rendered_forms and not guard.dynamic_blocked and not guard.essential_failed and not guard.render_incomplete:
                 for f in findings:
                     if canonical_url(f.get('url',''))!=canonical_url(url): continue
                     if (f['code']=='form_labels' and all(x['labeled'] for x in rendered_forms)) or (f['code']=='form_submit' and all(x['submit'] for x in rendered_forms)):
                         f['status']='dismissed';coverage['dismissed'].append(f)
-            if len(coverage['viewports'])==2 and all(v['scroll_width']<=v['width']+2 for v in coverage['viewports']) and not guard.dynamic_blocked and not guard.essential_failed:
+            if len(coverage['viewports'])==2 and all(v['scroll_width']<=v['width']+2 for v in coverage['viewports']) and not guard.dynamic_blocked and not guard.essential_failed and not guard.render_incomplete:
                 for f in findings:
                     if f['code'] in ('viewport','mobile_width') and canonical_url(f.get('url',''))==canonical_url(url):
                         f['status']='dismissed';coverage['dismissed'].append(f)
@@ -206,7 +227,9 @@ def inspect(url, source_findings, checker=None, permission=None):
                 except Error:
                     coverage['controls'].append({'text':data['text'],'result':'inconclusive','network_blocked':True})
                 finally:guard.interacting=True  # Keep the network locked until this context closes.
-            coverage['status']='limited' if guard.dynamic_blocked or guard.essential_failed else 'complete'
+            coverage['status']='limited' if guard.dynamic_blocked or guard.essential_failed or guard.render_incomplete else 'complete'
+            coverage['optional_requests_blocked']=guard.optional_blocked
+            coverage['render_incomplete']=guard.render_incomplete
             coverage['blocked_requests']=guard.blocked
             coverage['dynamic_requests_blocked']=guard.dynamic_blocked
             coverage['essential_resources_failed']=guard.essential_failed
@@ -215,10 +238,50 @@ def inspect(url, source_findings, checker=None, permission=None):
     return {'findings':merge_findings([f for f in findings if f['status']!='dismissed']), 'coverage':coverage}
 
 
+def inspect_pages(request, inspector=inspect):
+    """At most two already-discovered same-site documents, never a form action crawl."""
+    url=request['url'];source=request['findings']
+    hostname=(urlsplit(url).hostname or '').removeprefix('www.')
+    pages=[url]
+    for page in request.get('pages',[]):
+        if ((urlsplit(page).hostname or '').removeprefix('www.')==hostname and safe_document(page) and
+                canonical_url(page) not in [canonical_url(p) for p in pages]):
+            pages.append(page)
+    weights={'empty_contact_link':60,'broken_cta':55,'cta_fragment':35,'form_submit':25,'form_labels':20}
+    pages.sort(key=lambda page:-max((weights.get(f['code'],0) for f in source if canonical_url(f.get('url',''))==canonical_url(page)),default=0))
+    remaining_findings=list(source);findings=[];observations=[]
+    coverage={'status':'complete','browser_checked':True,'controls':[],'viewports':[],'form_checks':[],
+              'booking_checks':[],'phone_checks':[],'dismissed':[],'limitations':[],'blocked_requests':0,'dynamic_requests_blocked':0,
+              'essential_resources_failed':0,'optional_requests_blocked':0,'page_results':observations,'uninspected_pages':pages[2:]}
+    for page in pages[:2]:
+        scoped=[f for f in source if canonical_url(f.get('url',''))==canonical_url(page)]
+        remaining_findings=[f for f in remaining_findings if f not in scoped]
+        try:
+            result=inspector(page,scoped,budget_seconds=25)
+            findings.extend(result['findings']);checked=result['coverage']
+            observations.append({'url':page,**checked})
+            for key in ('controls','viewports','form_checks','booking_checks','phone_checks','dismissed'):
+                coverage[key].extend(checked.get(key,[]))
+            for key in ('blocked_requests','dynamic_requests_blocked','essential_resources_failed','optional_requests_blocked'):
+                coverage[key]+=checked.get(key,0)
+            coverage['limitations'].extend(checked.get('limitations',[]))
+            if checked['status']!='complete':coverage['status']='limited'
+        except Exception as error:
+            observations.append({'url':page,'status':'unavailable','reason':type(error).__name__+': '+str(error)[:350]})
+            findings.extend(dict(f,status='potential',impact=0,evidence_strength=8,verification='browser_unavailable') for f in scoped)
+            coverage['status']='limited'
+    findings.extend(dict(f,status='potential',impact=0,evidence_strength=8,verification='not_browser_inspected') for f in remaining_findings)
+    coverage['limitations']=sorted(set(coverage['limitations']+['Only up to two already-discovered same-site pages inspected; no form delivery, calling or booking tested.']))
+    coverage['pages_attempted']=len(observations)
+    if observations and all(p['status']=='unavailable' for p in observations):
+        coverage['status']='unavailable';coverage['browser_checked']=False
+    return {'findings':merge_findings(findings),'coverage':coverage}
+
+
 def verify(result):
     with tempfile.TemporaryDirectory() as root:
         inp=Path(root)/'input.json';out=Path(root)/'output.json'
-        inp.write_text(json.dumps({'url':result.final,'findings':result.findings}))
+        inp.write_text(json.dumps({'url':result.final,'findings':result.findings,'pages':[p['url'] for p in result.coverage.get('pages',[])]}))
         try:
             child=subprocess.run([sys.executable,str(Path(__file__).resolve()),str(inp),str(out)],timeout=80,capture_output=True,text=True)
             payload=json.loads(out.read_text()) if out.exists() else {}
@@ -235,7 +298,7 @@ def verify(result):
 if __name__=='__main__':
     try:
         request=json.loads(Path(sys.argv[1]).read_text())
-        payload=inspect(request['url'],request['findings'])
+        payload=inspect_pages(request)
         Path(sys.argv[2]).write_text(json.dumps(payload))
     except Exception as e:
         Path(sys.argv[2]).write_text(json.dumps({'error':type(e).__name__+': '+str(e)[:500]}));sys.exit(1)
