@@ -22,12 +22,13 @@ def draft(name, finding, category='service'):
         return None
     label = finding.get('label', 'contact')
     if finding['code'] == 'broken_cta':
-        offer = f'I can help repair that {label.lower()} destination and check the route from your homepage to the inquiry page.'
+        offer = f'I can help repair the “{label}” link and check the route from your homepage to the inquiry page.'
     elif finding['code'] == 'empty_contact_link':
         offer = 'I can help connect that button to the correct business contact and check the path on a phone.'
     else:
         return None
+    service = {'plumber': 'plumbing', 'roofer': 'roofing', 'hvac': 'heating and cooling', 'electrician': 'electrical', 'landscaper': 'landscaping', 'painter': 'painting', 'carpenter': 'carpentry'}.get(category, category)
     return {'subject': f'{name}: your {label[:55]} link',
-            'body': f'Hi {name} team,\n\nI’m Zach with Fouse Digital. While reviewing your {category} website at {finding["url"]}, I found a specific contact-path issue: {finding["observation"]}\n\n{offer} Would you like me to send a short lead-path review showing the link and suggested fix?\n\nZach\nFouse Digital\nhttps://zfouse.github.io/fouse-digital/',
+            'body': f'Hi {name} team,\n\nI’m Zach with Fouse Digital. While reviewing your {service} website at {finding["url"]}, I found a specific contact-path issue: {finding["observation"]}\n\n{offer} Would you like me to send a short lead-path review showing the link and suggested fix?\n\nZach\nFouse Digital\nhttps://zfouse.github.io/fouse-digital/',
             'finding_code': finding['code'], 'evidence_url': finding['url'],
             'status': 'draft — human review required; never sent'}
