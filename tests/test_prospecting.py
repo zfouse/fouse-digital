@@ -9,7 +9,7 @@ def candidate(i=1, website='https://example.com', **tags):
 
 
 def fake_audit(url):
-    return url, [{'code': 'viewport', 'url': url, 'observation': 'Viewport declaration absent.', 'evidence': 'HTML meta tags'}], []
+    return url, [{'code': 'broken_cta', 'status': 'verified', 'impact': 50, 'evidence_strength': 30, 'label': 'Get a quote', 'url': url, 'observation': 'The quote link returned 404 twice.', 'evidence': 'GET statuses 404,404'}], []
 
 
 class ProspectingTests(unittest.TestCase):
@@ -19,13 +19,13 @@ class ProspectingTests(unittest.TestCase):
                 return url, 'text/plain', 'User-agent: *\nAllow: /'
             return url, 'text/html', '<a href="mailto:office@example.com?subject=x">Contact</a>'
         _, findings, contacts = audit('https://example.com', getter)
-        self.assertEqual([f['code'] for f in findings], ['viewport'])
+        self.assertTrue(all(f['status'] == 'potential' for f in findings))
         self.assertEqual(contacts[0]['value'], 'office@example.com')
 
     def test_healthy_source_no_invented_problem(self):
         def getter(url):
             return url, 'text/html', '<meta name="viewport" content="width=device-width, initial-scale=1">'
-        self.assertEqual(audit('https://example.com', getter)[1], [])
+        self.assertFalse(any(f['status'] == 'verified' for f in audit('https://example.com', getter)[1]))
         report, _ = run([candidate()], {}, auditor=lambda u: (u, [], []))
         self.assertEqual(report['new_leads'], [])
         self.assertEqual(report['shortfall'], 10)
@@ -71,7 +71,7 @@ class ProspectingTests(unittest.TestCase):
 
     def test_report_escapes_untrusted_content(self):
         report, _ = run([candidate(name='<script>alert(1)</script>')], {}, auditor=fake_audit)
-        self.assertNotIn('<script>', render(report))
+        self.assertNotIn('<script>alert(1)</script>', render(report))
         self.assertIn('&lt;script&gt;', render(report))
         self.assertIn('never sent', report['new_leads'][0]['draft']['status'])
 

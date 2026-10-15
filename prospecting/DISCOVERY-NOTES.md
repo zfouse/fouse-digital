@@ -1,5 +1,7 @@
 # Discovery investigation and validation
 
+These are historical discovery validation results. The current conversion-quality policy in `README.md` is stricter: earlier HTTP/viewport-only leads are not automatically reclassified as verified conversion prospects. Existing historical reports remain unchanged.
+
 ## Actual failure at commit 63a8b26
 
 Downloaded the diagnostic artifact and inspected failed step logs for [Daily prospect review run 38678044393](https://github.com/zfouse/fouse-digital/actions/runs/38678044393). The primary `overpass-api.de` returned HTTP 504 three times. The fallback `overpass.private.coffee` returned HTTP 500 on its first attempt, which the earlier retry policy treated as permanent. The process exited 2. Its diagnostic upload worked and the ledger was preserved. This was a provider availability failure, not evidence that no businesses exist. Retrying more Overpass hosts alone would retain the same architectural dependency.
@@ -32,3 +34,10 @@ The subsequent exact painting mapping expands discovery; counts will differ by r
 ## GitHub-hosted live verification
 
 [Read-only validation run 38680199414](https://github.com/zfouse/fouse-digital/actions/runs/38680199414) passed on the PR branch. Its live job completed in **2 minutes 19 seconds**. The downloaded artifact confirms the Overture provider discovered **1,207 candidates** after adding the exact painting category, using release `2026-09-23.1`; **10 qualified leads and 10 drafts** were produced, shortfall zero, with **16 website errors skipped**. No Overpass fallback was required. The scratch ledger/pool were never pushed to production. The validated provider/audit code is unchanged by the subsequent report-health and license-notice additions, which pass the same automated integration suite. Daily production branch persistence remains a post-merge operation.
+
+
+## Conversion-quality validation
+
+The stricter conversion audit was run live against 150 records from the existing saved discovery pool using isolated scratch state. It found **one verified qualified prospect** and retained ten potential-only records in the browser-inspection queue. West County Gardens’ “Get in Touch” destination returned HTTP 404 on two checks; the draft uses that specific observation. HTTP/viewport-only observations did not fill the remaining daily slots. This is a sampled result, not a promise of ten confirmed conversion defects every day. No forms, quote requests, bookings or outreach were submitted and no production ledger was changed.
+
+45 automated tests pass, including GET-only local HTTP integration, verified/potential separation, normalized contacts, ranking/selection and append-only historical report preservation. Dashboard browser QA at 1440px and 390px passed: business search, copy/fallback, no horizontal overflow and no console errors. Browser QA of the dashboard is separate from the source-only audits of business websites.
