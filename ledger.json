@@ -38,5 +38,37 @@
     "ed0e9fabc0d8ee92fab942a70e23afb6ca3e0d32ecf9f58d17dbd5130c0a1cdf",
     "f0e3fd4cb2a0f037ad9dc3d89bb2b083dbe85608125f1b0fc3dddfce3f636f0a",
     "f41c2cbd22bfc3f736b31c8d000652f30bca63ebdbb010cff7e761d569d0b3e4"
-  ]
+  ],
+  "daily_usage": {
+    "2026-10-15": {
+      "screened": 100,
+      "browser_checks": 12
+    }
+  },
+  "entities": [],
+  "finding_seen": [],
+  "related_entities": [],
+  "geo_rotation": {
+    "cursor": 1,
+    "tiles": {
+      "AK": 1
+    },
+    "last_completed": {
+      "id": "AK-0",
+      "name": "Alaska",
+      "country": "US",
+      "kind": "state",
+      "states": [
+        "AK"
+      ],
+      "bbox": [
+        -150.3,
+        60.92,
+        -149.5,
+        61.52
+      ],
+      "timezone": "America/Anchorage",
+      "language": "en"
+    }
+  }
 }

@@ -1,0 +1,3315 @@
+{
+  "date": "2026-10-15",
+  "target": 10,
+  "qualified_today": 1,
+  "new_leads": [],
+  "daily_usage": {
+    "screened": 100,
+    "browser_checks": 12
+  },
+  "screened_businesses": 100,
+  "elapsed_seconds": 318.17,
+  "geographic_target": {
+    "id": "AK-0",
+    "name": "Alaska",
+    "country": "US",
+    "kind": "state",
+    "states": [
+      "AK"
+    ],
+    "bbox": [
+      -150.3,
+      60.92,
+      -149.5,
+      61.52
+    ],
+    "timezone": "America/Anchorage",
+    "language": "en"
+  },
+  "limits": {
+    "screened": 100,
+    "qualified": 10,
+    "browser_checks": 12,
+    "static_seconds": 300,
+    "total_seconds": 900
+  },
+  "review_queue": [
+    {
+      "name": "AK Mow & Snow",
+      "category": "landscaper",
+      "location": {
+        "lat": 61.13224792480469,
+        "lon": -149.92041015625
+      },
+      "geography": {
+        "country": "US",
+        "state": "AK",
+        "city": "Anchorage",
+        "source": "https://explore.overturemaps.org/?id=0eb21197-b597-4b1e-9aaf-2aa8611a5a5a",
+        "language": "en",
+        "timezone": "America/Anchorage",
+        "target_id": "AK-0"
+      },
+      "discovery_source": "https://explore.overturemaps.org/?id=0eb21197-b597-4b1e-9aaf-2aa8611a5a5a",
+      "provider": "overture",
+      "provenance": {
+        "release": "2026-09-23.1",
+        "category": "landscaping",
+        "confidence": 0.9199122190475464,
+        "brand": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "Microsoft",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "562949962746956",
+            "update_time": "2025-08-06T12:49:20.247Z",
+            "confidence": 0.85,
+            "between": null,
+            "provider": "microsoft",
+            "resource": "microsoft",
+            "version": "2025-10-20"
+          },
+          {
+            "property": "/properties/confidence",
+            "dataset": "Overture",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": null,
+            "update_time": "2026-09-17T22:52:12Z",
+            "confidence": null,
+            "between": null,
+            "provider": "overture",
+            "resource": "confidence_calculation",
+            "version": "2026-09-17"
+          },
+          {
+            "property": "/properties/operating_status",
+            "dataset": "Overture-signals",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "4876ed3e-ef82-4f83-83ee-565a527cf2d5",
+            "update_time": "2026-09-14T15:43:16Z",
+            "confidence": 1.0,
+            "between": null,
+            "provider": "overture",
+            "resource": "operating_status_signal",
+            "version": "2026-09-14"
+          }
+        ],
+        "attribution": "Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/"
+      },
+      "website": "https://akmowandsnow.com/",
+      "checked_at": "2026-10-15T21:22:40.037121+00:00",
+      "contacts": [
+        {
+          "kind": "email",
+          "value": "estimate@akmowandsnow.com",
+          "source": "https://akmowandsnow.com/",
+          "normalized": "estimate@akmowandsnow.com",
+          "sources": [
+            "https://akmowandsnow.com/",
+            "https://akmowandsnow.com/lawn-maintenance-estimate/",
+            "https://akmowandsnow.com/snow-removal-estimate/"
+          ]
+        },
+        {
+          "kind": "phone",
+          "value": "9074401563",
+          "source": "https://explore.overturemaps.org/?id=0eb21197-b597-4b1e-9aaf-2aa8611a5a5a",
+          "normalized": "9074401563",
+          "sources": [
+            "https://explore.overturemaps.org/?id=0eb21197-b597-4b1e-9aaf-2aa8611a5a5a"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "empty_contact_link",
+          "observation": "The “Share by MailShare by Mail” link contains an empty mailto destination.",
+          "url": "https://akmowandsnow.com/",
+          "evidence": "anchor text='Share by MailShare by Mail'; href='mailto:?subject=Anchorage%20Snow%20and%20Lawn%20Service&body=https://akmowandsnow.com/'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Connect this contact link to the correct public business contact.",
+          "verification": "awaiting_browser",
+          "label": "Share by MailShare by Mail",
+          "target": "mailto:?subject=Anchorage%20Snow%20and%20Lawn%20Service&body=https://akmowandsnow.com/",
+          "root_cause_id": "089eb010aaa58d7d48f69d2a14b23e4525dd203066bbb68e0c4b0d5c5c311350",
+          "sources": [
+            "https://akmowandsnow.com/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://akmowandsnow.com/",
+              "evidence": "anchor text='Share by MailShare by Mail'; href='mailto:?subject=Anchorage%20Snow%20and%20Lawn%20Service&body=https://akmowandsnow.com/'"
+            }
+          ]
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://akmowandsnow.com/",
+          "evidence": "width values=['1024', '1025', '1080', '1140', '200', '2560', '300', '320']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport.",
+          "verification": "source",
+          "root_cause_id": "540c7ba0171b3c8adabcc2649ae300b7f5a7289e83755157086f58b9a48bd891",
+          "sources": [
+            "https://akmowandsnow.com/",
+            "https://akmowandsnow.com/lawn-maintenance-estimate/",
+            "https://akmowandsnow.com/snow-removal-estimate/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://akmowandsnow.com/",
+              "evidence": "width values=['1024', '1025', '1080', '1140', '200', '2560', '300', '320']"
+            },
+            {
+              "url": "https://akmowandsnow.com/lawn-maintenance-estimate/",
+              "evidence": "width values=['300', '600']"
+            },
+            {
+              "url": "https://akmowandsnow.com/snow-removal-estimate/",
+              "evidence": "width values=['300', '600']"
+            }
+          ]
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://akmowandsnow.com/lawn-maintenance-estimate/",
+          "evidence": "form 1; field count=18",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser.",
+          "verification": "source",
+          "signature": "{\"action\": \"https://akmowandsnow.com/lawn-maintenance-estimate/\", \"fields\": [[\"ak_hp_textarea\", null, null], [\"input_13.3\", \"text\", \"input_1_13_3\"], [\"input_13.6\", \"text\", \"input_1_13_6\"], [\"input_14\", \"tel\", \"input_1_14\"], [\"input_15\", \"email\", \"input_1_15\"], [\"input_16.1\", \"text\", \"input_1_16_1\"], [\"input_16.3\", \"text\", \"input_1_16_3\"], [\"input_16.4\", \"text\", \"input_1_16_4\"], [\"input_16.5\", \"text\", \"input_1_16_5\"], [\"input_11\", \"text\", \"input_1_11\"], [\"input_6\", null, \"input_1_6\"], [\"input_7.1\", \"checkbox\", \"choice_1_7_1\"], [\"input_7.2\", \"checkbox\", \"choice_1_7_2\"], [\"input_7.3\", \"checkbox\", \"choice_1_7_3\"], [\"input_7.4\", \"checkbox\", \"choice_1_7_4\"], [\"input_7.5\", \"checkbox\", \"choice_1_7_5\"], [\"input_10\", null, \"input_1_10\"], [\"input_9\", null, \"input_1_9\"]], \"method\": \"post\"}",
+          "root_cause_id": "a8bf4fc780e52ed101c10db8d75c28d8b84662511317f93d8a216c51487a393b",
+          "sources": [
+            "https://akmowandsnow.com/lawn-maintenance-estimate/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://akmowandsnow.com/lawn-maintenance-estimate/",
+              "evidence": "form 1; field count=18"
+            }
+          ]
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://akmowandsnow.com/snow-removal-estimate/",
+          "evidence": "form 1; field count=14",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser.",
+          "verification": "source",
+          "signature": "{\"action\": \"https://akmowandsnow.com/snow-removal-estimate/\", \"fields\": [[\"ak_hp_textarea\", null, null], [\"input_12.3\", \"text\", \"input_2_12_3\"], [\"input_12.6\", \"text\", \"input_2_12_6\"], [\"input_13\", \"tel\", \"input_2_13\"], [\"input_14\", \"email\", \"input_2_14\"], [\"input_3.1\", \"text\", \"input_2_3_1\"], [\"input_3.3\", \"text\", \"input_2_3_3\"], [\"input_3.4\", \"text\", \"input_2_3_4\"], [\"input_3.5\", \"text\", \"input_2_3_5\"], [\"input_11\", \"text\", \"input_2_11\"], [\"input_6\", null, \"input_2_6\"], [\"input_7.1\", \"checkbox\", \"choice_2_7_1\"], [\"input_7.2\", \"checkbox\", \"choice_2_7_2\"], [\"input_7.3\", \"checkbox\", \"choice_2_7_3\"]], \"method\": \"post\"}",
+          "root_cause_id": "3892c66679c772df0c94c30b937c1d0ec6a3c7cba9eefc52827576ac4f6c9299",
+          "sources": [
+            "https://akmowandsnow.com/snow-removal-estimate/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://akmowandsnow.com/snow-removal-estimate/",
+              "evidence": "form 1; field count=14"
+            }
+          ]
+        }
+      ],
+      "coverage": {
+        "pages": [
+          {
+            "url": "https://akmowandsnow.com/",
+            "forms": 0,
+            "cta_links": 20,
+            "booking_links": []
+          },
+          {
+            "url": "https://akmowandsnow.com/lawn-maintenance-estimate/",
+            "forms": 2,
+            "cta_links": 11,
+            "booking_links": []
+          },
+          {
+            "url": "https://akmowandsnow.com/snow-removal-estimate/",
+            "forms": 2,
+            "cta_links": 11,
+            "booking_links": []
+          }
+        ],
+        "link_checks": [
+          {
+            "url": "https://akmowandsnow.com/lawn-maintenance-estimate/",
+            "result": "loaded"
+          },
+          {
+            "url": "https://akmowandsnow.com/snow-removal-estimate/",
+            "result": "loaded"
+          }
+        ],
+        "browser_checked": true,
+        "limitations": [
+          "No forms filled/submitted or bookings made.",
+          "Dynamic data requests and popup-triggered network requests blocked.",
+          "Booking availability and form delivery remain untested."
+        ],
+        "browser": {
+          "status": "limited",
+          "browser_checked": true,
+          "viewports": [
+            {
+              "width": 375,
+              "scroll_width": 375
+            },
+            {
+              "width": 390,
+              "scroll_width": 390
+            }
+          ],
+          "controls": [
+            {
+              "text": "Contact Us",
+              "href": "https://akmowandsnow.com/contact-us/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "free snow removal estimate",
+              "href": "https://akmowandsnow.com/snow-removal-estimate/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "free roof shoveling removal estimate",
+              "href": "https://akmowandsnow.com/roof-shoveling-estimate/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "free lawn maintenance estimate",
+              "href": "https://akmowandsnow.com/lawn-maintenance-estimate/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "Free Estimate",
+              "href": "https://akmowandsnow.com/free-estimates/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "FREE ESTIMATE",
+              "href": "https://akmowandsnow.com/free-estimates/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "Get a free lawn maintenance or snow removal estimate!",
+              "href": "https://akmowandsnow.com/free-estimates/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "Free Snow Removal Estimate",
+              "href": "https://akmowandsnow.com/snow-removal-estimate/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "Contact",
+              "href": "https://akmowandsnow.com/contact-us/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "Free Sanding & Snow Hauling Estimate",
+              "href": "https://akmowandsnow.com/snow-removal-estimate/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            }
+          ],
+          "booking_checks": [],
+          "dismissed": [],
+          "limitations": [
+            "No forms filled/submitted or bookings made.",
+            "Dynamic data requests and popup-triggered network requests blocked.",
+            "Booking availability and form delivery remain untested."
+          ],
+          "blocked_requests": 2,
+          "dynamic_requests_blocked": 1,
+          "essential_resources_failed": 1
+        }
+      },
+      "fit": {
+        "eligible": true,
+        "score": 12,
+        "ownership": "unknown",
+        "reasons": [
+          "Listed service business inside the configured local research area."
+        ],
+        "evidence_url": "https://akmowandsnow.com/"
+      },
+      "entity": {
+        "provider": "overture",
+        "id": "0eb21197-b597-4b1e-9aaf-2aa8611a5a5a",
+        "name": "AK Mow & Snow",
+        "website": "http://www.akmowandsnow.com/",
+        "geography": {
+          "country": "US",
+          "state": "AK",
+          "city": "Anchorage",
+          "source": "https://explore.overturemaps.org/?id=0eb21197-b597-4b1e-9aaf-2aa8611a5a5a",
+          "language": "en",
+          "timezone": "America/Anchorage",
+          "target_id": "AK-0"
+        },
+        "source": "https://explore.overturemaps.org/?id=0eb21197-b597-4b1e-9aaf-2aa8611a5a5a",
+        "contact_keys": [
+          "f1610da2b0ab9f3468104edee7decf21f90446e921a903b9ffad88bc116225ac",
+          "bc3ada409e8e5ea0e9241c18bc7226e2492bf4f3ab0ac652700592535bb8dab1"
+        ]
+      },
+      "related_businesses": [],
+      "ranking": {
+        "score": 0,
+        "impact": 0,
+        "evidence_strength": 0,
+        "fit": 12,
+        "remediation": 0,
+        "priority": "Browser review",
+        "reason": "Observed customer contact-path impact 0/45; evidence 0/30; business fit 12/20; actionable remedy 0/5. Potential findings add no points.",
+        "limitations": "Relative priority among audited prospects, not predicted lost leads or revenue."
+      }
+    },
+    {
+      "name": "Megawatt Electric, LLC",
+      "category": "electrician",
+      "location": {
+        "lat": 61.19829559326172,
+        "lon": -149.89205932617188
+      },
+      "geography": {
+        "country": "US",
+        "state": "AK",
+        "city": "Anchorage",
+        "source": "https://explore.overturemaps.org/?id=95e3afed-097a-427f-8f13-e94d560e5cfc",
+        "language": "en",
+        "timezone": "America/Anchorage",
+        "target_id": "AK-0"
+      },
+      "discovery_source": "https://explore.overturemaps.org/?id=95e3afed-097a-427f-8f13-e94d560e5cfc",
+      "provider": "overture",
+      "provenance": {
+        "release": "2026-09-23.1",
+        "category": "electrician",
+        "confidence": 0.9199122190475464,
+        "brand": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "Microsoft",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "1688849860498402",
+            "update_time": "2024-06-27T16:39:10.693Z",
+            "confidence": 0.85,
+            "between": null,
+            "provider": "microsoft",
+            "resource": "microsoft",
+            "version": "2025-10-20"
+          },
+          {
+            "property": "/properties/confidence",
+            "dataset": "Overture",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": null,
+            "update_time": "2026-09-17T22:52:12Z",
+            "confidence": null,
+            "between": null,
+            "provider": "overture",
+            "resource": "confidence_calculation",
+            "version": "2026-09-17"
+          },
+          {
+            "property": "/properties/operating_status",
+            "dataset": "Overture-signals",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "d784cbf7-ee65-4e96-a7ea-5a74cb8acf13",
+            "update_time": "2026-09-14T15:43:16Z",
+            "confidence": 1.0,
+            "between": null,
+            "provider": "overture",
+            "resource": "operating_status_signal",
+            "version": "2026-09-14"
+          }
+        ],
+        "attribution": "Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/"
+      },
+      "website": "https://www.megawattelectric.com/",
+      "checked_at": "2026-10-15T21:24:47.772711+00:00",
+      "contacts": [
+        {
+          "kind": "email",
+          "value": "info@megawattelectric.com",
+          "source": "https://www.megawattelectric.com/",
+          "normalized": "info@megawattelectric.com",
+          "sources": [
+            "https://www.megawattelectric.com/",
+            "https://www.megawattelectric.com/contact-us/"
+          ]
+        },
+        {
+          "kind": "email",
+          "value": "jobs@megawattelectric.com",
+          "source": "https://www.megawattelectric.com/contact-us/",
+          "normalized": "jobs@megawattelectric.com",
+          "sources": [
+            "https://www.megawattelectric.com/contact-us/"
+          ]
+        },
+        {
+          "kind": "email",
+          "value": "ethics@megawattelectric.com",
+          "source": "https://www.megawattelectric.com/contact-us/",
+          "normalized": "ethics@megawattelectric.com",
+          "sources": [
+            "https://www.megawattelectric.com/contact-us/"
+          ]
+        },
+        {
+          "kind": "phone",
+          "value": "9072776002",
+          "source": "https://explore.overturemaps.org/?id=95e3afed-097a-427f-8f13-e94d560e5cfc",
+          "normalized": "9072776002",
+          "sources": [
+            "https://explore.overturemaps.org/?id=95e3afed-097a-427f-8f13-e94d560e5cfc"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "empty_contact_link",
+          "observation": "The “907.277.6002” link contains an empty tel destination.",
+          "url": "https://www.megawattelectric.com/",
+          "evidence": "anchor text='907.277.6002'; href='tel:'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Connect this contact link to the correct public business contact.",
+          "verification": "awaiting_browser",
+          "label": "907.277.6002",
+          "target": "tel:",
+          "root_cause_id": "d7c3770ad4a6de71d5015301b0a01de8c8293cb84fba9fce665637cdcad50978",
+          "sources": [
+            "https://www.megawattelectric.com/",
+            "https://www.megawattelectric.com/contact-us/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://www.megawattelectric.com/",
+              "evidence": "anchor text='907.277.6002'; href='tel:'"
+            },
+            {
+              "url": "https://www.megawattelectric.com/contact-us/",
+              "evidence": "anchor text='907.277.6002'; href='tel:'"
+            }
+          ]
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.megawattelectric.com/",
+          "evidence": "width values=['100', '1024', '1025', '106', '1170', '1199', '1200', '160']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport.",
+          "verification": "source",
+          "root_cause_id": "aeccf1c4c139287441e17edae1a971ff9f15dd541420e6cfc6a2f4f550f1136f",
+          "sources": [
+            "https://www.megawattelectric.com/",
+            "https://www.megawattelectric.com/contact-us/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://www.megawattelectric.com/",
+              "evidence": "width values=['100', '1024', '1025', '106', '1170', '1199', '1200', '160']"
+            },
+            {
+              "url": "https://www.megawattelectric.com/contact-us/",
+              "evidence": "width values=['1024', '1025', '106', '1170', '1199', '1200', '160', '2000']"
+            }
+          ]
+        }
+      ],
+      "coverage": {
+        "pages": [
+          {
+            "url": "https://www.megawattelectric.com/",
+            "forms": 0,
+            "cta_links": 2,
+            "booking_links": []
+          },
+          {
+            "url": "https://www.megawattelectric.com/contact-us/",
+            "forms": 0,
+            "cta_links": 2,
+            "booking_links": []
+          }
+        ],
+        "link_checks": [
+          {
+            "url": "https://www.megawattelectric.com/contact-us/",
+            "result": "loaded"
+          }
+        ],
+        "browser_checked": true,
+        "limitations": [
+          "No forms filled/submitted or bookings made.",
+          "Dynamic data requests and popup-triggered network requests blocked.",
+          "Booking availability and form delivery remain untested."
+        ],
+        "browser": {
+          "status": "complete",
+          "browser_checked": true,
+          "viewports": [
+            {
+              "width": 375,
+              "scroll_width": 399
+            },
+            {
+              "width": 390,
+              "scroll_width": 407
+            }
+          ],
+          "controls": [
+            {
+              "text": "CONTACT US",
+              "href": "https://www.megawattelectric.com/contact-us/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "CONTACT US",
+              "href": "https://www.megawattelectric.com/contact-us/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            }
+          ],
+          "booking_checks": [],
+          "dismissed": [],
+          "limitations": [
+            "No forms filled/submitted or bookings made.",
+            "Dynamic data requests and popup-triggered network requests blocked.",
+            "Booking availability and form delivery remain untested."
+          ],
+          "blocked_requests": 2,
+          "dynamic_requests_blocked": 0,
+          "essential_resources_failed": 0
+        }
+      },
+      "fit": {
+        "eligible": true,
+        "score": 12,
+        "ownership": "unknown",
+        "reasons": [
+          "Listed service business inside the configured local research area."
+        ],
+        "evidence_url": "https://www.megawattelectric.com/"
+      },
+      "entity": {
+        "provider": "overture",
+        "id": "95e3afed-097a-427f-8f13-e94d560e5cfc",
+        "name": "Megawatt Electric, LLC",
+        "website": "http://www.megawattelectric.com/",
+        "geography": {
+          "country": "US",
+          "state": "AK",
+          "city": "Anchorage",
+          "source": "https://explore.overturemaps.org/?id=95e3afed-097a-427f-8f13-e94d560e5cfc",
+          "language": "en",
+          "timezone": "America/Anchorage",
+          "target_id": "AK-0"
+        },
+        "source": "https://explore.overturemaps.org/?id=95e3afed-097a-427f-8f13-e94d560e5cfc",
+        "contact_keys": [
+          "98785fef9e4746a50cc96a82c97c7fc135e7cf8aa1dee24a27e1f6335b37136c",
+          "12976f73493c8b4e2e3f465561cfa9ad756342d00d6ce27060d449db417ada42",
+          "0d63d86436805fd31a53b7f1ecbee23e67d4cbb8c278c154464c7c805278f4d4",
+          "ff34d8af3523a593cddc6d0bd1a3a366fd37947be18a4a32f92d7d7612c5a2ba"
+        ]
+      },
+      "related_businesses": [],
+      "ranking": {
+        "score": 0,
+        "impact": 0,
+        "evidence_strength": 0,
+        "fit": 12,
+        "remediation": 0,
+        "priority": "Browser review",
+        "reason": "Observed customer contact-path impact 0/45; evidence 0/30; business fit 12/20; actionable remedy 0/5. Potential findings add no points.",
+        "limitations": "Relative priority among audited prospects, not predicted lost leads or revenue."
+      }
+    },
+    {
+      "name": "Reds Roofing & Renovations LLC",
+      "category": "roofer",
+      "location": {
+        "lat": 61.14612579345703,
+        "lon": -149.84910583496094
+      },
+      "geography": {
+        "country": "US",
+        "state": "AK",
+        "city": "Anchorage",
+        "source": "https://explore.overturemaps.org/?id=ca8ee638-605f-4470-bf6d-0fae78a17b99",
+        "language": "en",
+        "timezone": "America/Anchorage",
+        "target_id": "AK-0"
+      },
+      "discovery_source": "https://explore.overturemaps.org/?id=ca8ee638-605f-4470-bf6d-0fae78a17b99",
+      "provider": "overture",
+      "provenance": {
+        "release": "2026-09-23.1",
+        "category": "roofing",
+        "confidence": 0.9199122190475464,
+        "brand": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "Microsoft",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "562949965812843",
+            "update_time": "2025-06-26T06:44:15.827Z",
+            "confidence": 0.85,
+            "between": null,
+            "provider": "microsoft",
+            "resource": "microsoft",
+            "version": "2025-10-20"
+          },
+          {
+            "property": "/properties/confidence",
+            "dataset": "Overture",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": null,
+            "update_time": "2026-09-17T22:52:12Z",
+            "confidence": null,
+            "between": null,
+            "provider": "overture",
+            "resource": "confidence_calculation",
+            "version": "2026-09-17"
+          },
+          {
+            "property": "/properties/operating_status",
+            "dataset": "Overture-signals",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "b34348f6-b386-4521-aed0-959872db2fcc",
+            "update_time": "2026-09-14T15:43:16Z",
+            "confidence": 1.0,
+            "between": null,
+            "provider": "overture",
+            "resource": "operating_status_signal",
+            "version": "2026-09-14"
+          }
+        ],
+        "attribution": "Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/"
+      },
+      "website": "https://redsroofingak.com/",
+      "checked_at": "2026-10-15T21:22:20.745738+00:00",
+      "contacts": [
+        {
+          "kind": "phone",
+          "value": "(907) 802-7575",
+          "source": "https://redsroofingak.com/",
+          "normalized": "9078027575",
+          "sources": [
+            "https://redsroofingak.com/",
+            "https://redsroofingak.com/contact-reds-roofing/",
+            "https://explore.overturemaps.org/?id=ca8ee638-605f-4470-bf6d-0fae78a17b99"
+          ]
+        },
+        {
+          "kind": "email",
+          "value": "info@redsroofingak.com",
+          "source": "https://redsroofingak.com/",
+          "normalized": "info@redsroofingak.com",
+          "sources": [
+            "https://redsroofingak.com/",
+            "https://redsroofingak.com/contact-reds-roofing/"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://redsroofingak.com/",
+          "evidence": "width values=['1240', '1270', '1280', '1300', '200', '300', '340', '450']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport.",
+          "verification": "source",
+          "root_cause_id": "20acfb14fd2a0401e7a5af9945a979a7b48e975223c48322d7e233645e00b0f7",
+          "sources": [
+            "https://redsroofingak.com/",
+            "https://redsroofingak.com/contact-reds-roofing/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://redsroofingak.com/",
+              "evidence": "width values=['1240', '1270', '1280', '1300', '200', '300', '340', '450']"
+            },
+            {
+              "url": "https://redsroofingak.com/contact-reds-roofing/",
+              "evidence": "width values=['1020', '1240', '1270', '1300', '200', '300', '340', '370']"
+            }
+          ]
+        }
+      ],
+      "coverage": {
+        "pages": [
+          {
+            "url": "https://redsroofingak.com/",
+            "forms": 1,
+            "cta_links": 12,
+            "booking_links": []
+          },
+          {
+            "url": "https://redsroofingak.com/contact-reds-roofing/",
+            "forms": 1,
+            "cta_links": 4,
+            "booking_links": []
+          }
+        ],
+        "link_checks": [
+          {
+            "url": "https://redsroofingak.com/contact-reds-roofing/",
+            "result": "loaded"
+          }
+        ],
+        "browser_checked": true,
+        "limitations": [
+          "No forms filled/submitted or bookings made.",
+          "Dynamic data requests and popup-triggered network requests blocked.",
+          "Booking availability and form delivery remain untested."
+        ],
+        "browser": {
+          "status": "limited",
+          "browser_checked": true,
+          "viewports": [
+            {
+              "width": 375,
+              "scroll_width": 375
+            },
+            {
+              "width": 390,
+              "scroll_width": 390
+            }
+          ],
+          "controls": [
+            {
+              "text": "Contact",
+              "href": "https://redsroofingak.com/contact-reds-roofing/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": false,
+              "link_kind": "other"
+            },
+            {
+              "text": "Contact Us",
+              "href": "/contact-reds-roofing/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": false,
+              "link_kind": "other"
+            },
+            {
+              "text": "Contact Us",
+              "href": "/contact-reds-roofing/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": false,
+              "link_kind": "other"
+            },
+            {
+              "text": "Call for Emergency Service",
+              "href": "/contact-reds-roofing/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": false,
+              "link_kind": "other"
+            },
+            {
+              "text": "Contact Us: Product Options & Estimates",
+              "href": "/contact-reds-roofing/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": false,
+              "link_kind": "other"
+            },
+            {
+              "text": "Contact Us",
+              "href": "/contact-reds-roofing/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": false,
+              "link_kind": "other"
+            },
+            {
+              "text": "CONTACT",
+              "href": "https://redsroofingak.com/contact-reds-roofing/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": false,
+              "link_kind": "other"
+            },
+            {
+              "text": "CONTACT",
+              "href": "https://redsroofingak.com/contact-reds-roofing/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": false,
+              "link_kind": "other"
+            }
+          ],
+          "booking_checks": [],
+          "dismissed": [],
+          "limitations": [
+            "No forms filled/submitted or bookings made.",
+            "Dynamic data requests and popup-triggered network requests blocked.",
+            "Booking availability and form delivery remain untested."
+          ],
+          "blocked_requests": 10,
+          "dynamic_requests_blocked": 5,
+          "essential_resources_failed": 0
+        }
+      },
+      "fit": {
+        "eligible": true,
+        "score": 20,
+        "ownership": "self_reported_local",
+        "reasons": [
+          "Listed service business inside the configured local research area.",
+          "Website states “Family Owned”; ownership has not been independently verified."
+        ],
+        "evidence_url": "https://redsroofingak.com/"
+      },
+      "entity": {
+        "provider": "overture",
+        "id": "ca8ee638-605f-4470-bf6d-0fae78a17b99",
+        "name": "Reds Roofing & Renovations LLC",
+        "website": "https://redsroofingak.com/",
+        "geography": {
+          "country": "US",
+          "state": "AK",
+          "city": "Anchorage",
+          "source": "https://explore.overturemaps.org/?id=ca8ee638-605f-4470-bf6d-0fae78a17b99",
+          "language": "en",
+          "timezone": "America/Anchorage",
+          "target_id": "AK-0"
+        },
+        "source": "https://explore.overturemaps.org/?id=ca8ee638-605f-4470-bf6d-0fae78a17b99",
+        "contact_keys": [
+          "a8a5469943e6cda52f5f4aa923813cc5ed85f916c453415124098505f584fd97",
+          "7381b55bdb89a1d2927648a3490c0428ddf85ef4af2f1932923124a8788f3be1"
+        ]
+      },
+      "related_businesses": [],
+      "ranking": {
+        "score": 0,
+        "impact": 0,
+        "evidence_strength": 0,
+        "fit": 20,
+        "remediation": 0,
+        "priority": "Browser review",
+        "reason": "Observed customer contact-path impact 0/45; evidence 0/30; business fit 20/20; actionable remedy 0/5. Potential findings add no points.",
+        "limitations": "Relative priority among audited prospects, not predicted lost leads or revenue."
+      }
+    },
+    {
+      "name": "Flow Star Plumbing and Heating",
+      "category": "plumber",
+      "location": {
+        "lat": 61.153072357177734,
+        "lon": -149.85789489746094
+      },
+      "geography": {
+        "country": "US",
+        "state": "AK",
+        "city": "Anchorage",
+        "source": "https://explore.overturemaps.org/?id=f87f7818-1390-471f-b7bc-c83616a5f600",
+        "language": "en",
+        "timezone": "America/Anchorage",
+        "target_id": "AK-0"
+      },
+      "discovery_source": "https://explore.overturemaps.org/?id=f87f7818-1390-471f-b7bc-c83616a5f600",
+      "provider": "overture",
+      "provenance": {
+        "release": "2026-09-23.1",
+        "category": "plumbing",
+        "confidence": 0.9199122190475464,
+        "brand": {
+          "wikidata": null,
+          "names": {
+            "primary": null,
+            "common": null,
+            "rules": null
+          }
+        },
+        "sources": [
+          {
+            "property": "",
+            "dataset": "meta",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "101230935656871",
+            "update_time": "2026-09-14T00:00:00.000Z",
+            "confidence": 0.4110165536403656,
+            "between": null,
+            "provider": "meta",
+            "resource": "meta",
+            "version": "2026-09-14"
+          },
+          {
+            "property": "/properties/confidence",
+            "dataset": "Overture",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": null,
+            "update_time": "2026-09-17T22:52:12Z",
+            "confidence": null,
+            "between": null,
+            "provider": "overture",
+            "resource": "confidence_calculation",
+            "version": "2026-09-17"
+          },
+          {
+            "property": "/properties/operating_status",
+            "dataset": "Overture-signals",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "bfe1f54d-5abf-4d1f-bb35-e8ade0d1b0dc",
+            "update_time": "2026-09-14T15:43:16Z",
+            "confidence": 1.0,
+            "between": null,
+            "provider": "overture",
+            "resource": "operating_status_signal",
+            "version": "2026-09-14"
+          }
+        ],
+        "attribution": "Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/"
+      },
+      "website": "https://flowstarak.com/",
+      "checked_at": "2026-10-15T21:22:33.575549+00:00",
+      "contacts": [
+        {
+          "kind": "phone",
+          "value": "+19074062439",
+          "source": "https://explore.overturemaps.org/?id=f87f7818-1390-471f-b7bc-c83616a5f600",
+          "normalized": "9074062439",
+          "sources": [
+            "https://explore.overturemaps.org/?id=f87f7818-1390-471f-b7bc-c83616a5f600"
+          ]
+        },
+        {
+          "kind": "email",
+          "value": "info@flowstarak.com",
+          "source": "https://explore.overturemaps.org/?id=f87f7818-1390-471f-b7bc-c83616a5f600",
+          "normalized": "info@flowstarak.com",
+          "sources": [
+            "https://explore.overturemaps.org/?id=f87f7818-1390-471f-b7bc-c83616a5f600"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "form_labels",
+          "observation": "A non-search form has fields without accessible labels in the fetched HTML; rendered behavior needs checking.",
+          "url": "https://flowstarak.com/",
+          "evidence": "form 1; fields=['form_fields[name]', 'form_fields[email]', 'form_fields[field_f35a7dd]', 'form_fields[message]']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Inspect rendered labels and add clear field instructions if confirmed.",
+          "verification": "source",
+          "signature": "{\"action\": \"current_document\", \"fields\": [[\"form_fields[name]\", \"text\", \"form-field-name\"], [\"form_fields[email]\", \"email\", \"form-field-email\"], [\"form_fields[field_f35a7dd]\", \"number\", \"form-field-field_f35a7dd\"], [\"form_fields[message]\", null, \"form-field-message\"]], \"method\": \"post\"}",
+          "root_cause_id": "a6226a099ce74721592c9029132c1f2d5a81ae9d885b476d2ab7950399153332",
+          "sources": [
+            "https://flowstarak.com/",
+            "https://flowstarak.com/contact/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://flowstarak.com/",
+              "evidence": "form 1; fields=['form_fields[name]', 'form_fields[email]', 'form_fields[field_f35a7dd]', 'form_fields[message]']"
+            },
+            {
+              "url": "https://flowstarak.com/contact/",
+              "evidence": "form 2; fields=['form_fields[name]', 'form_fields[email]', 'form_fields[field_f35a7dd]', 'form_fields[message]']"
+            }
+          ]
+        },
+        {
+          "code": "form_labels",
+          "observation": "A non-search form has fields without accessible labels in the fetched HTML; rendered behavior needs checking.",
+          "url": "https://flowstarak.com/contact/",
+          "evidence": "form 1; fields=['form_fields[name]', 'form_fields[email]', 'form_fields[field_8a6b8b5]', 'form_fields[message]']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Inspect rendered labels and add clear field instructions if confirmed.",
+          "verification": "source",
+          "signature": "{\"action\": \"current_document\", \"fields\": [[\"form_fields[name]\", \"text\", \"form-field-name\"], [\"form_fields[email]\", \"email\", \"form-field-email\"], [\"form_fields[field_8a6b8b5]\", \"text\", \"form-field-field_8a6b8b5\"], [\"form_fields[message]\", null, \"form-field-message\"], [\"form_fields[field_agree1]\", \"checkbox\", \"form-field-field_agree1\"], [\"form_fields[field_d03c183]\", \"checkbox\", \"form-field-field_d03c183\"]], \"method\": \"post\"}",
+          "root_cause_id": "ed6830d27d9d611358a72555249ab2093aeb0194e18e8a756c725893ab16615e",
+          "sources": [
+            "https://flowstarak.com/contact/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://flowstarak.com/contact/",
+              "evidence": "form 1; fields=['form_fields[name]', 'form_fields[email]', 'form_fields[field_8a6b8b5]', 'form_fields[message]']"
+            }
+          ]
+        }
+      ],
+      "coverage": {
+        "pages": [
+          {
+            "url": "https://flowstarak.com/",
+            "forms": 1,
+            "cta_links": 6,
+            "booking_links": []
+          },
+          {
+            "url": "https://flowstarak.com/contact/",
+            "forms": 2,
+            "cta_links": 5,
+            "booking_links": []
+          },
+          {
+            "url": "https://flowstarak.com/contact/",
+            "forms": 2,
+            "cta_links": 5,
+            "booking_links": []
+          }
+        ],
+        "link_checks": [
+          {
+            "url": "https://flowstarak.com/contact",
+            "result": "loaded"
+          },
+          {
+            "url": "https://flowstarak.com/contact/",
+            "result": "loaded"
+          }
+        ],
+        "browser_checked": true,
+        "limitations": [
+          "No forms filled/submitted or bookings made.",
+          "Dynamic data requests and popup-triggered network requests blocked.",
+          "Booking availability and form delivery remain untested."
+        ],
+        "browser": {
+          "status": "limited",
+          "browser_checked": true,
+          "viewports": [
+            {
+              "width": 375,
+              "scroll_width": 375
+            },
+            {
+              "width": 390,
+              "scroll_width": 390
+            }
+          ],
+          "controls": [
+            {
+              "text": "CONTACT",
+              "href": "/contact",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "GET A QUOTE",
+              "href": "#",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "Contact",
+              "href": "https://flowstarak.com/contact/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "GET A QUOTE",
+              "result": "local_dialog_opened",
+              "network_blocked": true
+            }
+          ],
+          "booking_checks": [],
+          "dismissed": [
+            {
+              "code": "mobile_width",
+              "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+              "url": "https://flowstarak.com/",
+              "evidence": "width values=['1024', '1115', '1366', '1372', '1768', '2400', '379', '558']",
+              "status": "dismissed",
+              "impact": 0,
+              "evidence_strength": 8,
+              "action": "Check overflow and contact controls at a mobile viewport.",
+              "verification": "source",
+              "root_cause_id": "4c98cc0fa6c6315d6166f7596636b9a872b11d796f6d9fdd618993d05aaeeb5c",
+              "sources": [
+                "https://flowstarak.com/",
+                "https://flowstarak.com/contact/"
+              ],
+              "evidence_records": [
+                {
+                  "url": "https://flowstarak.com/",
+                  "evidence": "width values=['1024', '1115', '1366', '1372', '1768', '2400', '379', '558']"
+                },
+                {
+                  "url": "https://flowstarak.com/contact/",
+                  "evidence": "width values=['1024', '1115', '1366', '2400', '632', '767', '768', '935']"
+                }
+              ]
+            },
+            {
+              "code": "cta_fragment",
+              "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+              "url": "https://flowstarak.com/",
+              "evidence": "anchor='GET A QUOTE'; href='#'",
+              "status": "dismissed",
+              "impact": 0,
+              "evidence_strength": 8,
+              "action": "Check this call-to-action in a browser.",
+              "verification": "source",
+              "root_cause_id": "3392e78315eeacc1455b40123194d03d5bda1d72953f1211f9dddd5384ebf279",
+              "sources": [
+                "https://flowstarak.com/"
+              ],
+              "evidence_records": [
+                {
+                  "url": "https://flowstarak.com/",
+                  "evidence": "anchor='GET A QUOTE'; href='#'"
+                }
+              ]
+            },
+            {
+              "code": "cta_fragment",
+              "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+              "url": "https://flowstarak.com/contact/",
+              "evidence": "anchor='GET A QUOTE'; href='#'",
+              "status": "dismissed",
+              "impact": 0,
+              "evidence_strength": 8,
+              "action": "Check this call-to-action in a browser.",
+              "verification": "source",
+              "root_cause_id": "6f090b2adfe1754d837dc62ddfb062161dc72edc9c725687b22bc585f61ce24a",
+              "sources": [
+                "https://flowstarak.com/contact/"
+              ],
+              "evidence_records": [
+                {
+                  "url": "https://flowstarak.com/contact/",
+                  "evidence": "anchor='GET A QUOTE'; href='#'"
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            "No forms filled/submitted or bookings made.",
+            "Dynamic data requests and popup-triggered network requests blocked.",
+            "Booking availability and form delivery remain untested."
+          ],
+          "blocked_requests": 3,
+          "dynamic_requests_blocked": 0,
+          "essential_resources_failed": 10
+        }
+      },
+      "fit": {
+        "eligible": true,
+        "score": 12,
+        "ownership": "unknown",
+        "reasons": [
+          "Listed service business inside the configured local research area."
+        ],
+        "evidence_url": "https://flowstarak.com/"
+      },
+      "entity": {
+        "provider": "overture",
+        "id": "f87f7818-1390-471f-b7bc-c83616a5f600",
+        "name": "Flow Star Plumbing and Heating",
+        "website": "https://flowstarak.com/",
+        "geography": {
+          "country": "US",
+          "state": "AK",
+          "city": "Anchorage",
+          "source": "https://explore.overturemaps.org/?id=f87f7818-1390-471f-b7bc-c83616a5f600",
+          "language": "en",
+          "timezone": "America/Anchorage",
+          "target_id": "AK-0"
+        },
+        "source": "https://explore.overturemaps.org/?id=f87f7818-1390-471f-b7bc-c83616a5f600",
+        "contact_keys": [
+          "05bdec90d648682fc9cbbcc990d5189b86cad00366a3a3e63ac01a8667912457",
+          "cbb6d71d9847cabe7ba917690e50c8fa7bbbbad036843fe67877cb79e0daa679"
+        ]
+      },
+      "related_businesses": [],
+      "ranking": {
+        "score": 0,
+        "impact": 0,
+        "evidence_strength": 0,
+        "fit": 12,
+        "remediation": 0,
+        "priority": "Browser review",
+        "reason": "Observed customer contact-path impact 0/45; evidence 0/30; business fit 12/20; actionable remedy 0/5. Potential findings add no points.",
+        "limitations": "Relative priority among audited prospects, not predicted lost leads or revenue."
+      }
+    },
+    {
+      "name": "General Roofing",
+      "category": "roofer",
+      "location": {
+        "lat": 61.17171859741211,
+        "lon": -149.88201904296875
+      },
+      "geography": {
+        "country": "US",
+        "state": "AK",
+        "city": "Anchorage",
+        "source": "https://explore.overturemaps.org/?id=409cb9f5-b476-4d3b-84d8-61cd04a77ec3",
+        "language": "en",
+        "timezone": "America/Anchorage",
+        "target_id": "AK-0"
+      },
+      "discovery_source": "https://explore.overturemaps.org/?id=409cb9f5-b476-4d3b-84d8-61cd04a77ec3",
+      "provider": "overture",
+      "provenance": {
+        "release": "2026-09-23.1",
+        "category": "roofing",
+        "confidence": 0.9199122190475464,
+        "brand": {
+          "wikidata": null,
+          "names": {
+            "primary": null,
+            "common": null,
+            "rules": null
+          }
+        },
+        "sources": [
+          {
+            "property": "",
+            "dataset": "meta",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "424121574385362",
+            "update_time": "2026-09-14T00:00:00.000Z",
+            "confidence": 0.3705270290374756,
+            "between": null,
+            "provider": "meta",
+            "resource": "meta",
+            "version": "2026-09-14"
+          },
+          {
+            "property": "/properties/confidence",
+            "dataset": "Overture",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": null,
+            "update_time": "2026-09-17T22:52:12Z",
+            "confidence": null,
+            "between": null,
+            "provider": "overture",
+            "resource": "confidence_calculation",
+            "version": "2026-09-17"
+          },
+          {
+            "property": "/properties/operating_status",
+            "dataset": "Overture-signals",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "cc4cde76-5f1c-4171-879e-9a68d27f43ff",
+            "update_time": "2026-09-14T15:43:16Z",
+            "confidence": 1.0,
+            "between": null,
+            "provider": "overture",
+            "resource": "operating_status_signal",
+            "version": "2026-09-14"
+          }
+        ],
+        "attribution": "Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/"
+      },
+      "website": "https://generalroofingak.com/",
+      "checked_at": "2026-10-15T21:23:15.903003+00:00",
+      "contacts": [
+        {
+          "kind": "phone",
+          "value": "(907) 561-1460",
+          "source": "https://generalroofingak.com/",
+          "normalized": "9075611460",
+          "sources": [
+            "https://generalroofingak.com/",
+            "https://generalroofingak.com/contact-general-roofing/",
+            "https://explore.overturemaps.org/?id=409cb9f5-b476-4d3b-84d8-61cd04a77ec3"
+          ]
+        },
+        {
+          "kind": "email",
+          "value": "service@generalroofingak.com",
+          "source": "https://generalroofingak.com/",
+          "normalized": "service@generalroofingak.com",
+          "sources": [
+            "https://generalroofingak.com/",
+            "https://generalroofingak.com/contact-general-roofing/",
+            "https://explore.overturemaps.org/?id=409cb9f5-b476-4d3b-84d8-61cd04a77ec3"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://generalroofingak.com/",
+          "evidence": "width values=['1000', '1200', '1340', '1370', '1400', '200', '300', '388']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport.",
+          "verification": "source",
+          "root_cause_id": "4a1e298bb4d9d7506ad3b42bb30a086985c3cc65b6f4aabc3a5622a006a8dc19",
+          "sources": [
+            "https://generalroofingak.com/",
+            "https://generalroofingak.com/contact-general-roofing/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://generalroofingak.com/",
+              "evidence": "width values=['1000', '1200', '1340', '1370', '1400', '200', '300', '388']"
+            },
+            {
+              "url": "https://generalroofingak.com/contact-general-roofing/",
+              "evidence": "width values=['1340', '1370', '1400', '200', '300', '388', '549', '550']"
+            }
+          ]
+        }
+      ],
+      "coverage": {
+        "pages": [
+          {
+            "url": "https://generalroofingak.com/",
+            "forms": 1,
+            "cta_links": 8,
+            "booking_links": []
+          },
+          {
+            "url": "https://generalroofingak.com/contact-general-roofing/",
+            "forms": 1,
+            "cta_links": 3,
+            "booking_links": []
+          }
+        ],
+        "link_checks": [
+          {
+            "url": "https://generalroofingak.com/contact-general-roofing/",
+            "result": "loaded"
+          }
+        ],
+        "browser_checked": true,
+        "limitations": [
+          "No forms filled/submitted or bookings made.",
+          "Dynamic data requests and popup-triggered network requests blocked.",
+          "Booking availability and form delivery remain untested."
+        ],
+        "browser": {
+          "status": "limited",
+          "browser_checked": true,
+          "viewports": [
+            {
+              "width": 375,
+              "scroll_width": 375
+            },
+            {
+              "width": 390,
+              "scroll_width": 390
+            }
+          ],
+          "controls": [
+            {
+              "text": "Contact",
+              "href": "https://generalroofingak.com/contact-general-roofing/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "Request FREE Estimate",
+              "href": "/contact-general-roofing/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "Request FREE Estimate",
+              "href": "/contact-general-roofing/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "Request Service",
+              "href": "/contact-general-roofing/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            }
+          ],
+          "booking_checks": [],
+          "dismissed": [],
+          "limitations": [
+            "No forms filled/submitted or bookings made.",
+            "Dynamic data requests and popup-triggered network requests blocked.",
+            "Booking availability and form delivery remain untested."
+          ],
+          "blocked_requests": 16,
+          "dynamic_requests_blocked": 7,
+          "essential_resources_failed": 0
+        }
+      },
+      "fit": {
+        "eligible": true,
+        "score": 20,
+        "ownership": "self_reported_local",
+        "reasons": [
+          "Listed service business inside the configured local research area.",
+          "Website states “Family Owned”; ownership has not been independently verified."
+        ],
+        "evidence_url": "https://generalroofingak.com/"
+      },
+      "entity": {
+        "provider": "overture",
+        "id": "409cb9f5-b476-4d3b-84d8-61cd04a77ec3",
+        "name": "General Roofing",
+        "website": "http://generalroofingak.com/",
+        "geography": {
+          "country": "US",
+          "state": "AK",
+          "city": "Anchorage",
+          "source": "https://explore.overturemaps.org/?id=409cb9f5-b476-4d3b-84d8-61cd04a77ec3",
+          "language": "en",
+          "timezone": "America/Anchorage",
+          "target_id": "AK-0"
+        },
+        "source": "https://explore.overturemaps.org/?id=409cb9f5-b476-4d3b-84d8-61cd04a77ec3",
+        "contact_keys": [
+          "21bb51d2c44ed33c53ad815096c7894ab32d4fa9ba1493333c22ab61767ba171",
+          "b9633acc8ebf8f4176beed1c9d73fdaaaac3e8540abfc70ba6615a3a94e2c0ef"
+        ]
+      },
+      "related_businesses": [],
+      "ranking": {
+        "score": 0,
+        "impact": 0,
+        "evidence_strength": 0,
+        "fit": 20,
+        "remediation": 0,
+        "priority": "Browser review",
+        "reason": "Observed customer contact-path impact 0/45; evidence 0/30; business fit 20/20; actionable remedy 0/5. Potential findings add no points.",
+        "limitations": "Relative priority among audited prospects, not predicted lost leads or revenue."
+      }
+    },
+    {
+      "name": "Alaska Sewer & Drain LLC",
+      "category": "plumber",
+      "location": {
+        "lat": 61.145511627197266,
+        "lon": -149.8412322998047
+      },
+      "geography": {
+        "country": "US",
+        "state": "AK",
+        "city": "Anchorage",
+        "source": "https://explore.overturemaps.org/?id=6391055a-6f13-4636-b2fa-6c2e3710c05d",
+        "language": "en",
+        "timezone": "America/Anchorage",
+        "target_id": "AK-0"
+      },
+      "discovery_source": "https://explore.overturemaps.org/?id=6391055a-6f13-4636-b2fa-6c2e3710c05d",
+      "provider": "overture",
+      "provenance": {
+        "release": "2026-09-23.1",
+        "category": "plumbing",
+        "confidence": 0.9199122190475464,
+        "brand": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "Microsoft",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "562949966294776",
+            "update_time": "2025-02-15T04:26:31.400Z",
+            "confidence": 0.85,
+            "between": null,
+            "provider": "microsoft",
+            "resource": "microsoft",
+            "version": "2025-10-20"
+          },
+          {
+            "property": "/properties/confidence",
+            "dataset": "Overture",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": null,
+            "update_time": "2026-09-17T22:52:12Z",
+            "confidence": null,
+            "between": null,
+            "provider": "overture",
+            "resource": "confidence_calculation",
+            "version": "2026-09-17"
+          },
+          {
+            "property": "/properties/operating_status",
+            "dataset": "Overture-signals",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "f38f26e7-0ce2-49bf-8c32-338cf0e85117",
+            "update_time": "2026-09-14T15:43:16Z",
+            "confidence": 1.0,
+            "between": null,
+            "provider": "overture",
+            "resource": "operating_status_signal",
+            "version": "2026-09-14"
+          }
+        ],
+        "attribution": "Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/"
+      },
+      "website": "https://www.aksewer.com/",
+      "checked_at": "2026-10-15T21:23:38.184281+00:00",
+      "contacts": [
+        {
+          "kind": "phone",
+          "value": "9072489557",
+          "source": "https://www.aksewer.com/",
+          "normalized": "9072489557",
+          "sources": [
+            "https://www.aksewer.com/",
+            "https://www.aksewer.com/contact/"
+          ]
+        },
+        {
+          "kind": "email",
+          "value": "info@aksewer.com",
+          "source": "https://www.aksewer.com/",
+          "normalized": "info@aksewer.com",
+          "sources": [
+            "https://www.aksewer.com/",
+            "https://www.aksewer.com/contact/"
+          ]
+        },
+        {
+          "kind": "phone",
+          "value": "8442563814",
+          "source": "https://explore.overturemaps.org/?id=6391055a-6f13-4636-b2fa-6c2e3710c05d",
+          "normalized": "8442563814",
+          "sources": [
+            "https://explore.overturemaps.org/?id=6391055a-6f13-4636-b2fa-6c2e3710c05d"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.aksewer.com/",
+          "evidence": "width values=['1600', '244', '600', '768']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport.",
+          "verification": "source",
+          "root_cause_id": "ad7bf409ff5c75a26cd9bc80f52229f3bcc60dea185002deb4e0add4f3088ec8",
+          "sources": [
+            "https://www.aksewer.com/",
+            "https://www.aksewer.com/contact/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://www.aksewer.com/",
+              "evidence": "width values=['1600', '244', '600', '768']"
+            },
+            {
+              "url": "https://www.aksewer.com/contact/",
+              "evidence": "width values=['244', '600']"
+            }
+          ]
+        },
+        {
+          "code": "mobile_contact_clipped",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "url": "https://www.aksewer.com/",
+          "target": "https://www.aksewer.com/contact/",
+          "label": "Contact Us",
+          "signature": "Contact Us",
+          "observation": "The “Contact Us” contact control extended beyond the viewport at both 375px and 390px in Chromium.",
+          "evidence": "[{\"width\": 375, \"right\": 750}, {\"width\": 390, \"right\": 780}]",
+          "action": "Adjust the contact control’s responsive layout and recheck both phone widths.",
+          "verification": "browser_limited",
+          "root_cause_id": "a84cfb6e93bad17ada91fb3eec69dad1a019813f74f540a6dce37be69a0aa117",
+          "sources": [
+            "https://www.aksewer.com/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://www.aksewer.com/",
+              "evidence": "[{\"width\": 375, \"right\": 750}, {\"width\": 390, \"right\": 780}]"
+            }
+          ]
+        }
+      ],
+      "coverage": {
+        "pages": [
+          {
+            "url": "https://www.aksewer.com/",
+            "forms": 1,
+            "cta_links": 2,
+            "booking_links": [
+              "https://www.aksewer.com/contact/"
+            ]
+          },
+          {
+            "url": "https://www.aksewer.com/contact/",
+            "forms": 1,
+            "cta_links": 1,
+            "booking_links": []
+          }
+        ],
+        "link_checks": [
+          {
+            "url": "https://www.aksewer.com/contact/",
+            "result": "loaded"
+          }
+        ],
+        "browser_checked": true,
+        "limitations": [
+          "No forms filled/submitted or bookings made.",
+          "Dynamic data requests and popup-triggered network requests blocked.",
+          "Booking availability and form delivery remain untested."
+        ],
+        "browser": {
+          "status": "limited",
+          "browser_checked": true,
+          "viewports": [
+            {
+              "width": 375,
+              "scroll_width": 375
+            },
+            {
+              "width": 390,
+              "scroll_width": 390
+            }
+          ],
+          "controls": [
+            {
+              "text": "Contact Us",
+              "href": "https://www.aksewer.com/contact/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "Schedule Appointment",
+              "href": "https://www.aksewer.com/contact/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "booking"
+            }
+          ],
+          "booking_checks": [
+            {
+              "text": "Schedule Appointment",
+              "url": "https://www.aksewer.com/contact/",
+              "actionable": true,
+              "completion_tested": false
+            }
+          ],
+          "dismissed": [],
+          "limitations": [
+            "No forms filled/submitted or bookings made.",
+            "Dynamic data requests and popup-triggered network requests blocked.",
+            "Booking availability and form delivery remain untested."
+          ],
+          "blocked_requests": 12,
+          "dynamic_requests_blocked": 11,
+          "essential_resources_failed": 1
+        }
+      },
+      "fit": {
+        "eligible": true,
+        "score": 20,
+        "ownership": "self_reported_local",
+        "reasons": [
+          "Listed service business inside the configured local research area.",
+          "Website states “Locally owned”; ownership has not been independently verified."
+        ],
+        "evidence_url": "https://www.aksewer.com/"
+      },
+      "entity": {
+        "provider": "overture",
+        "id": "6391055a-6f13-4636-b2fa-6c2e3710c05d",
+        "name": "Alaska Sewer & Drain LLC",
+        "website": "https://www.aksewer.com/",
+        "geography": {
+          "country": "US",
+          "state": "AK",
+          "city": "Anchorage",
+          "source": "https://explore.overturemaps.org/?id=6391055a-6f13-4636-b2fa-6c2e3710c05d",
+          "language": "en",
+          "timezone": "America/Anchorage",
+          "target_id": "AK-0"
+        },
+        "source": "https://explore.overturemaps.org/?id=6391055a-6f13-4636-b2fa-6c2e3710c05d",
+        "contact_keys": [
+          "ad64f23142e8d0cc8be26d0a0d04d3dd0b1e703183a81dc7b8a32b476c9dfe5a",
+          "fc4ee4caf22e8efb9752a5976865d83c85bdce37147f4d4c976db70ff2df1e08",
+          "5dc0d3daad924e0b936cc39fe35f45a20045ba63fb7a86330b595de0599e4da9"
+        ]
+      },
+      "related_businesses": [],
+      "ranking": {
+        "score": 0,
+        "impact": 0,
+        "evidence_strength": 0,
+        "fit": 20,
+        "remediation": 0,
+        "priority": "Browser review",
+        "reason": "Observed customer contact-path impact 0/45; evidence 0/30; business fit 20/20; actionable remedy 0/5. Potential findings add no points.",
+        "limitations": "Relative priority among audited prospects, not predicted lost leads or revenue."
+      }
+    },
+    {
+      "name": "Drain Masters",
+      "category": "plumber",
+      "location": {
+        "lat": 61.14564514160156,
+        "lon": -149.83819580078125
+      },
+      "geography": {
+        "country": "US",
+        "state": "AK",
+        "city": "Anchorage",
+        "source": "https://explore.overturemaps.org/?id=35e7323c-6db2-45d2-90b4-88976492283f",
+        "language": "en",
+        "timezone": "America/Anchorage",
+        "target_id": "AK-0"
+      },
+      "discovery_source": "https://explore.overturemaps.org/?id=35e7323c-6db2-45d2-90b4-88976492283f",
+      "provider": "overture",
+      "provenance": {
+        "release": "2026-09-23.1",
+        "category": "plumbing",
+        "confidence": 0.9911675431199372,
+        "brand": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "Microsoft",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "1125899912492767",
+            "update_time": "2025-08-04T22:01:52.590Z",
+            "confidence": 0.85,
+            "between": null,
+            "provider": "microsoft",
+            "resource": "microsoft",
+            "version": "2025-10-20"
+          },
+          {
+            "property": "/properties/confidence",
+            "dataset": "Overture",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": null,
+            "update_time": "2026-09-17T22:52:12Z",
+            "confidence": null,
+            "between": null,
+            "provider": "overture",
+            "resource": "confidence_calculation",
+            "version": "2026-09-17"
+          },
+          {
+            "property": "/properties/operating_status",
+            "dataset": "Overture-signals",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "67f85ab1-57b6-4b68-b87f-fd6797997c2c",
+            "update_time": "2026-09-14T15:43:16Z",
+            "confidence": 1.0,
+            "between": null,
+            "provider": "overture",
+            "resource": "operating_status_signal",
+            "version": "2026-09-14"
+          }
+        ],
+        "attribution": "Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/"
+      },
+      "website": "https://www.drainmastersak.com/",
+      "checked_at": "2026-10-15T21:24:15.389161+00:00",
+      "contacts": [
+        {
+          "kind": "phone",
+          "value": "907-202-5238",
+          "source": "https://www.drainmastersak.com/",
+          "normalized": "9072025238",
+          "sources": [
+            "https://www.drainmastersak.com/",
+            "https://www.drainmastersak.com/contact/"
+          ]
+        },
+        {
+          "kind": "phone",
+          "value": "9072684557",
+          "source": "https://explore.overturemaps.org/?id=35e7323c-6db2-45d2-90b4-88976492283f",
+          "normalized": "9072684557",
+          "sources": [
+            "https://explore.overturemaps.org/?id=35e7323c-6db2-45d2-90b4-88976492283f"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.drainmastersak.com/",
+          "evidence": "form 1; field count=9",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser.",
+          "verification": "source",
+          "signature": "{\"action\": \"https://www.drainmastersak.com/\", \"fields\": [[\"input_1.3\", \"text\", \"input_1_1_3\"], [\"input_1.6\", \"text\", \"input_1_1_6\"], [\"input_2\", \"email\", \"input_1_2\"], [\"input_5\", \"tel\", \"input_1_5\"], [\"input_6.1\", \"text\", \"input_1_6_1\"], [\"input_6.2\", \"text\", \"input_1_6_2\"], [\"input_7\", null, \"input_1_7\"], [\"input_3\", null, \"input_1_3\"], [\"apbct__email_id__gravity_form\", \"text\", null]], \"method\": \"post\"}",
+          "root_cause_id": "01cefeb0a8cca98b3406185fcbfe4211b92790064800b4a6b64787ee790e2977",
+          "sources": [
+            "https://www.drainmastersak.com/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://www.drainmastersak.com/",
+              "evidence": "form 1; field count=9"
+            }
+          ]
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.drainmastersak.com/",
+          "evidence": "width values=['100', '1024', '120', '1200', '1201', '1240', '140', '170']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport.",
+          "verification": "source",
+          "root_cause_id": "be051bbf0ee5df36e934253ca2a6a026554c73cc132f76bbb08b2b9a96e0156c",
+          "sources": [
+            "https://www.drainmastersak.com/",
+            "https://www.drainmastersak.com/contact/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://www.drainmastersak.com/",
+              "evidence": "width values=['100', '1024', '120', '1200', '1201', '1240', '140', '170']"
+            },
+            {
+              "url": "https://www.drainmastersak.com/contact/",
+              "evidence": "width values=['100', '1024', '120', '1200', '1201', '1240', '140', '170']"
+            }
+          ]
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.drainmastersak.com/contact/",
+          "evidence": "form 1; field count=9",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser.",
+          "verification": "source",
+          "signature": "{\"action\": \"https://www.drainmastersak.com/contact/\", \"fields\": [[\"input_1.3\", \"text\", \"input_1_1_3\"], [\"input_1.6\", \"text\", \"input_1_1_6\"], [\"input_2\", \"email\", \"input_1_2\"], [\"input_5\", \"tel\", \"input_1_5\"], [\"input_6.1\", \"text\", \"input_1_6_1\"], [\"input_6.2\", \"text\", \"input_1_6_2\"], [\"input_7\", null, \"input_1_7\"], [\"input_3\", null, \"input_1_3\"], [\"apbct__email_id__gravity_form\", \"text\", null]], \"method\": \"post\"}",
+          "root_cause_id": "3868fb0c2f467190b391f539e8ce62f7b558e3e670b83b3eb31453cd7ae7cef9",
+          "sources": [
+            "https://www.drainmastersak.com/contact/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://www.drainmastersak.com/contact/",
+              "evidence": "form 1; field count=9"
+            }
+          ]
+        }
+      ],
+      "coverage": {
+        "pages": [
+          {
+            "url": "https://www.drainmastersak.com/",
+            "forms": 2,
+            "cta_links": 9,
+            "booking_links": [
+              "https://www.drainmastersak.com/contact/"
+            ]
+          },
+          {
+            "url": "https://www.drainmastersak.com/contact/",
+            "forms": 2,
+            "cta_links": 6,
+            "booking_links": [
+              "https://www.drainmastersak.com/contact/"
+            ]
+          }
+        ],
+        "link_checks": [
+          {
+            "url": "https://www.drainmastersak.com/contact/",
+            "result": "loaded"
+          }
+        ],
+        "browser_checked": true,
+        "limitations": [
+          "No forms filled/submitted or bookings made.",
+          "Dynamic data requests and popup-triggered network requests blocked.",
+          "Booking availability and form delivery remain untested."
+        ],
+        "browser": {
+          "status": "limited",
+          "browser_checked": true,
+          "viewports": [
+            {
+              "width": 375,
+              "scroll_width": 666
+            },
+            {
+              "width": 390,
+              "scroll_width": 555
+            }
+          ],
+          "controls": [
+            {
+              "text": "Contact Us",
+              "href": "https://www.drainmastersak.com/contact/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "Book Online",
+              "href": "JavaScript:void(0);",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "booking"
+            },
+            {
+              "text": "Contact Us",
+              "href": "https://www.drainmastersak.com/contact/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            }
+          ],
+          "booking_checks": [
+            {
+              "text": "Book Online",
+              "url": "JavaScript:void(0);",
+              "actionable": true,
+              "completion_tested": false
+            }
+          ],
+          "dismissed": [],
+          "limitations": [
+            "No forms filled/submitted or bookings made.",
+            "Dynamic data requests and popup-triggered network requests blocked.",
+            "Booking availability and form delivery remain untested."
+          ],
+          "blocked_requests": 9,
+          "dynamic_requests_blocked": 9,
+          "essential_resources_failed": 1
+        }
+      },
+      "fit": {
+        "eligible": true,
+        "score": 20,
+        "ownership": "self_reported_local",
+        "reasons": [
+          "Listed service business inside the configured local research area.",
+          "Website states “Locally Owned”; ownership has not been independently verified."
+        ],
+        "evidence_url": "https://www.drainmastersak.com/"
+      },
+      "entity": {
+        "provider": "overture",
+        "id": "35e7323c-6db2-45d2-90b4-88976492283f",
+        "name": "Drain Masters",
+        "website": "https://www.drainmastersak.com/",
+        "geography": {
+          "country": "US",
+          "state": "AK",
+          "city": "Anchorage",
+          "source": "https://explore.overturemaps.org/?id=35e7323c-6db2-45d2-90b4-88976492283f",
+          "language": "en",
+          "timezone": "America/Anchorage",
+          "target_id": "AK-0"
+        },
+        "source": "https://explore.overturemaps.org/?id=35e7323c-6db2-45d2-90b4-88976492283f",
+        "contact_keys": [
+          "31a776cceec81aac20ae168087622b130312bc22b7f06626696bfd4e16c7164d",
+          "640a4a2ad21d0abb3d74fa2b0017fcde1313c75ce594ab9c40a33439de122d22"
+        ]
+      },
+      "related_businesses": [],
+      "ranking": {
+        "score": 0,
+        "impact": 0,
+        "evidence_strength": 0,
+        "fit": 20,
+        "remediation": 0,
+        "priority": "Browser review",
+        "reason": "Observed customer contact-path impact 0/45; evidence 0/30; business fit 20/20; actionable remedy 0/5. Potential findings add no points.",
+        "limitations": "Relative priority among audited prospects, not predicted lost leads or revenue."
+      }
+    },
+    {
+      "name": "Diamond Heating and AirTemp",
+      "category": "hvac",
+      "location": {
+        "lat": 61.17161178588867,
+        "lon": -149.83883666992188
+      },
+      "geography": {
+        "country": "US",
+        "state": "AK",
+        "city": "Anchorage",
+        "source": "https://explore.overturemaps.org/?id=8066a1f8-01b8-4b32-b75b-216555aff411",
+        "language": "en",
+        "timezone": "America/Anchorage",
+        "target_id": "AK-0"
+      },
+      "discovery_source": "https://explore.overturemaps.org/?id=8066a1f8-01b8-4b32-b75b-216555aff411",
+      "provider": "overture",
+      "provenance": {
+        "release": "2026-09-23.1",
+        "category": "hvac_service",
+        "confidence": 0.9872079792618752,
+        "brand": {
+          "wikidata": null,
+          "names": {
+            "primary": null,
+            "common": null,
+            "rules": null
+          }
+        },
+        "sources": [
+          {
+            "property": "",
+            "dataset": "meta",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "563216013746500",
+            "update_time": "2026-09-14T00:00:00.000Z",
+            "confidence": 0.8764055967330933,
+            "between": null,
+            "provider": "meta",
+            "resource": "meta",
+            "version": "2026-09-14"
+          },
+          {
+            "property": "/properties/confidence",
+            "dataset": "Overture",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": null,
+            "update_time": "2026-09-17T22:52:12Z",
+            "confidence": null,
+            "between": null,
+            "provider": "overture",
+            "resource": "confidence_calculation",
+            "version": "2026-09-17"
+          },
+          {
+            "property": "/properties/operating_status",
+            "dataset": "Overture-signals",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "ebd518b2-42b8-4f44-a692-b81cffc17a3c",
+            "update_time": "2026-09-14T15:43:16Z",
+            "confidence": 1.0,
+            "between": null,
+            "provider": "overture",
+            "resource": "operating_status_signal",
+            "version": "2026-09-14"
+          }
+        ],
+        "attribution": "Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/"
+      },
+      "website": "https://www.diamondheatingalaska.com/",
+      "checked_at": "2026-10-15T21:24:54.955868+00:00",
+      "contacts": [
+        {
+          "kind": "phone",
+          "value": "9072027927",
+          "source": "https://www.diamondheatingalaska.com/",
+          "normalized": "9072027927",
+          "sources": [
+            "https://www.diamondheatingalaska.com/",
+            "https://www.diamondheatingalaska.com/contact/",
+            "https://www.diamondheatingalaska.com/hvac-heating-system-repair-anchorage/"
+          ]
+        },
+        {
+          "kind": "email",
+          "value": "info@diamondcomfort.com",
+          "source": "https://www.diamondheatingalaska.com/",
+          "normalized": "info@diamondcomfort.com",
+          "sources": [
+            "https://www.diamondheatingalaska.com/",
+            "https://www.diamondheatingalaska.com/contact/",
+            "https://www.diamondheatingalaska.com/hvac-heating-system-repair-anchorage/"
+          ]
+        },
+        {
+          "kind": "phone",
+          "value": "+19075613490",
+          "source": "https://explore.overturemaps.org/?id=8066a1f8-01b8-4b32-b75b-216555aff411",
+          "normalized": "9075613490",
+          "sources": [
+            "https://explore.overturemaps.org/?id=8066a1f8-01b8-4b32-b75b-216555aff411"
+          ]
+        },
+        {
+          "kind": "email",
+          "value": "info@diamondheatingalaska.com",
+          "source": "https://explore.overturemaps.org/?id=8066a1f8-01b8-4b32-b75b-216555aff411",
+          "normalized": "info@diamondheatingalaska.com",
+          "sources": [
+            "https://explore.overturemaps.org/?id=8066a1f8-01b8-4b32-b75b-216555aff411"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.diamondheatingalaska.com/",
+          "evidence": "width values=['370', '600', '640', '768']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport.",
+          "verification": "source",
+          "root_cause_id": "0c2c91c183b26af2d0ae918f61957b060edcd25119974b054fbfe583b42e7067",
+          "sources": [
+            "https://www.diamondheatingalaska.com/",
+            "https://www.diamondheatingalaska.com/contact/",
+            "https://www.diamondheatingalaska.com/hvac-heating-system-repair-anchorage/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://www.diamondheatingalaska.com/",
+              "evidence": "width values=['370', '600', '640', '768']"
+            },
+            {
+              "url": "https://www.diamondheatingalaska.com/contact/",
+              "evidence": "width values=['2280', '370', '600']"
+            },
+            {
+              "url": "https://www.diamondheatingalaska.com/hvac-heating-system-repair-anchorage/",
+              "evidence": "width values=['370', '600', '640', '768']"
+            }
+          ]
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://www.diamondheatingalaska.com/contact/",
+          "evidence": "anchor='Schedule Service'; href='#form-section'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser.",
+          "verification": "source",
+          "root_cause_id": "0a1fb16baa42a6c5293fec9bafb867e3f821ac051a611ea5fc79c29375f45009",
+          "sources": [
+            "https://www.diamondheatingalaska.com/contact/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://www.diamondheatingalaska.com/contact/",
+              "evidence": "anchor='Schedule Service'; href='#form-section'"
+            }
+          ]
+        },
+        {
+          "code": "cta_fragment",
+          "observation": "A call-to-action points to a fragment absent from the fetched HTML; JavaScript may supply it.",
+          "url": "https://www.diamondheatingalaska.com/hvac-heating-system-repair-anchorage/",
+          "evidence": "anchor='Schedule Service'; href='#form-section'",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check this call-to-action in a browser.",
+          "verification": "source",
+          "root_cause_id": "0c4cb8f7148fc06846fe6e231a9091fae27e49b584df08a705504e0ceeca24fe",
+          "sources": [
+            "https://www.diamondheatingalaska.com/hvac-heating-system-repair-anchorage/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://www.diamondheatingalaska.com/hvac-heating-system-repair-anchorage/",
+              "evidence": "anchor='Schedule Service'; href='#form-section'"
+            }
+          ]
+        },
+        {
+          "code": "mobile_contact_clipped",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "url": "https://www.diamondheatingalaska.com/",
+          "target": "https://www.diamondheatingalaska.com/contact/",
+          "label": "Contact Us",
+          "signature": "Contact Us",
+          "observation": "The “Contact Us” contact control extended beyond the viewport at both 375px and 390px in Chromium.",
+          "evidence": "[{\"width\": 375, \"right\": 750}, {\"width\": 390, \"right\": 780}]",
+          "action": "Adjust the contact control’s responsive layout and recheck both phone widths.",
+          "verification": "browser_limited",
+          "root_cause_id": "719ec59aa534ccfc1396e2ec8a419c6b43503ef2f7d43a5ba983f912234933f6",
+          "sources": [
+            "https://www.diamondheatingalaska.com/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://www.diamondheatingalaska.com/",
+              "evidence": "[{\"width\": 375, \"right\": 750}, {\"width\": 390, \"right\": 780}]"
+            }
+          ]
+        },
+        {
+          "code": "mobile_contact_clipped",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "url": "https://www.diamondheatingalaska.com/",
+          "target": "https://www.diamondheatingalaska.com/#form-section",
+          "label": "Schedule Service",
+          "signature": "Schedule Service",
+          "observation": "The “Schedule Service” contact control extended beyond the viewport at both 375px and 390px in Chromium.",
+          "evidence": "[{\"width\": 375, \"right\": 750}, {\"width\": 390, \"right\": 780}]",
+          "action": "Adjust the contact control’s responsive layout and recheck both phone widths.",
+          "verification": "browser_limited",
+          "root_cause_id": "9a57b165b91a543ffc661895e55027fcd9fe3007144baad54d7db12e7fb6077b",
+          "sources": [
+            "https://www.diamondheatingalaska.com/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://www.diamondheatingalaska.com/",
+              "evidence": "[{\"width\": 375, \"right\": 750}, {\"width\": 390, \"right\": 780}]"
+            }
+          ]
+        }
+      ],
+      "coverage": {
+        "pages": [
+          {
+            "url": "https://www.diamondheatingalaska.com/",
+            "forms": 1,
+            "cta_links": 3,
+            "booking_links": [
+              "#form-section",
+              "https://www.diamondheatingalaska.com/hvac-heating-system-repair-anchorage/"
+            ]
+          },
+          {
+            "url": "https://www.diamondheatingalaska.com/contact/",
+            "forms": 1,
+            "cta_links": 2,
+            "booking_links": [
+              "#form-section"
+            ]
+          },
+          {
+            "url": "https://www.diamondheatingalaska.com/hvac-heating-system-repair-anchorage/",
+            "forms": 1,
+            "cta_links": 6,
+            "booking_links": [
+              "#form-section"
+            ]
+          }
+        ],
+        "link_checks": [
+          {
+            "url": "https://www.diamondheatingalaska.com/contact/",
+            "result": "loaded"
+          },
+          {
+            "url": "https://www.diamondheatingalaska.com/hvac-heating-system-repair-anchorage/",
+            "result": "loaded"
+          }
+        ],
+        "browser_checked": true,
+        "limitations": [
+          "No forms filled/submitted or bookings made.",
+          "Dynamic data requests and popup-triggered network requests blocked.",
+          "Booking availability and form delivery remain untested."
+        ],
+        "browser": {
+          "status": "limited",
+          "browser_checked": true,
+          "viewports": [
+            {
+              "width": 375,
+              "scroll_width": 375
+            },
+            {
+              "width": 390,
+              "scroll_width": 390
+            }
+          ],
+          "controls": [
+            {
+              "text": "Contact Us",
+              "href": "https://www.diamondheatingalaska.com/contact/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "Schedule Service",
+              "href": "#form-section",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "booking"
+            },
+            {
+              "text": "Heating & AC Repairs\n\nSchedule a service appointment with an HVAC repair expert now.\n\nView Repair Se",
+              "href": "https://www.diamondheatingalaska.com/hvac-heating-system-repair-anchorage/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "booking"
+            },
+            {
+              "text": "Schedule Service",
+              "result": "no_conclusive_local_response",
+              "network_blocked": true
+            }
+          ],
+          "booking_checks": [
+            {
+              "text": "Schedule Service",
+              "url": "https://www.diamondheatingalaska.com/#form-section",
+              "actionable": true,
+              "completion_tested": false
+            },
+            {
+              "text": "Heating & AC Repairs\n\nSchedule a service appointment with an HVAC repair expert now.\n\nView Repair Se",
+              "url": "https://www.diamondheatingalaska.com/hvac-heating-system-repair-anchorage/",
+              "actionable": true,
+              "completion_tested": false
+            }
+          ],
+          "dismissed": [],
+          "limitations": [
+            "No forms filled/submitted or bookings made.",
+            "Dynamic data requests and popup-triggered network requests blocked.",
+            "Booking availability and form delivery remain untested."
+          ],
+          "blocked_requests": 15,
+          "dynamic_requests_blocked": 14,
+          "essential_resources_failed": 4
+        }
+      },
+      "fit": {
+        "eligible": true,
+        "score": 12,
+        "ownership": "unknown",
+        "reasons": [
+          "Listed service business inside the configured local research area."
+        ],
+        "evidence_url": "https://www.diamondheatingalaska.com/"
+      },
+      "entity": {
+        "provider": "overture",
+        "id": "8066a1f8-01b8-4b32-b75b-216555aff411",
+        "name": "Diamond Heating and AirTemp",
+        "website": "http://www.diamondheatingalaska.com",
+        "geography": {
+          "country": "US",
+          "state": "AK",
+          "city": "Anchorage",
+          "source": "https://explore.overturemaps.org/?id=8066a1f8-01b8-4b32-b75b-216555aff411",
+          "language": "en",
+          "timezone": "America/Anchorage",
+          "target_id": "AK-0"
+        },
+        "source": "https://explore.overturemaps.org/?id=8066a1f8-01b8-4b32-b75b-216555aff411",
+        "contact_keys": [
+          "db24a2746aa835336b774d5794589218c28ce17e19d61b5ff7f0778de672e394",
+          "232286778acd179b56d62cb8b95030df61b59aa0e1d3383d78258efaba8d70fc",
+          "783b5ab49df29e427dffb9bcbac3969420575ac17bd208875865dc6ef8e87524",
+          "df2a5e2d2ca594dc646aa264d2b022b10661228766aa9aaa3f8e26897ab5f1b3"
+        ]
+      },
+      "related_businesses": [],
+      "ranking": {
+        "score": 0,
+        "impact": 0,
+        "evidence_strength": 0,
+        "fit": 12,
+        "remediation": 0,
+        "priority": "Browser review",
+        "reason": "Observed customer contact-path impact 0/45; evidence 0/30; business fit 12/20; actionable remedy 0/5. Potential findings add no points.",
+        "limitations": "Relative priority among audited prospects, not predicted lost leads or revenue."
+      }
+    },
+    {
+      "name": "A-1 Lawn & Landscaping",
+      "category": "landscaper",
+      "location": {
+        "lat": 61.15968704223633,
+        "lon": -149.8638458251953
+      },
+      "geography": {
+        "country": "US",
+        "state": "AK",
+        "city": "Anchorage",
+        "source": "https://explore.overturemaps.org/?id=f6cece8d-7a03-430a-a3fd-dedf00f9b0cf",
+        "language": "en",
+        "timezone": "America/Anchorage",
+        "target_id": "AK-0"
+      },
+      "discovery_source": "https://explore.overturemaps.org/?id=f6cece8d-7a03-430a-a3fd-dedf00f9b0cf",
+      "provider": "overture",
+      "provenance": {
+        "release": "2026-09-23.1",
+        "category": "landscaping",
+        "confidence": 0.9199122190475464,
+        "brand": {
+          "wikidata": null,
+          "names": {
+            "primary": null,
+            "common": null,
+            "rules": null
+          }
+        },
+        "sources": [
+          {
+            "property": "",
+            "dataset": "meta",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "200100956788833",
+            "update_time": "2026-09-14T00:00:00.000Z",
+            "confidence": 0.7956237196922302,
+            "between": null,
+            "provider": "meta",
+            "resource": "meta",
+            "version": "2026-09-14"
+          },
+          {
+            "property": "/properties/confidence",
+            "dataset": "Overture",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": null,
+            "update_time": "2026-09-17T22:52:12Z",
+            "confidence": null,
+            "between": null,
+            "provider": "overture",
+            "resource": "confidence_calculation",
+            "version": "2026-09-17"
+          },
+          {
+            "property": "/properties/operating_status",
+            "dataset": "Overture-signals",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "f04fc385-cc09-44eb-927a-6c068acff4a8",
+            "update_time": "2026-09-14T15:43:16Z",
+            "confidence": 1.0,
+            "between": null,
+            "provider": "overture",
+            "resource": "operating_status_signal",
+            "version": "2026-09-14"
+          }
+        ],
+        "attribution": "Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/"
+      },
+      "website": "https://www.a1lawn.com/",
+      "checked_at": "2026-10-15T21:25:37.505606+00:00",
+      "contacts": [
+        {
+          "kind": "phone",
+          "value": "907-248-7000",
+          "source": "https://www.a1lawn.com/",
+          "normalized": "9072487000",
+          "sources": [
+            "https://www.a1lawn.com/",
+            "https://www.a1lawn.com/free-estimate/",
+            "https://www.a1lawn.com/contact-us/",
+            "https://explore.overturemaps.org/?id=f6cece8d-7a03-430a-a3fd-dedf00f9b0cf"
+          ]
+        },
+        {
+          "kind": "email",
+          "value": "services@a1lawn.com",
+          "source": "https://www.a1lawn.com/contact-us/",
+          "normalized": "services@a1lawn.com",
+          "sources": [
+            "https://www.a1lawn.com/contact-us/",
+            "https://explore.overturemaps.org/?id=f6cece8d-7a03-430a-a3fd-dedf00f9b0cf"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.a1lawn.com/",
+          "evidence": "width values=['100', '120', '150', '1500', '200', '237', '400', '500']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport.",
+          "verification": "source",
+          "root_cause_id": "c0b3f932ea7eb0bdf821798caffd2b714e0719b940a23dfc8eeaffd1b5dbca21",
+          "sources": [
+            "https://www.a1lawn.com/",
+            "https://www.a1lawn.com/free-estimate/",
+            "https://www.a1lawn.com/contact-us/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://www.a1lawn.com/",
+              "evidence": "width values=['100', '120', '150', '1500', '200', '237', '400', '500']"
+            },
+            {
+              "url": "https://www.a1lawn.com/free-estimate/",
+              "evidence": "width values=['100', '120', '150', '1500', '200', '400', '500', '600']"
+            },
+            {
+              "url": "https://www.a1lawn.com/contact-us/",
+              "evidence": "width values=['100', '120', '150', '1500', '200', '372', '400', '500']"
+            }
+          ]
+        },
+        {
+          "code": "long_form",
+          "observation": "A non-search form includes more than eight visible-type fields in source; check whether all are needed for an initial inquiry.",
+          "url": "https://www.a1lawn.com/free-estimate/",
+          "evidence": "form 1; field count=19",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Review initial inquiry friction in a browser.",
+          "verification": "source",
+          "signature": "{\"action\": \"current_document\", \"fields\": [[\"name-1\", \"text\", \"forminator-field-name-1_6acdb32dec5b4\"], [\"name-2\", \"text\", \"forminator-field-name-2_6acdb32dec5b4\"], [\"phone-1\", \"text\", \"forminator-field-phone-1_6acdb32dec5b4\"], [\"email-1\", \"email\", \"forminator-field-email-1_6acdb32dec5b4\"], [\"address-1-street_address\", \"text\", \"forminator-field-address-1-street_address_6acdb32dec5b4\"], [\"address-1-city\", \"text\", \"forminator-field-address-1-city_6acdb32dec5b4\"], [\"address-1-zip\", \"text\", \"forminator-field-address-1-zip_6acdb32dec5b4\"], [\"text-1\", \"text\", \"forminator-field-text-1_6acdb32dec5b4\"], [\"radio-1\", \"radio\", \"forminator-field-radio-1-1-6acdb32dec5b4\"], [\"radio-1\", \"radio\", \"forminator-field-radio-1-2-6acdb32dec5b4\"], [\"checkbox-1[]\", \"checkbox\", \"forminator-field-checkbox-1-1-6acdb32dec5b4\"], [\"checkbox-1[]\", \"checkbox\", \"forminator-field-checkbox-1-2-6acdb32dec5b4\"], [\"checkbox-1[]\", \"checkbox\", \"forminator-field-checkbox-1-3-6acdb32dec5b4\"], [\"checkbox-1[]\", \"checkbox\", \"forminator-field-checkbox-1-4-6acdb32dec5b4\"], [\"checkbox-2[]\", \"checkbox\", \"forminator-field-checkbox-2-1-6acdb32dec5b4\"], [\"checkbox-2[]\", \"checkbox\", \"forminator-field-checkbox-2-2-6acdb32dec5b4\"], [\"textarea-1\", null, \"forminator-field-textarea-1_6acdb32dec5b4\"], [\"select-1\", null, \"forminator-form-343__field--select-1_6acdb32dec5b4\"], [\"input_12\", \"text\", \"input_12\"]], \"method\": \"post\"}",
+          "root_cause_id": "c1e0d1875dd46dbf9c56f53804c1f547a09ac9fe9df01320135e8dd15719f5e7",
+          "sources": [
+            "https://www.a1lawn.com/free-estimate/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://www.a1lawn.com/free-estimate/",
+              "evidence": "form 1; field count=19"
+            }
+          ]
+        }
+      ],
+      "coverage": {
+        "pages": [
+          {
+            "url": "https://www.a1lawn.com/",
+            "forms": 0,
+            "cta_links": 7,
+            "booking_links": []
+          },
+          {
+            "url": "https://www.a1lawn.com/free-estimate/",
+            "forms": 1,
+            "cta_links": 4,
+            "booking_links": []
+          },
+          {
+            "url": "https://www.a1lawn.com/contact-us/",
+            "forms": 1,
+            "cta_links": 4,
+            "booking_links": []
+          }
+        ],
+        "link_checks": [
+          {
+            "url": "https://www.a1lawn.com/free-estimate/",
+            "result": "loaded"
+          },
+          {
+            "url": "https://www.a1lawn.com/contact-us/",
+            "result": "loaded"
+          }
+        ],
+        "browser_checked": true,
+        "limitations": [
+          "No forms filled/submitted or bookings made.",
+          "Dynamic data requests and popup-triggered network requests blocked.",
+          "Booking availability and form delivery remain untested."
+        ],
+        "browser": {
+          "status": "limited",
+          "browser_checked": true,
+          "viewports": [
+            {
+              "width": 375,
+              "scroll_width": 375
+            },
+            {
+              "width": 390,
+              "scroll_width": 390
+            }
+          ],
+          "controls": [
+            {
+              "text": "Free Estimate",
+              "href": "https://www.a1lawn.com/free-estimate/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "link_button-24-106",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "Contact Us",
+              "href": "https://www.a1lawn.com/contact-us/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "Free Estimate",
+              "href": "https://www.a1lawn.com/free-estimate/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "Free Estimate",
+              "href": "https://www.a1lawn.com/free-estimate/",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "link_button-51-106",
+              "actionable": true,
+              "link_kind": "other"
+            }
+          ],
+          "booking_checks": [],
+          "dismissed": [],
+          "limitations": [
+            "No forms filled/submitted or bookings made.",
+            "Dynamic data requests and popup-triggered network requests blocked.",
+            "Booking availability and form delivery remain untested."
+          ],
+          "blocked_requests": 7,
+          "dynamic_requests_blocked": 6,
+          "essential_resources_failed": 0
+        }
+      },
+      "fit": {
+        "eligible": true,
+        "score": 20,
+        "ownership": "self_reported_local",
+        "reasons": [
+          "Listed service business inside the configured local research area.",
+          "Website states “locally owned”; ownership has not been independently verified."
+        ],
+        "evidence_url": "https://www.a1lawn.com/"
+      },
+      "entity": {
+        "provider": "overture",
+        "id": "f6cece8d-7a03-430a-a3fd-dedf00f9b0cf",
+        "name": "A-1 Lawn & Landscaping",
+        "website": "http://www.a1lawn.com/",
+        "geography": {
+          "country": "US",
+          "state": "AK",
+          "city": "Anchorage",
+          "source": "https://explore.overturemaps.org/?id=f6cece8d-7a03-430a-a3fd-dedf00f9b0cf",
+          "language": "en",
+          "timezone": "America/Anchorage",
+          "target_id": "AK-0"
+        },
+        "source": "https://explore.overturemaps.org/?id=f6cece8d-7a03-430a-a3fd-dedf00f9b0cf",
+        "contact_keys": [
+          "87a38004d8ca855cc717a89285e62ef8789bda4abd69bf60dbc8da02a46856b0",
+          "a78df9c8b70234275afd057a9411333e0cb6131d9db3d5cc4a4b07c345176903"
+        ]
+      },
+      "related_businesses": [],
+      "ranking": {
+        "score": 0,
+        "impact": 0,
+        "evidence_strength": 0,
+        "fit": 20,
+        "remediation": 0,
+        "priority": "Browser review",
+        "reason": "Observed customer contact-path impact 0/45; evidence 0/30; business fit 20/20; actionable remedy 0/5. Potential findings add no points.",
+        "limitations": "Relative priority among audited prospects, not predicted lost leads or revenue."
+      }
+    },
+    {
+      "name": "Earhart Roofing Company",
+      "category": "roofer",
+      "location": {
+        "lat": 61.159366607666016,
+        "lon": -149.85752868652344
+      },
+      "geography": {
+        "country": "US",
+        "state": "AK",
+        "city": "Anchorage",
+        "source": "https://explore.overturemaps.org/?id=1d3e2f26-c6ce-4290-86a9-504271c3e869",
+        "language": "en",
+        "timezone": "America/Anchorage",
+        "target_id": "AK-0"
+      },
+      "discovery_source": "https://explore.overturemaps.org/?id=1d3e2f26-c6ce-4290-86a9-504271c3e869",
+      "provider": "overture",
+      "provenance": {
+        "release": "2026-09-23.1",
+        "category": "roofing",
+        "confidence": 0.9199122190475464,
+        "brand": {
+          "wikidata": null,
+          "names": {
+            "primary": null,
+            "common": null,
+            "rules": null
+          }
+        },
+        "sources": [
+          {
+            "property": "",
+            "dataset": "meta",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "114020981976391",
+            "update_time": "2026-09-14T00:00:00.000Z",
+            "confidence": 0.7240323424339294,
+            "between": null,
+            "provider": "meta",
+            "resource": "meta",
+            "version": "2026-09-14"
+          },
+          {
+            "property": "/properties/confidence",
+            "dataset": "Overture",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": null,
+            "update_time": "2026-09-17T22:52:12Z",
+            "confidence": null,
+            "between": null,
+            "provider": "overture",
+            "resource": "confidence_calculation",
+            "version": "2026-09-17"
+          },
+          {
+            "property": "/properties/operating_status",
+            "dataset": "Overture-signals",
+            "license": "CDLA-Permissive-2.0",
+            "record_id": "a278cd4b-bc20-4109-81b9-c0e725b1e6c5",
+            "update_time": "2026-09-14T15:43:16Z",
+            "confidence": 1.0,
+            "between": null,
+            "provider": "overture",
+            "resource": "operating_status_signal",
+            "version": "2026-09-14"
+          }
+        ],
+        "attribution": "Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/"
+      },
+      "website": "https://www.earhartroofing.com/",
+      "checked_at": "2026-10-15T21:26:03.006943+00:00",
+      "contacts": [
+        {
+          "kind": "phone",
+          "value": "(907) 345-5555",
+          "source": "https://www.earhartroofing.com/",
+          "normalized": "9073455555",
+          "sources": [
+            "https://www.earhartroofing.com/",
+            "https://www.earhartroofing.com/contact",
+            "https://explore.overturemaps.org/?id=1d3e2f26-c6ce-4290-86a9-504271c3e869"
+          ]
+        },
+        {
+          "kind": "email",
+          "value": "info@earhartroofing.com",
+          "source": "https://www.earhartroofing.com/",
+          "normalized": "info@earhartroofing.com",
+          "sources": [
+            "https://www.earhartroofing.com/",
+            "https://www.earhartroofing.com/contact",
+            "https://explore.overturemaps.org/?id=1d3e2f26-c6ce-4290-86a9-504271c3e869"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "viewport",
+          "observation": "No device-width viewport declaration was found in this page’s HTML; mobile layout requires browser inspection.",
+          "url": "https://www.earhartroofing.com/",
+          "evidence": "Parsed meta tags; no rendered layout test.",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "",
+          "verification": "source",
+          "root_cause_id": "24f62c68bc1b3bfe39a7397fa172cd66474be1a99c28898798969dbdbfe44e04",
+          "sources": [
+            "https://www.earhartroofing.com/",
+            "https://www.earhartroofing.com/contact"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://www.earhartroofing.com/",
+              "evidence": "Parsed meta tags; no rendered layout test."
+            },
+            {
+              "url": "https://www.earhartroofing.com/contact",
+              "evidence": "Parsed meta tags; no rendered layout test."
+            }
+          ]
+        },
+        {
+          "code": "mobile_width",
+          "observation": "Fixed or minimum widths above 480px appear in page source; responsive CSS may override them.",
+          "url": "https://www.earhartroofing.com/",
+          "evidence": "width values=['1024', '1025', '1100', '1200', '1274', '1275', '1540', '160']",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "action": "Check overflow and contact controls at a mobile viewport.",
+          "verification": "source",
+          "root_cause_id": "28bc245885350b53c3f258ff594e4e92227e307e3e5a4e9d3ae959369a5e48e9",
+          "sources": [
+            "https://www.earhartroofing.com/",
+            "https://www.earhartroofing.com/contact"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://www.earhartroofing.com/",
+              "evidence": "width values=['1024', '1025', '1100', '1200', '1274', '1275', '1540', '160']"
+            },
+            {
+              "url": "https://www.earhartroofing.com/contact",
+              "evidence": "width values=['1024', '1025', '1100', '1160', '1200', '1274', '1275', '1540']"
+            }
+          ]
+        },
+        {
+          "code": "mobile_contact_clipped",
+          "status": "potential",
+          "impact": 0,
+          "evidence_strength": 8,
+          "url": "https://www.earhartroofing.com/",
+          "target": "https://www.earhartroofing.com/contact",
+          "label": "Contact",
+          "signature": "Contact",
+          "observation": "The “Contact” contact control extended beyond the viewport at both 375px and 390px in Chromium.",
+          "evidence": "[{\"width\": 375, \"right\": 701.0}, {\"width\": 390, \"right\": 701.0}]",
+          "action": "Adjust the contact control’s responsive layout and recheck both phone widths.",
+          "verification": "browser_limited",
+          "root_cause_id": "1f8079d95fc82ac73c612a2fc09f6ccc55414616d14da9aa8ef78f643ab3a755",
+          "sources": [
+            "https://www.earhartroofing.com/"
+          ],
+          "evidence_records": [
+            {
+              "url": "https://www.earhartroofing.com/",
+              "evidence": "[{\"width\": 375, \"right\": 701.0}, {\"width\": 390, \"right\": 701.0}]"
+            }
+          ]
+        }
+      ],
+      "coverage": {
+        "pages": [
+          {
+            "url": "https://www.earhartroofing.com/",
+            "forms": 0,
+            "cta_links": 4,
+            "booking_links": []
+          },
+          {
+            "url": "https://www.earhartroofing.com/contact",
+            "forms": 1,
+            "cta_links": 3,
+            "booking_links": []
+          }
+        ],
+        "link_checks": [
+          {
+            "url": "https://www.earhartroofing.com/contact",
+            "result": "loaded"
+          }
+        ],
+        "browser_checked": true,
+        "limitations": [
+          "No forms filled/submitted or bookings made.",
+          "Dynamic data requests and popup-triggered network requests blocked.",
+          "Booking availability and form delivery remain untested."
+        ],
+        "browser": {
+          "status": "limited",
+          "browser_checked": true,
+          "viewports": [
+            {
+              "width": 375,
+              "scroll_width": 768
+            },
+            {
+              "width": 390,
+              "scroll_width": 768
+            }
+          ],
+          "controls": [
+            {
+              "text": "Contact",
+              "href": "/contact",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "Contact Us",
+              "href": "/contact",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "1476899348",
+              "actionable": true,
+              "link_kind": "other"
+            },
+            {
+              "text": "Contact Us",
+              "href": "/contact",
+              "tag": "A",
+              "type": "",
+              "hidden": false,
+              "id": "1105525057",
+              "actionable": true,
+              "link_kind": "other"
+            }
+          ],
+          "booking_checks": [],
+          "dismissed": [],
+          "limitations": [
+            "No forms filled/submitted or bookings made.",
+            "Dynamic data requests and popup-triggered network requests blocked.",
+            "Booking availability and form delivery remain untested."
+          ],
+          "blocked_requests": 6,
+          "dynamic_requests_blocked": 4,
+          "essential_resources_failed": 0
+        }
+      },
+      "fit": {
+        "eligible": true,
+        "score": 20,
+        "ownership": "self_reported_local",
+        "reasons": [
+          "Listed service business inside the configured local research area.",
+          "Website states “family owned”; ownership has not been independently verified."
+        ],
+        "evidence_url": "https://www.earhartroofing.com/"
+      },
+      "entity": {
+        "provider": "overture",
+        "id": "1d3e2f26-c6ce-4290-86a9-504271c3e869",
+        "name": "Earhart Roofing Company",
+        "website": "http://www.earhartroofing.com/",
+        "geography": {
+          "country": "US",
+          "state": "AK",
+          "city": "Anchorage",
+          "source": "https://explore.overturemaps.org/?id=1d3e2f26-c6ce-4290-86a9-504271c3e869",
+          "language": "en",
+          "timezone": "America/Anchorage",
+          "target_id": "AK-0"
+        },
+        "source": "https://explore.overturemaps.org/?id=1d3e2f26-c6ce-4290-86a9-504271c3e869",
+        "contact_keys": [
+          "645822d69ff9eb43c888a12cee10c4afd3405e81d214ed877a8496ef7c8b0e5f",
+          "4c75b1e670b3f4e30ed3f932357d36aa2d90ae84509a0fccccec5ae4b4d111fa"
+        ]
+      },
+      "related_businesses": [],
+      "ranking": {
+        "score": 0,
+        "impact": 0,
+        "evidence_strength": 0,
+        "fit": 20,
+        "remediation": 0,
+        "priority": "Browser review",
+        "reason": "Observed customer contact-path impact 0/45; evidence 0/30; business fit 20/20; actionable remedy 0/5. Potential findings add no points.",
+        "limitations": "Relative priority among audited prospects, not predicted lost leads or revenue."
+      }
+    }
+  ],
+  "audited_sites": 89,
+  "browser_verified_sites": 12,
+  "related_identities": [],
+  "excluded_businesses": [],
+  "shortfall": 9,
+  "skipped": [
+    {
+      "source": "https://explore.overturemaps.org/?id=4a8270b5-0f77-4a5c-9d9a-3fba5faa8e74",
+      "reason": "ValueError"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=e25efa4c-a250-440d-9cad-ec4a1dd058d6",
+      "reason": "URLError"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=32871e70-4a2e-4b7c-9fa6-200497e2bfba",
+      "reason": "gaierror"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=083b3be2-c8dd-40ed-80e9-66e817aad058",
+      "reason": "ValueError"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=49bebc36-b6b5-4e48-94a2-dccdd8d38c15",
+      "reason": "ValueError"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=91283a23-9a1e-4842-a872-cd1b3ef92cf3",
+      "reason": "gaierror"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=eea59448-5288-4be4-b69a-de6927d7e7ef",
+      "reason": "gaierror"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=33e41ecc-0126-433a-9e5e-e45281c3a6b6",
+      "reason": "URLError"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=9d775f89-fc05-41b9-b8b1-673e45d36cae",
+      "reason": "ValueError"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=796c1574-1f9f-4e54-b3bd-078879c18d23",
+      "reason": "gaierror"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=2e78fb04-4a00-4e33-b4ad-215e9fb29765",
+      "reason": "gaierror"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=aa7f06ea-572c-4833-b52f-1cbad612334b",
+      "reason": "gaierror"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=a9d5b87c-e531-441a-875b-11c74b41e449",
+      "reason": "gaierror"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=eb611b7c-7d5c-46c5-91db-7f437e5aa36b",
+      "reason": "gaierror"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=d1de5802-97b7-4a4e-8ff0-5fecda269720",
+      "reason": "ValueError"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=c61f1f26-1864-48a5-b12b-903e78e52121",
+      "reason": "gaierror"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=735a58c8-5036-40ca-b65c-c20ed3cacd08",
+      "reason": "URLError"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=5d20e3b8-7494-4382-ae70-7add1293755f",
+      "reason": "URLError"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=380a88c8-aea6-45f7-a8a0-2d1349b62d88",
+      "reason": "ValueError"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=81aa7961-ac27-4cf4-9bd4-1743b9d48967",
+      "reason": "gaierror"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=7f1f6f63-d41a-4428-a782-0b68a61eb9f3",
+      "reason": "HTTPError"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=c0d824ae-aebd-41df-8f5d-fb1c4fdad6fd",
+      "reason": "gaierror"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=acad4145-2382-43f4-bcfc-7f6a84ac7985",
+      "reason": "gaierror"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=b74ed66f-3aad-4c40-9f06-642eab7ea25e",
+      "reason": "gaierror"
+    },
+    {
+      "source": "https://explore.overturemaps.org/?id=99b0d4ad-c45d-4ef2-a385-8cf08b39105e",
+      "reason": "gaierror"
+    }
+  ],
+  "ranking_scope": "Local-fit candidates and browser-confirmed problems in the bounded audited sample.",
+  "attribution": "Overture Maps Foundation https://docs.overturemaps.org/attribution/ ; © OpenStreetMap contributors, ODbL https://www.openstreetmap.org/copyright",
+  "country_policy": {
+    "enabled": true,
+    "language": "en",
+    "timezone": "America/Chicago",
+    "outreach": "draft_only",
+    "compliance": {
+      "review_required_before_sending": true,
+      "requirements": [
+        "truthful headers and subject",
+        "sender postal address",
+        "opt-out and suppression handling",
+        "federal and applicable state review"
+      ],
+      "source": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business"
+    }
+  },
+  "discovered_businesses": 140,
+  "status": "success",
+  "discovery": {
+    "status": "success",
+    "source": "overture",
+    "attempts": [
+      {
+        "provider": "overture",
+        "outcome": "success",
+        "count": 140,
+        "release": "2026-09-23.1"
+      }
+    ]
+  }
+}
