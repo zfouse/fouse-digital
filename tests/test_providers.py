@@ -11,7 +11,7 @@ from unittest.mock import Mock, patch
 from prospecting.discovery import DiscoveryFailed
 from prospecting.overture import normalize
 from prospecting.providers import discover_businesses, overture_provider
-from prospecting.run import main, run
+from prospecting.run import main, run, render
 
 ROW = {'id': 'fixture-id', 'names': {'primary': 'Fixture Plumbing'}, 'websites': ['https://fixture.example'],
        'bbox': {'xmin': -90.2, 'xmax': -90.2, 'ymin': 38.6, 'ymax': 38.6}, 'phones': ['3145550100'],
@@ -74,6 +74,10 @@ class ProviderIntegrationTests(unittest.TestCase):
             rows, diagnostic, saved = discover_businesses('q', Mock(), path, [('overture', Mock(side_effect=TimeoutError()))], NOW)
             self.assertEqual(diagnostic['status'], 'degraded')
             self.assertEqual(diagnostic['age_days'], 20)
+            report, _ = run([], {})
+            report['discovery'] = diagnostic
+            self.assertIn('(degraded)', render(report))
+            self.assertIn('20.0 days', render(report))
             self.assertIsNone(saved)
             self.assertEqual(path.read_bytes(), before)
 

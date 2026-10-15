@@ -188,10 +188,12 @@ def render(report):
     esc = lambda x: html.escape(str(x))
     if report.get('status') == 'discovery_failed':
         return '<!doctype html><html lang="en"><meta charset="utf-8"><title>Discovery failed</title><h1>Discovery failed — research incomplete</h1><p>' + esc(report['message']) + '</p><pre>' + esc(json.dumps(report['discovery'], indent=2)) + '</pre></html>'
+    discovery = report.get('discovery', {})
+    discovery_note = '<p>Discovery: ' + esc(discovery.get('source', 'unspecified')) + ' (' + esc(discovery.get('status', 'unspecified')) + '). Saved pool age: ' + esc(discovery.get('age_days', 'not used')) + ' days.</p>'
     cards = []
     for lead in report['new_leads']:
         cards.append('<article><h2>' + esc(lead['name']) + '</h2><pre>' + esc(json.dumps(lead, indent=2, ensure_ascii=False)) + '</pre></article>')
-    return '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Fouse Digital review</title><style>body{font:16px system-ui;max-width:960px;margin:40px auto;padding:20px}pre{white-space:pre-wrap;overflow-wrap:anywhere}article{border-top:1px solid #aaa;padding:20px 0}</style><h1>Prospect review — ' + esc(report['date']) + '</h1><p>' + esc(report['qualified_today']) + ' qualified today; shortfall: ' + esc(report['shortfall']) + '</p><p>Drafts only. Confirm observations and contacts before outreach.</p>' + ''.join(cards) + '<p>' + esc(report['attribution']) + '</p></html>'
+    return '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Fouse Digital review</title><style>body{font:16px system-ui;max-width:960px;margin:40px auto;padding:20px}pre{white-space:pre-wrap;overflow-wrap:anywhere}article{border-top:1px solid #aaa;padding:20px 0}</style><h1>Prospect review — ' + esc(report['date']) + '</h1><p>' + esc(report['qualified_today']) + ' qualified today; shortfall: ' + esc(report['shortfall']) + '</p>' + discovery_note + '<p>Drafts only. Confirm observations and contacts before outreach.</p>' + ''.join(cards) + '<p>' + esc(report['attribution']) + '</p></html>'
 
 
 def main():
@@ -230,7 +232,7 @@ def main():
         time.sleep(1)
         return audit(url)
     report, state = run(candidates, state, auditor=polite_audit)
-    report['status'] = 'success'
+    report['status'] = 'degraded' if discovery.get('status') == 'degraded' else 'success'
     report['discovery'] = discovery
     output.mkdir(parents=True, exist_ok=True)
     (output / 'review.json').write_text(json.dumps(report, indent=2, ensure_ascii=False))

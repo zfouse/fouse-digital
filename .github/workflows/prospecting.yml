@@ -67,5 +67,6 @@ jobs:
               raise SystemExit(0)
           r = json.load(open('reports/review.json'))
           print(f"Qualified today: {r['qualified_today']}/10. New drafts: {len(r['new_leads'])}. Shortfall: {r['shortfall']}.")
+          print(f"Discovery: {r['discovery'].get('source')}; status: {r['discovery']['status']}; saved pool age: {r['discovery'].get('age_days', 'not used')} days.")
           print('Download the prospect-review artifact and open review.html to review evidence and drafts. No emails were sent.')
           PY
