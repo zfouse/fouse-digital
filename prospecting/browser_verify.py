@@ -84,7 +84,8 @@ def inspect(url, source_findings, checker=None, permission=None):
               'limitations':['No forms filled/submitted or bookings made.','Dynamic data requests and popup-triggered network requests blocked.','Booking availability and form delivery remain untested.']}
     with sync_playwright() as p:
         browser=p.chromium.launch(headless=True)
-        context=browser.new_context(viewport={'width':1280,'height':900},service_workers='block',accept_downloads=False)
+        context=browser.new_context(viewport={'width':1280,'height':900},service_workers='block',accept_downloads=False,
+                                    user_agent='FouseDigitalResearch/1.0 (+https://zfouse.github.io/fouse-digital/)')
         context.route('**/*',guard.route)
         context.route_web_socket('**/*',lambda ws:ws.close())
         context.add_init_script("""document.addEventListener('submit', e=>{e.preventDefault();e.stopImmediatePropagation()},true);
