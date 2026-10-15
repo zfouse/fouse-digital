@@ -91,6 +91,7 @@ def inspect(url, source_findings, checker=None, permission=None):
         HTMLFormElement.prototype.submit=function(){throw new Error('Research: submission blocked')};
         HTMLFormElement.prototype.requestSubmit=function(){throw new Error('Research: submission blocked')};
         navigator.sendBeacon=()=>false;window.open=()=>null;""")
+        context.on('page',lambda created:created.on('pageerror',lambda error:setattr(guard,'essential_failed',guard.essential_failed+1)))
         page=context.new_page()
         context.on('page',lambda popup:popup.close() if popup.opener() else None)
         context.on('requestfailed',lambda req:setattr(guard,'essential_failed',guard.essential_failed+int(req.resource_type in ('script','stylesheet'))))
@@ -204,6 +205,7 @@ def inspect(url, source_findings, checker=None, permission=None):
                 except Error:
                     coverage['controls'].append({'text':data['text'],'result':'inconclusive','network_blocked':True})
                 finally:guard.interacting=True  # Keep the network locked until this context closes.
+            coverage['status']='limited' if guard.dynamic_blocked or guard.essential_failed else 'complete'
             coverage['blocked_requests']=guard.blocked
             coverage['dynamic_requests_blocked']=guard.dynamic_blocked
             coverage['essential_resources_failed']=guard.essential_failed

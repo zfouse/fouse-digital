@@ -21,7 +21,7 @@ def render(report):
         ranking = lead.get('ranking', {})
         contacts = ''.join(f'<li>{e(c["kind"].title())}: <strong>{e(c["value"])}</strong><span class="muted"> · {" · ".join(link(s, "source") for s in c.get("sources", [c.get("source", "")]))}</span></li>' for c in lead['contacts'])
         fit = lead.get('fit', {})
-        fit_html = '<p class="muted">Business fit: ' + e(fit.get('ownership', 'unknown')) + ' · ' + e('; '.join(fit.get('reasons', []))) + '</p>'
+        fit_html = '<p class="muted">Business fit: ' + e(fit.get('ownership', 'unknown').replace('_', ' ')) + ' · ' + e('; '.join(fit.get('reasons', []))) + '</p>'
         related = '<p class="muted">Related identities sharing this issue: ' + ' · '.join(link(r['website'],r['name']) for r in lead.get('related_businesses', [])) + '</p>' if lead.get('related_businesses') else ''
         draft = lead.get('draft')
         draft_html = f'<section class="draft"><h3>Outreach draft · never sent</h3><label>Subject<input readonly value="{e(draft["subject"])}"></label><label>Message<textarea readonly rows="12">{e(draft["body"])}</textarea></label><button type="button" class="copy">Copy message</button><span class="copy-status" role="status"></span></section>' if draft else '<p>No outreach draft: this record requires further review.</p>'
@@ -31,7 +31,7 @@ def render(report):
     queue = []
     for lead in report.get('review_queue', []):
         related = '<p>Related identities: ' + ' · '.join(link(r['website'],r['name']) for r in lead.get('related_businesses', [])) + '</p>' if lead.get('related_businesses') else ''
-        queue.append(f'''<details class="review-item"><summary>{e(lead["name"])} · {len(lead["findings"])} possible issue(s) · no draft</summary><p>{link(lead['website'])}</p>{related}<p class="muted">Fit: {e(lead.get('fit', {}).get('ownership', 'unknown'))}</p><ul class="issues">{"".join(issue(f) for f in lead["findings"])}</ul></details>''')
+        queue.append(f'''<details class="review-item"><summary>{e(lead["name"])} · {len(lead["findings"])} possible issue(s) · no draft</summary><p>{link(lead['website'])}</p>{related}<p class="muted">Fit: {e(lead.get('fit', {}).get('ownership', 'unknown').replace('_', ' '))}</p><ul class="issues">{"".join(issue(f) for f in lead["findings"])}</ul></details>''')
     exclusions = '<details><summary>Excluded businesses and retained related identities</summary><ul>' + ''.join('<li>' + e(x['name']) + ': ' + e('; '.join(x['fit']['reasons'])) + '</li>' for x in report.get('excluded_businesses', [])) + ''.join('<li>' + link(x['entity']['website'], x['entity']['name']) + ': ' + e(x['reason']) + '</li>' for x in report.get('related_identities', [])) + '</ul></details>'
     discovery = report.get('discovery', {})
     diagnostics = '<pre>' + e(json.dumps(discovery, indent=2)) + '</pre>' if report.get('status') == 'discovery_failed' else ''
