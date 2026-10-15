@@ -9,11 +9,10 @@ import urllib.request
 TRADES = {'plumbing': 'plumber', 'roofing': 'roofer', 'hvac_service': 'hvac',
           'electrician': 'electrician', 'landscaping': 'landscaper',
           'carpenter': 'carpenter', 'painting': 'painter'}
-BBOX = (-90.75, 38.4, -89.95, 38.95)
 CREDIT = 'Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/'
 
 
-def normalize(row, release):
+def normalize(row, release, region=None):
     category = (row.get('taxonomy') or {}).get('primary')
     trade = TRADES.get(category)
     box = row.get('bbox') or {}
@@ -22,7 +21,7 @@ def normalize(row, release):
     sites = row.get('websites') or []
     if not trade or not name or not sites or row.get('operating_status') in ('permanently_closed', 'temporarily_closed'):
         return None
-    if not isinstance(lat, (float, int)) or not isinstance(lon, (float, int)) or not (38.4 <= lat <= 38.95 and -90.75 <= lon <= -89.95):
+    if not isinstance(lat, (float, int)) or not isinstance(lon, (float, int)) or not (-90 <= lat <= 90 and -180 <= lon <= 180):
         return None
     if not isinstance(row.get('confidence'), (float, int)) or row['confidence'] < .8 or not row.get('id'):
         return None
@@ -35,6 +34,25 @@ def normalize(row, release):
             'tags': {'name': name, 'website': sites[0], 'craft': trade},
             'contacts': contacts, 'provenance': {'release': release, 'category': category,
             'confidence': row['confidence'], 'brand': row.get('brand'), 'sources': row.get('sources') or [], 'attribution': CREDIT}}
+    addresses = [a for a in row.get('addresses', []) or [] if a.get('country') == 'US']
+    if region is not None:
+        addresses = [a for a in addresses if a.get('region') in region['states'] and
+                     (not region.get('localities') or (a.get('locality') or '').casefold() in [v.casefold() for v in region['localities']])]
+        if not addresses:
+            return None
+    if not addresses:
+        return None
+    address = addresses[0]
+    result['geography'] = {'country': address.get('country'), 'state': address.get('region'),
+                           'city': address.get('locality'), 'source': source}
+    if region is not None:
+        result['geography'].update(language=region.get('language', 'en'), timezone=region['timezone'], target_id=region['id'])
+        if __package__:
+            from .geography import matches
+        else:
+            from geography import matches
+        if not matches(result, region):
+            return None
     if __package__:
         from .fit import business_fit
     else:
@@ -47,7 +65,14 @@ def read_json(url):
         return json.loads(r.read(1_000_000))
 
 
-def load():
+def load(region=None):
+    if region is None:
+        if __package__:
+            from .geography import load_config, select_region
+        else:
+            from geography import load_config, select_region
+        region = select_region(load_config(), {})
+    box = region['bbox']
     import pyarrow.compute as pc
     import pyarrow.dataset as ds
     import pyarrow.fs as fs
@@ -66,7 +91,7 @@ def load():
         b = item.get('bbox') or {}
         if item.get('collection') != 'place' or item.get('type') != 'Feature':
             continue
-        if b['xmin'] <= BBOX[2] and b['xmax'] >= BBOX[0] and b['ymin'] <= BBOX[3] and b['ymax'] >= BBOX[1]:
+        if b['xmin'] <= box[2] and b['xmax'] >= box[0] and b['ymin'] <= box[3] and b['ymax'] >= box[1]:
             assets = item['assets']
             asset = assets.get('aws') or assets.get('aws-s3')
             href = asset['href']
@@ -83,10 +108,13 @@ def load():
     store = fs.S3FileSystem(anonymous=True, region='us-west-2', connect_timeout=10,
                             request_timeout=30, retry_strategy=fs.AwsStandardS3RetryStrategy(max_attempts=2))
     dataset = ds.dataset(paths, filesystem=store, format='parquet')
-    filt = ((pc.field('bbox', 'xmin') >= BBOX[0]) & (pc.field('bbox', 'xmin') <= BBOX[2]) &
-            (pc.field('bbox', 'ymin') >= BBOX[1]) & (pc.field('bbox', 'ymin') <= BBOX[3]) &
+    filt = ((pc.field('bbox', 'xmin') >= box[0]) & (pc.field('bbox', 'xmin') <= box[2]) &
+            (pc.field('bbox', 'ymin') >= box[1]) & (pc.field('bbox', 'ymin') <= box[3]) &
             pc.field('taxonomy', 'primary').isin(list(TRADES)) & (pc.field('confidence') >= .8))
     columns = ['id', 'names', 'bbox', 'websites', 'emails', 'phones', 'taxonomy', 'confidence', 'sources', 'operating_status']
+    if 'addresses' not in dataset.schema.names:
+        raise ValueError('Provider schema lacks required country/state address evidence')
+    columns.append('addresses')
     if 'brand' in dataset.schema.names:
         columns.append('brand')
     candidates = []
@@ -94,7 +122,7 @@ def load():
     for batch in dataset.to_batches(filter=filt, columns=columns, batch_size=2048,
                                     batch_readahead=0, fragment_readahead=0, use_threads=False):
         for row in batch.to_pylist():
-            candidate = normalize(row, release)
+            candidate = normalize(row, release, region)
             if candidate:
                 candidates.append(candidate)
             if len(candidates) >= 5000:
@@ -104,7 +132,8 @@ def load():
 
 if __name__ == '__main__':
     try:
-        candidates, release = load()
+        region = json.loads(sys.argv[2]) if len(sys.argv) > 2 else None
+        candidates, release = load(region)
         result = {'candidates': candidates, 'release': release}
     except Exception as e:
         # Anonymous/public-data reader: retain bounded error details for actionable diagnostics.

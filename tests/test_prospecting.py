@@ -55,7 +55,7 @@ class ProspectingTests(unittest.TestCase):
 
     def test_location_category_and_contact_required(self):
         outside = candidate(2)
-        outside['lat'] = 40
+        outside['lat'] = 100
         wrong_category = candidate(3, craft='shop')
         no_contact = candidate(4, phone='')
         report, _ = run([outside, wrong_category, no_contact], {}, auditor=fake_audit)

@@ -1,0 +1,104 @@
+{
+  "measured_on": "2026-10-15",
+  "environment": "local macOS, Python 3.9, pyarrow 21.0.0, Playwright 1.60.0 Chromium",
+  "source": "isolated live benchmark; Overture release 2026-09-23.1; public websites",
+  "capacity_approved": false,
+  "results": [
+    {
+      "region": {
+        "id": "chicago-metro",
+        "name": "Chicago metropolitan area sample",
+        "kind": "metro",
+        "country": "US",
+        "states": [
+          "IL",
+          "IN"
+        ],
+        "bbox": [
+          -88.2,
+          41.5,
+          -87.3,
+          42.2
+        ],
+        "timezone": "America/Chicago",
+        "language": "en"
+      },
+      "status": "completed",
+      "discovery": {
+        "status": "success",
+        "source": "overture",
+        "attempts": [
+          {
+            "provider": "overture",
+            "outcome": "success",
+            "count": 3275,
+            "release": "2026-09-23.1"
+          }
+        ]
+      },
+      "discovery_seconds": 13.3,
+      "discovered_businesses": 3275,
+      "report_bytes": 13150,
+      "screened_businesses": 5,
+      "audited_sites": 3,
+      "browser_verified_sites": 2,
+      "audit_seconds": 16.43,
+      "total_seconds": 29.74,
+      "qualified": 0,
+      "browser_statuses": {
+        "complete": 1,
+        "limited": 1
+      }
+    },
+    {
+      "region": {
+        "id": "denver-city",
+        "name": "Denver city sample",
+        "kind": "city",
+        "country": "US",
+        "states": [
+          "CO"
+        ],
+        "localities": [
+          "Denver"
+        ],
+        "bbox": [
+          -105.12,
+          39.6,
+          -104.6,
+          39.95
+        ],
+        "timezone": "America/Denver",
+        "language": "en"
+      },
+      "status": "completed",
+      "discovery": {
+        "status": "success",
+        "source": "overture",
+        "attempts": [
+          {
+            "provider": "overture",
+            "outcome": "success",
+            "count": 562,
+            "release": "2026-09-23.1"
+          }
+        ]
+      },
+      "discovery_seconds": 9.19,
+      "discovered_businesses": 562,
+      "report_bytes": 26585,
+      "screened_businesses": 5,
+      "audited_sites": 5,
+      "browser_verified_sites": 2,
+      "audit_seconds": 97.65,
+      "total_seconds": 106.84,
+      "qualified": 0,
+      "browser_statuses": {
+        "unavailable": 1,
+        "limited": 1,
+        "not_attempted": 1
+      }
+    }
+  ],
+  "limitations": "Two bounded samples cannot establish nationwide yield or account billing allowance. No production state writes. Larger targets remain disabled."
+}
