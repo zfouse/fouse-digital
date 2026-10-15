@@ -1,5 +1,7 @@
 # Discovery investigation and validation
 
+These are historical discovery validation results. The current conversion-quality policy in `README.md` is stricter: earlier HTTP/viewport-only leads are not automatically reclassified as verified conversion prospects. Existing historical reports remain unchanged.
+
 ## Actual failure at commit 63a8b26
 
 Downloaded the diagnostic artifact and inspected failed step logs for [Daily prospect review run 38678044393](https://github.com/zfouse/fouse-digital/actions/runs/38678044393). The primary `overpass-api.de` returned HTTP 504 three times. The fallback `overpass.private.coffee` returned HTTP 500 on its first attempt, which the earlier retry policy treated as permanent. The process exited 2. Its diagnostic upload worked and the ledger was preserved. This was a provider availability failure, not evidence that no businesses exist. Retrying more Overpass hosts alone would retain the same architectural dependency.

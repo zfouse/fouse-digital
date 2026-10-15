@@ -15,7 +15,7 @@ from prospecting.conversion import analyze
 from prospecting.dashboard import render
 from prospecting.history import snapshot
 from prospecting.quality import draft, rank
-from prospecting.run import keys, run
+from prospecting.run import keys, run, main
 
 HOME = 'https://fixture.example/'
 
@@ -173,6 +173,24 @@ class ConversionTests(unittest.TestCase):
             self.assertNotEqual(first,second)
             self.assertEqual((state/'history'/f'{first}.json').read_text(),'old report')
             self.assertEqual((state/'history'/f'{second}.json').read_text(),'new report')
+
+    def test_main_preserves_previous_latest_report_and_existing_history(self):
+        with tempfile.TemporaryDirectory() as root:
+            root=Path(root); output=root/'reports'; output.mkdir()
+            state=root/'state'; state.mkdir()
+            (state/'ledger.json').write_text('{"seen":["keep-me"],"daily":{"2000-01-01":3}}')
+            (state/'history').mkdir(); (state/'history'/'older.json').write_text('unchanged history')
+            (output/'review.json').write_text('previous json bytes')
+            (output/'review.html').write_text('previous html bytes')
+            with patch('sys.argv',['run','--state',str(state/'ledger.json'),'--output',str(output)]), patch('prospecting.run.discover_businesses',return_value=([],{'status':'success'},None)):
+                self.assertEqual(main(),0)
+            self.assertTrue(any(p.read_text()=='previous json bytes' for p in (output/'history').glob('*.json')))
+            self.assertTrue(any(p.read_text()=='previous html bytes' for p in (output/'history').glob('*.html')))
+            self.assertEqual((state/'history'/'older.json').read_text(),'unchanged history')
+            self.assertEqual(len(list((state/'history').glob('*.json'))),2)
+            ledger=json.loads((state/'ledger.json').read_text())
+            self.assertIn('keep-me',ledger['seen'])
+            self.assertEqual(ledger['daily']['2000-01-01'],3)
 
     def test_local_http_integration_never_posts_form_or_books_appointment(self):
         calls=[]
