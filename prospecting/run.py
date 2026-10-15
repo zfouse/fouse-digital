@@ -8,6 +8,7 @@ import ipaddress
 import json
 from pathlib import Path
 import socket
+import shutil
 import sys
 import time
 import urllib.error
@@ -234,6 +235,7 @@ def main():
     output.mkdir(parents=True, exist_ok=True)
     (output / 'review.json').write_text(json.dumps(report, indent=2, ensure_ascii=False))
     (output / 'review.html').write_text(render(report))
+    shutil.copytree(Path(__file__).with_name('licenses'), output / 'licenses', dirs_exist_ok=True)
     for name in ('diagnostic.json', 'diagnostic.html'):
         (output / name).unlink(missing_ok=True)
     state_path.parent.mkdir(parents=True, exist_ok=True)
@@ -245,6 +247,7 @@ def main():
         temp_pool = pool_path.with_suffix('.tmp')
         temp_pool.write_text(json.dumps(pool, indent=2))
         temp_pool.replace(pool_path)
+        shutil.copytree(Path(__file__).with_name('licenses'), state_path.parent / 'licenses', dirs_exist_ok=True)
     print(f"Qualified today: {report['qualified_today']}/10; new drafts: {len(report['new_leads'])}; shortfall: {report['shortfall']}")
 
     return 0

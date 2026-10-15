@@ -66,7 +66,7 @@ def discover_businesses(query, getter, pool_path, providers=None, now=None):
             attempts.append({'provider': name, 'outcome': 'success', 'count': len(rows), **metadata})
             pool = {'schema': SCHEMA, 'fetched_at': now.isoformat(), 'candidates': rows}
             return rows, {'status': 'success', 'source': name, 'attempts': attempts}, pool
-        except (OSError, ValueError, RuntimeError, subprocess.SubprocessError, ImportError) as e:
+        except (OSError, ValueError, RuntimeError, subprocess.SubprocessError, ImportError, KeyError, TypeError) as e:
             attempts.append({'provider': name, 'outcome': 'failure', 'reason': type(e).__name__, 'detail': str(e)[:1000]})
     cached = cached_pool(pool_path, 45, now)
     if cached:

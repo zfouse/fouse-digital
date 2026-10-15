@@ -112,6 +112,8 @@ class ProviderIntegrationTests(unittest.TestCase):
                 self.assertEqual(main(), 0)
             self.assertEqual(json.loads(state.read_text())['seen'], ['old-record'])
             self.assertEqual(json.loads((Path(root)/'pool.json').read_text()), saved)
+            self.assertTrue((Path(root)/'licenses/CDLA-Permissive-2.0.txt').exists())
+            self.assertTrue((Path(root)/'reports/licenses/Apache-2.0.txt').exists())
 
     def test_real_parquet_reader_filters_region_trade_status_and_contact_values(self):
         try:
