@@ -24,7 +24,7 @@ class DiscoveryTests(unittest.TestCase):
         return result, getter, sleep
 
     def test_transient_http_codes_retry_then_succeed(self):
-        for code in (502, 503, 504, 429):
+        for code in (500, 502, 503, 504, 429):
             with self.subTest(code=code):
                 (_, diagnostic), getter, sleep = self.discover([error(code), SUCCESS])
                 self.assertEqual(getter.call_count, 2)
@@ -91,7 +91,7 @@ class DiscoveryTests(unittest.TestCase):
             output.mkdir()
             (output / 'review.json').write_text('prior lead data')
             (output / 'review.html').write_text('prior review')
-            with patch('sys.argv', ['run', '--state', str(state), '--output', str(output)]), patch('prospecting.run.discover', side_effect=DiscoveryFailed([{'outcome': 'failure', 'reason': 'HTTP 502'}])), patch('prospecting.run.run') as research:
+            with patch('sys.argv', ['run', '--state', str(state), '--output', str(output)]), patch('prospecting.run.discover_businesses', side_effect=DiscoveryFailed([{'outcome': 'failure', 'reason': 'HTTP 502'}])), patch('prospecting.run.run') as research:
                 self.assertEqual(main(), 2)
                 research.assert_not_called()
             self.assertEqual(state.read_bytes(), before)
@@ -107,7 +107,7 @@ class DiscoveryTests(unittest.TestCase):
     def test_first_run_failure_does_not_create_ledger(self):
         with tempfile.TemporaryDirectory() as root:
             state = Path(root) / 'state' / 'ledger.json'
-            with patch('sys.argv', ['run', '--state', str(state), '--output', root]), patch('prospecting.run.discover', side_effect=DiscoveryFailed([])):
+            with patch('sys.argv', ['run', '--state', str(state), '--output', root]), patch('prospecting.run.discover_businesses', side_effect=DiscoveryFailed([])):
                 self.assertEqual(main(), 2)
             self.assertFalse(state.exists())
 
@@ -116,7 +116,7 @@ class DiscoveryTests(unittest.TestCase):
             state = Path(root) / 'ledger.json'
             state.write_text('{"seen": ["existing-lead"], "daily": {}}')
             (Path(root) / 'diagnostic.json').write_text('old failure')
-            with patch('sys.argv', ['run', '--state', str(state), '--output', root]), patch('prospecting.run.discover', return_value=([], {'status': 'success', 'attempts': [{'reason': 'HTTP 502'}, {'outcome': 'success'}]})):
+            with patch('sys.argv', ['run', '--state', str(state), '--output', root]), patch('prospecting.run.discover_businesses', return_value=([], {'status': 'success', 'attempts': [{'reason': 'HTTP 502'}, {'outcome': 'success'}]}, None)):
                 self.assertEqual(main(), 0)
             report = json.loads((Path(root) / 'review.json').read_text())
             self.assertEqual(report['status'], 'success')

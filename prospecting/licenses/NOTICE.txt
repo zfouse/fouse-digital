@@ -1,0 +1,9 @@
+Overture Maps Foundation, overturemaps.org
+Places data is made available under CDLA Permissive 2.0 and Apache 2.0,
+depending on original source. Individual source names, record IDs, dates,
+and license identifiers are retained in each candidate's provenance.sources.
+Source attribution: https://docs.overturemaps.org/attribution/
+Data access: https://docs.overturemaps.org/getting-data/cloud-sources/
+
+Where OSM data is used: © OpenStreetMap contributors.
+Open Database License and attribution: https://www.openstreetmap.org/copyright

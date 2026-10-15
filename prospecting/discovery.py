@@ -13,7 +13,7 @@ ENDPOINTS = (
 )
 ATTEMPTS = 3
 MAX_WAIT = 120
-RETRYABLE = {429, 502, 503, 504}
+RETRYABLE = {429, 500, 502, 503, 504}
 
 
 class DiscoveryFailed(Exception):
