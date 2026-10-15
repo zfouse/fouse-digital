@@ -28,3 +28,7 @@ The subsequent exact painting mapping expands discovery; counts will differ by r
 ## Automated checks
 
 29 automated tests pass locally, including a real local-Parquet integration test through the production reader, full provider-to-audit-to-draft integration, cache fallback/expiry and existing ledger compatibility. CI installs the same pinned reader and runs these checks on Python 3.12. Optional manual GitHub-hosted live validation uses isolated state and no write permission; see the PR for its result. Production scheduling and ledger writes are exercised only after merge.
+
+## GitHub-hosted live verification
+
+[Read-only validation run 38680199414](https://github.com/zfouse/fouse-digital/actions/runs/38680199414) passed on the PR branch. Its live job completed in **2 minutes 19 seconds**. The downloaded artifact confirms the Overture provider discovered **1,207 candidates** after adding the exact painting category, using release `2026-09-23.1`; **10 qualified leads and 10 drafts** were produced, shortfall zero, with **16 website errors skipped**. No Overpass fallback was required. The scratch ledger/pool were never pushed to production. The validated provider/audit code is unchanged by the subsequent report-health and license-notice additions, which pass the same automated integration suite. Daily production branch persistence remains a post-merge operation.
