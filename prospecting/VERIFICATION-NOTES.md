@@ -24,7 +24,7 @@ A bounded exploratory read-only recheck reused all ten public businesses in the 
 - The connection reset, blocked widget data, missing resources and partial render outcomes remain inconclusive. Existing technical/long-form/source-label signals do not fill the quota.
 - All observed contact/phone/booking/form checks were read-only. No production state/history was changed. No form was filled/submitted, no phone/email link activated, no appointment/quote request made and no outreach sent.
 
-These observations do not establish improved real-world verified-prospect yield. They demonstrate why apparent technical findings must not be promoted to sales claims. New positive capabilities are separately tested with controlled real Chromium/HTTP fixtures: empty native phone destinations, inert booking controls, actual clipped inquiry submits and visible contact-link failures. Negative fixtures cover delegated/hover-populated controls, client-side popups, off-canvas menus, harmless oversized boxes, failed stylesheets, optional analytics and blocked functional widgets.
+These observations do not establish improved real-world verified-prospect yield. They demonstrate why apparent technical findings must not be promoted to sales claims. New verification capabilities are separately tested with controlled real Chromium/HTTP fixtures: empty native phone destinations, potential hash-only booking controls, actual clipped inquiry submits and visible contact-link failures. Negative fixtures cover delegated/hover-populated controls, client-side popups, off-canvas menus, harmless oversized boxes, failed stylesheets, optional analytics and blocked functional widgets.
 
 ## Full revised pipeline validation
 

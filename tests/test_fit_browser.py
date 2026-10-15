@@ -257,11 +257,12 @@ class ConversionVerificationRegressionTests(unittest.TestCase):
                 result=inspect(self.base+path,[],checker=lambda u:u,permission=lambda u:True)
                 self.assertFalse(any(f['status']=='verified' for f in result['findings']))
 
-    def test_inert_booking_confirmed_without_navigation_or_booking(self):
+    def test_hash_booking_stays_potential_without_navigation_or_booking(self):
         before=len(self.calls)
         result=inspect(self.base+'/inert-booking',[],checker=lambda u:u,permission=lambda u:True)
-        self.assertTrue(any(f['code']=='inert_contact_control' and f['status']=='verified' for f in result['findings']))
+        self.assertTrue(any(f['code']=='inert_contact_control' and f['status']=='potential' for f in result['findings']))
         self.assertTrue(result['coverage']['booking_checks'])
+        self.assertFalse(any(draft('Fixture',f) for f in result['findings']))
         self.assertFalse(any(method=='POST' or path.startswith('/book') for method,path in self.calls[before:]))
 
     def test_inquiry_submit_clipping_without_submission(self):

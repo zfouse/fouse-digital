@@ -134,9 +134,9 @@ def native_contact_findings(page, url, snapshots, clean):
             continue
         code='empty_contact_link' if empty_scheme else 'inert_contact_control'
         destination='an empty '+href.split(':')[0]+' destination' if empty_scheme else 'only the current page/top'
-        findings.append({'code':code,'status':'verified','verification':'browser','impact':42,'evidence_strength':30,
+        findings.append({'code':code,'status':'verified' if empty_scheme else 'potential','verification':'browser' if empty_scheme else 'browser_limited','impact':42 if empty_scheme else 0,'evidence_strength':30 if empty_scheme else 8,
             'url':url,'target':href,'label':c['text'],'signature':href+'|'+c['text'] if empty_scheme else c['text'],
-            'observation':f'The visible “{c["text"]}” link has {destination} at both phone widths, with no inline or delegated activation handlers found.',
+            'observation':f'The visible “{c["text"]}” link has {destination} at both phone widths, with no inline or delegated activation handlers found.' + ('' if empty_scheme else ' Its intended scroll-to-top or inquiry behavior remains unverified.'),
             'evidence':json.dumps({'widths':[s['width'] for s in snapshots],'href':href,'activation_handlers':False,'trial_actionable':True,'activated':False}),
             'action':'Connect the control to the correct public contact or inquiry destination and test its mobile presentation.'})
     return findings
