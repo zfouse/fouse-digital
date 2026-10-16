@@ -5,6 +5,7 @@ from pathlib import Path
 import re
 import sys
 import urllib.request
+from urllib.parse import urlsplit
 
 TRADES = {'plumbing': 'plumber', 'roofing': 'roofer', 'hvac_service': 'hvac',
           'electrician': 'electrician', 'landscaping': 'landscaper',
@@ -12,19 +13,37 @@ TRADES = {'plumbing': 'plumber', 'roofing': 'roofer', 'hvac_service': 'hvac',
 CREDIT = 'Overture Maps Foundation; source licenses retained per record. https://docs.overturemaps.org/attribution/'
 
 
-def normalize(row, release, region=None):
+def website_choices(values):
+    result=[]
+    if not isinstance(values,(list,tuple)):return result
+    for raw in values:
+        if not isinstance(raw,str) or not raw.strip() or any(c.isspace() for c in raw.strip()):continue
+        value=raw.strip()
+        try:
+            p=urlsplit(value if '://' in value else 'https://'+value)
+            if p.scheme not in ('http','https') or not p.hostname or '.' not in p.hostname.strip('.') or p.username or p.password or p.port not in (None,80,443):continue
+        except ValueError:continue
+        result.append(value)
+    return result
+
+
+def normalize(row, release, region=None, diagnostics=None):
+    def reject(reason):
+        if diagnostics is not None:diagnostics[reason]=diagnostics.get(reason,0)+1
+        return None
     category = (row.get('taxonomy') or {}).get('primary')
     trade = TRADES.get(category)
     box = row.get('bbox') or {}
     lon, lat = box.get('xmin'), box.get('ymin')
     name = (row.get('names') or {}).get('primary')
-    sites = row.get('websites') or []
-    if not trade or not name or not sites or row.get('operating_status') in ('permanently_closed', 'temporarily_closed'):
-        return None
+    sites = website_choices(row.get('websites'))
+    if not trade or not name:return reject('missing_name_or_unsupported_trade')
+    if not sites:return reject('missing_website')
+    if row.get('operating_status') in ('permanently_closed','temporarily_closed'):return reject('not_operating')
     if not isinstance(lat, (float, int)) or not isinstance(lon, (float, int)) or not (-90 <= lat <= 90 and -180 <= lon <= 180):
-        return None
+        return reject('invalid_coordinates')
     if not isinstance(row.get('confidence'), (float, int)) or row['confidence'] < .8 or not row.get('id'):
-        return None
+        return reject('low_confidence_or_missing_id')
     source = f'https://explore.overturemaps.org/?id={row["id"]}'
     contacts = [{'kind': kind, 'value': value, 'source': source}
                 for kind, field in (('phone', 'phones'), ('email', 'emails'))
@@ -39,9 +58,9 @@ def normalize(row, release, region=None):
         addresses = [a for a in addresses if a.get('region') in region['states'] and
                      (not region.get('localities') or (a.get('locality') or '').casefold() in [v.casefold() for v in region['localities']])]
         if not addresses:
-            return None
+            return reject('country_state_or_locality_unproven')
     if not addresses:
-        return None
+        return reject('country_unproven')
     address = addresses[0]
     result['geography'] = {'country': address.get('country'), 'state': address.get('region'),
                            'city': address.get('locality'), 'source': source}
@@ -52,12 +71,15 @@ def normalize(row, release, region=None):
         else:
             from geography import matches
         if not matches(result, region):
-            return None
+            return reject('outside_target')
     if __package__:
         from .fit import business_fit
     else:
         from fit import business_fit
-    return result if business_fit(result)['eligible'] else None
+    fit=business_fit(result)
+    if not fit['eligible']:return reject('commercial_fit_'+fit['ownership'])
+    if diagnostics is not None:diagnostics['eligible_records']=diagnostics.get('eligible_records',0)+1
+    return result
 
 
 def read_json(url):
@@ -65,7 +87,7 @@ def read_json(url):
         return json.loads(r.read(1_000_000))
 
 
-def load(region=None):
+def load(region=None, diagnostics=None):
     if region is None:
         if __package__:
             from .geography import load_config, select_region
@@ -110,7 +132,7 @@ def load(region=None):
     dataset = ds.dataset(paths, filesystem=store, format='parquet')
     filt = ((pc.field('bbox', 'xmin') >= box[0]) & (pc.field('bbox', 'xmin') <= box[2]) &
             (pc.field('bbox', 'ymin') >= box[1]) & (pc.field('bbox', 'ymin') <= box[3]) &
-            pc.field('taxonomy', 'primary').isin(list(TRADES)) & (pc.field('confidence') >= .8))
+            pc.field('taxonomy', 'primary').isin([k for k,v in TRADES.items() if not region.get('industries') or v in region['industries']]) & (pc.field('confidence') >= .8))
     columns = ['id', 'names', 'bbox', 'websites', 'emails', 'phones', 'taxonomy', 'confidence', 'sources', 'operating_status']
     if 'addresses' not in dataset.schema.names:
         raise ValueError('Provider schema lacks required country/state address evidence')
@@ -122,7 +144,7 @@ def load(region=None):
     for batch in dataset.to_batches(filter=filt, columns=columns, batch_size=2048,
                                     batch_readahead=0, fragment_readahead=0, use_threads=False):
         for row in batch.to_pylist():
-            candidate = normalize(row, release, region)
+            candidate = normalize(row, release, region, diagnostics)
             if candidate:
                 candidates.append(candidate)
             if len(candidates) >= 5000:
@@ -133,8 +155,9 @@ def load(region=None):
 if __name__ == '__main__':
     try:
         region = json.loads(sys.argv[2]) if len(sys.argv) > 2 else None
-        candidates, release = load(region)
-        result = {'candidates': candidates, 'release': release}
+        diagnostics={}
+        candidates, release = load(region,diagnostics)
+        result = {'candidates': candidates, 'release': release,'normalization':diagnostics}
     except Exception as e:
         # Anonymous/public-data reader: retain bounded error details for actionable diagnostics.
         Path(sys.argv[1]).write_text(json.dumps({'error': {'type': type(e).__name__, 'message': str(e)[:1000]}}))

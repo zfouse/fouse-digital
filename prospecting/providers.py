@@ -36,7 +36,7 @@ def overture_provider(region=None):
             details = json.loads(output.read_text()).get('error', {}) if output.exists() else {}
             raise RuntimeError('Overture extraction: ' + details.get('type', 'worker_failed') + ': ' + details.get('message', 'No worker diagnostic'))
         payload = json.loads(output.read_text())
-        return payload['candidates'], {'release': payload['release']}
+        return payload['candidates'], {'release': payload['release'],'normalization':payload.get('normalization',{})}
 
 
 def cached_pool(path, max_days, now, region=None):
@@ -55,11 +55,29 @@ def cached_pool(path, max_days, now, region=None):
         return None
 
 
+def website_pool(rows, region):
+    if region is None:return rows,{}
+    if __package__:
+        from .overture import website_choices
+    else:
+        from overture import website_choices
+    selected=[];normalized=0
+    for c in rows:
+        tags=c.get('tags',{})
+        choices=website_choices([tags.get('website'),tags.get('contact:website')])
+        if not choices:continue
+        normalized+=choices[0]!=tags.get('website')
+        selected.append(dict(c,tags=dict(tags,website=choices[0])))
+    return selected,{'pool_input_records':len(rows),'missing_website_excluded':len(rows)-len(selected),'normalized_explicit_websites':normalized}
+
+
+
 def discover_businesses(query, getter, pool_path, providers=None, now=None, region=None):
     now = now or dt.datetime.now(dt.timezone.utc)
     cached = cached_pool(pool_path, 7, now, region)
     if cached:
-        return cached[0], {'status': 'success', **cached[1], 'attempts': []}, None
+        rows,quality=website_pool(cached[0],region)
+        if rows or not cached[0]:return rows, {'status': 'success', **cached[1], 'attempts': [],'pool_quality':quality}, None
     if providers is None:
         providers = [('overture', lambda: overture_provider(region))]
     attempts = []
@@ -68,7 +86,8 @@ def discover_businesses(query, getter, pool_path, providers=None, now=None, regi
             rows, metadata = provider()
             if not valid_candidates(rows, allow_empty=region is not None):
                 raise ValueError('No candidates returned')
-            attempts.append({'provider': name, 'outcome': 'success', 'count': len(rows), **metadata})
+            rows,quality=website_pool(rows,region)
+            attempts.append({'provider': name, 'outcome': 'success', 'count': len(rows), 'pool_quality':quality, **metadata})
             pool = {'schema': SCHEMA, 'fetched_at': now.isoformat(), 'candidates': rows, **({'region': region} if region else {})}
             return rows, {'status': 'success', 'source': name, 'attempts': attempts}, pool
         except (OSError, ValueError, RuntimeError, subprocess.SubprocessError, ImportError, KeyError, TypeError) as e:
@@ -76,7 +95,8 @@ def discover_businesses(query, getter, pool_path, providers=None, now=None, regi
     cached = cached_pool(pool_path, 45, now, region)
     if cached:
         attempts.append({'provider': 'saved_pool', 'outcome': 'success', **cached[1]})
-        return cached[0], {'status': 'degraded', **cached[1], 'attempts': attempts}, None
+        rows,quality=website_pool(cached[0],region)
+        if rows or not cached[0]:return rows, {'status': 'degraded', **cached[1], 'attempts': attempts,'pool_quality':quality}, None
     try:
         if region is not None:
             if __package__:
@@ -88,7 +108,8 @@ def discover_businesses(query, getter, pool_path, providers=None, now=None, regi
         if region is not None:
             rows = [r for c in rows if (r := osm_geography(c, region)) is not None]
         rows = [dict(c, provider='osm') for c in rows]
-        attempts.append({'provider': 'overpass', 'outcome': 'success', **metadata})
+        rows,quality=website_pool(rows,region)
+        attempts.append({'provider': 'overpass', 'outcome': 'success','pool_quality':quality, **metadata})
         pool = {'schema': SCHEMA, 'fetched_at': now.isoformat(), 'candidates': rows, **({'region': region} if region else {})} if rows or region is not None else None
         return rows, {'status': 'success', 'source': 'overpass', 'attempts': attempts}, pool
     except DiscoveryFailed as e:

@@ -1,4 +1,5 @@
 """Read-only Chromium verification, isolated and bounded. No submission or booking."""
+from collections import Counter
 import json
 from pathlib import Path
 import re
@@ -6,7 +7,7 @@ import subprocess
 import sys
 import tempfile
 import time
-from urllib.parse import urlsplit, urljoin
+from urllib.parse import urlsplit, urljoin, parse_qsl
 
 if __package__:
     from .rendered import SNAPSHOT, mobile_findings, native_contact_findings
@@ -34,23 +35,60 @@ def optional_resource(url):
     return any(host==domain or host.endswith('.'+domain) for domain in OPTIONAL_HOSTS)
 
 
+# Exact measured collector endpoints only; no broad exemptions for Google/hosting APIs.
+# Requests remain aborted. Only their classification changes.
+def telemetry_endpoint(url):
+    p=urlsplit(url)
+    return ((p.hostname in ('www.google.com','google.com') and p.path=='/g/collect') or
+            (p.hostname in ('csp.secureserver.net','csp.godaddy.com') and p.path=='/eventbus/web'))
+
+
+def static_asset_read(method, url, resource):
+    """XHR/fetch of public JS/CSS is the same read as a script/stylesheet tag.
+
+    Unknown JSON/data APIs, all non-GET methods and functional parameters remain denied.
+    The caller still enforces public DNS, unsafe-path checks, request caps and interaction lock.
+    """
+    if method!='GET' or resource not in ('xhr','fetch'):return False
+    p=urlsplit(url)
+    if p.scheme not in ('https','http') or not p.path.lower().endswith(('.js','.css')):return False
+    return all(k.lower() in ('v','ver','version','rev') and re.fullmatch(r'[A-Za-z0-9._-]{0,100}',v)
+               for k,v in parse_qsl(p.query,keep_blank_values=True))
+
+
 class Guard:
     def __init__(self, checker, homepage, permission):
         self.checker=checker;self.permission=permission
         self.documents={canonical_url(homepage)}
         self.interacting=False;self.click_navigation_target=None;self.blocked=0;self.dynamic_blocked=0;self.essential_failed=0;self.requests=0
-        self.checked=set();self.optional_blocked=0;self.render_incomplete=False
+        self.checked=set();self.optional_blocked=0;self.render_incomplete=False;self.diagnostics=[];self.reason_counts=Counter();self.static_asset_reads=0
+
+    def note(self, reason, url, resource=''):
+        self.reason_counts[reason]+=1
+        p=urlsplit(url)
+        if len(self.diagnostics)<30:
+            self.diagnostics.append({'reason':reason,'host':p.hostname,'path':p.path[:160],'resource':resource})
+
+    def resource_failure(self, url, resource, status=None):
+        if (resource in ('script','stylesheet') or static_asset_read('GET',url,resource)) and not optional_resource(url):
+            self.essential_failed+=1
+            self.note('essential_http_'+str(status) if status else 'essential_network_failure',url,resource)
+
+    def script_error(self, url):
+        self.essential_failed+=1;self.note('page_script_error',url,'script')
 
     def route(self, route):
         req=route.request
-        if optional_resource(req.url):
-            self.optional_blocked+=1;route.abort();return
+        if optional_resource(req.url) or (req.resource_type in ('xhr','fetch','beacon','ping') and telemetry_endpoint(req.url)):
+            self.optional_blocked+=1;self.note('optional_telemetry_blocked',req.url,req.resource_type);route.abort();return
         self.requests+=1
+        if self.requests>120:self.render_incomplete=True
         resource=req.resource_type
         parsed=urlsplit(req.url)
         reject=(bool(UNSAFE.search(parsed.path)) or '/api/' in parsed.path.lower() or bool(re.search(r'(?:email|phone|date|slot|reserve|confirm|submit|send|book)=',parsed.query,re.I)) or (self.interacting and not (resource=='document' and canonical_url(req.url)==self.click_navigation_target)) or self.requests>120 or req.method not in ('GET','HEAD') or
-                resource in ('xhr','fetch','eventsource','websocket','beacon','ping','cspreport','other'))
+                (resource in ('xhr','fetch','eventsource','websocket','beacon','ping','cspreport','other') and not static_asset_read(req.method,req.url,resource)))
         if reject:
+            self.note('interaction_blocked' if self.interacting else 'non_read_method' if req.method not in ('GET','HEAD') else 'unsafe_path_or_parameters' if UNSAFE.search(parsed.path) or '/api/' in parsed.path.lower() else 'request_budget_exhausted' if self.requests>120 else 'dynamic_data_blocked',req.url,resource)
             self.blocked+=1
             if resource in ('xhr','fetch'): self.dynamic_blocked+=1
             route.abort();return
@@ -59,8 +97,12 @@ class Guard:
             if resource=='document':
                 if canonical_url(req.url) not in self.documents or not self.permission(req.url):
                     raise ValueError('Navigation not permitted')
+            if static_asset_read(req.method,req.url,resource):self.static_asset_reads+=1
             route.continue_()
         except (ValueError,OSError):
+            if resource=='document' and (re.search(r'captcha',req.url,re.I) or link_kind(req.url)=='booking'):
+                self.render_incomplete=True;self.note('functional_frame_uninspected',req.url,resource)
+            self.note('destination_or_document_permission_denied',req.url,resource)
             self.blocked+=1;route.abort()
 
 
@@ -105,11 +147,11 @@ def inspect(url, source_findings, checker=None, permission=None, budget_seconds=
         HTMLFormElement.prototype.submit=function(){throw new Error('Research: submission blocked')};
         HTMLFormElement.prototype.requestSubmit=function(){throw new Error('Research: submission blocked')};
         navigator.sendBeacon=()=>false;window.open=()=>null;""")
-        context.on('page',lambda created:created.on('pageerror',lambda error:setattr(guard,'essential_failed',guard.essential_failed+1)))
+        context.on('page',lambda created:created.on('pageerror',lambda error:guard.script_error(url)))
         page=context.new_page()
         context.on('page',lambda popup:popup.close() if popup.opener() else None)
-        context.on('response',lambda response:setattr(guard,'essential_failed',guard.essential_failed+int(response.status>=400 and response.request.resource_type in ('script','stylesheet') and not optional_resource(response.url))))
-        context.on('requestfailed',lambda req:setattr(guard,'essential_failed',guard.essential_failed+int(req.resource_type in ('script','stylesheet') and not optional_resource(req.url))))
+        context.on('response',lambda response:guard.resource_failure(response.url,response.request.resource_type,response.status) if response.status>=400 else None)
+        context.on('requestfailed',lambda req:guard.resource_failure(req.url,req.resource_type))
         try:
             response=page.goto(url,wait_until='domcontentloaded',timeout=remaining())
             if not response or response.status>=400 or re.search(r'just a moment|access denied|verify you are human',page.title(),re.I):
@@ -231,6 +273,11 @@ def inspect(url, source_findings, checker=None, permission=None, budget_seconds=
             coverage['status']='limited' if guard.dynamic_blocked or guard.essential_failed or guard.render_incomplete else 'complete'
             coverage['optional_requests_blocked']=guard.optional_blocked
             coverage['render_incomplete']=guard.render_incomplete
+            coverage['request_count']=guard.requests
+            coverage['static_asset_reads']=guard.static_asset_reads
+            coverage['budget_exhausted']=time.monotonic()>=deadline
+            coverage['diagnostics']=guard.diagnostics
+            coverage['diagnostic_counts']=dict(guard.reason_counts)
             coverage['blocked_requests']=guard.blocked
             coverage['dynamic_requests_blocked']=guard.dynamic_blocked
             coverage['essential_resources_failed']=guard.essential_failed
@@ -253,7 +300,7 @@ def inspect_pages(request, inspector=inspect):
     remaining_findings=list(source);findings=[];observations=[]
     coverage={'status':'complete','browser_checked':True,'controls':[],'viewports':[],'form_checks':[],
               'booking_checks':[],'phone_checks':[],'dismissed':[],'limitations':[],'blocked_requests':0,'dynamic_requests_blocked':0,
-              'essential_resources_failed':0,'optional_requests_blocked':0,'page_results':observations,'uninspected_pages':pages[2:]}
+              'essential_resources_failed':0,'optional_requests_blocked':0,'static_asset_reads':0,'diagnostics':[],'diagnostic_counts':{},'page_results':observations,'uninspected_pages':pages[2:]}
     for page in pages[:2]:
         scoped=[f for f in source if canonical_url(f.get('url',''))==canonical_url(page)]
         remaining_findings=[f for f in remaining_findings if f not in scoped]
@@ -261,10 +308,11 @@ def inspect_pages(request, inspector=inspect):
             result=inspector(page,scoped,budget_seconds=25)
             findings.extend(result['findings']);checked=result['coverage']
             observations.append({'url':page,**checked})
-            for key in ('controls','viewports','form_checks','booking_checks','phone_checks','dismissed'):
+            for key in ('controls','viewports','form_checks','booking_checks','phone_checks','dismissed','diagnostics'):
                 coverage[key].extend(checked.get(key,[]))
-            for key in ('blocked_requests','dynamic_requests_blocked','essential_resources_failed','optional_requests_blocked'):
+            for key in ('blocked_requests','dynamic_requests_blocked','essential_resources_failed','optional_requests_blocked','static_asset_reads'):
                 coverage[key]+=checked.get(key,0)
+            for reason,value in checked.get('diagnostic_counts',{}).items():coverage['diagnostic_counts'][reason]=coverage['diagnostic_counts'].get(reason,0)+value
             coverage['limitations'].extend(checked.get('limitations',[]))
             if checked['status']!='complete':coverage['status']='limited'
         except Exception as error:

@@ -41,7 +41,7 @@ class GeographyTests(unittest.TestCase):
     def test_international_and_unbenchmarked_large_profiles_are_blocked(self):
         with tempfile.TemporaryDirectory() as root:
             path=Path(root)/'config.json'
-            for country,limits in [('CA',{}),('GB',{}),('US',{'screened':500}),('US',{'qualified':25}),('US',{'screened':0})]:
+            for country,limits in [('CA',{}),('GB',{}),('US',{'screened':500}),('US',{'qualified':25}),('US',{'screened':0}),('US',{'browser_checks':21})]:
                 config=load_config(); config['country']=country; config['countries'][country]['enabled']=True;config['limits'].update(limits)
                 path.write_text(json.dumps(config))
                 with self.assertRaises(ValueError): load_config(path)
@@ -75,7 +75,7 @@ class GeographyTests(unittest.TestCase):
             self.assertNotEqual(fingerprint(REGION),fingerprint(dict(REGION,localities=[])))
 
     def test_overpass_fallback_requires_explicit_country_state_and_retains_bounded_query(self):
-        osm={'type':'node','id':2,'lat':39.74,'lon':-104.99,'tags':{'name':'Fixture','addr:country':'US','addr:state':'CO','addr:city':'Denver'}}
+        osm={'type':'node','id':2,'lat':39.74,'lon':-104.99,'tags':{'name':'Fixture','website':'https://fixture.example','addr:country':'US','addr:state':'CO','addr:city':'Denver'}}
         with tempfile.TemporaryDirectory() as root,patch('prospecting.providers.discover',return_value=([osm,dict(osm,tags={'name':'Unknown'})],{})) as discovery:
             rows,_,_=discover_businesses('',Mock(),Path(root)/'pool', [('bad',Mock(side_effect=TimeoutError()))],region=REGION)
             self.assertEqual(len(rows),1);self.assertEqual(rows[0]['geography']['country'],'US')
@@ -120,3 +120,7 @@ class GeographyTests(unittest.TestCase):
                 rows,_=load(REGION)
             self.assertEqual(len(rows),1);self.assertEqual(rows[0]['geography']['state'],'CO')
             self.assertEqual(rows[0]['contacts'][0]['value'],'3145550100')  # source value retained, never geographically guessed
+            with patch('prospecting.overture.read_json',return_value={'latest':'2026-09-23.1'}),patch('prospecting.overture.urllib.request.urlopen',return_value=io.BytesIO(buffer.getvalue())),patch.object(fs,'S3FileSystem',return_value=fs.LocalFileSystem()),patch.object(ds,'dataset',side_effect=lambda *a,**k:reader(path)):
+                diagnostics={};filtered,_=load(dict(REGION,industries=['roofer']),diagnostics)
+            self.assertEqual(filtered,[])
+            self.assertEqual(diagnostics,{})  # category pushdown avoids unnecessary row normalization
