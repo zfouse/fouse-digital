@@ -7,6 +7,6 @@
     "GB": {"enabled": false, "language": "en", "timezone": "Europe/London", "outreach": "blocked", "compliance": {"status": "not_reviewed", "requirements": ["lawful basis and applicable law review", "language and timezone review"]}}
   },
   "targeting": {"states": [], "regions": []},
-  "limits": {"screened": 100, "qualified": 10, "browser_checks": 12, "static_seconds": 300, "total_seconds": 900},
+  "limits": {"screened": 100, "qualified": 10, "browser_checks": 20, "static_seconds": 300, "total_seconds": 900},
   "planned_capacity": {"enabled": false, "screened_range": [500, 1000], "qualified_range": [25, 50], "activation": "Requires measured live benchmark, provider budget and workflow review; never relax verification to fill a quota."}
 }

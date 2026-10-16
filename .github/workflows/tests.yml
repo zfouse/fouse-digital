@@ -3,6 +3,10 @@ on:
   pull_request:
   workflow_dispatch:
     inputs:
+      yield_benchmark:
+        description: Run isolated three-market five-industry qualification funnel benchmark
+        type: boolean
+        default: false
       benchmark:
         description: Run the isolated small live capacity benchmark
         type: boolean
@@ -23,7 +27,7 @@ jobs:
       - run: python -m playwright install --with-deps chromium
       - run: python -m unittest discover -s tests -v
   live-validation:
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch' && !inputs.yield_benchmark
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
@@ -60,5 +64,25 @@ jobs:
         with:
           name: capacity-benchmark-${{ github.run_id }}
           path: capacity-reports/
+          retention-days: 7
+          if-no-files-found: warn
+  yield-benchmark:
+    if: github.event_name == 'workflow_dispatch' && inputs.yield_benchmark
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r prospecting/requirements.txt
+      - run: python -m playwright install --with-deps chromium
+      - name: Measure isolated market and industry qualification funnels
+        run: python -m prospecting.yield_benchmark --output yield-reports/benchmark.json --cache yield-scratch-cache
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: yield-benchmark-${{ github.run_id }}
+          path: yield-reports/
           retention-days: 7
           if-no-files-found: warn

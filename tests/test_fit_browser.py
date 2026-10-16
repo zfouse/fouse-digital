@@ -137,6 +137,12 @@ class ReadOnlyBrowserTests(unittest.TestCase):
                 cls.calls.append(('POST',self.path));self.send_response(200);self.end_headers()
             def do_GET(self):
                 cls.calls.append(('GET',self.path))
+                if self.path=='/widget.js':
+                    self.send_response(200);self.send_header('Content-Type','application/javascript');self.end_headers()
+                    self.wfile.write(b"document.querySelector('a').href='tel:3145550100'");return
+                if self.path=='/asset-loader':
+                    body='<meta name="viewport" content="width=device-width"><a href="tel:">Call now</a><script>fetch("/widget.js").then(r=>r.text()).then(code=>(0,eval)(code))</script>'
+                    self.send_response(200);self.send_header('Content-Type','text/html');self.end_headers();self.wfile.write(body.encode());return
                 if self.path in ('/missing','/missing.css'):
                     self.send_response(404);self.end_headers();return
                 if self.path.startswith('/mobile'):
@@ -181,6 +187,16 @@ class ReadOnlyBrowserTests(unittest.TestCase):
         self.assertFalse(any(f['code']=='cta_fragment' for f in result['findings']))
         self.assertFalse(any(method=='POST' or path.startswith(('/book','/api/')) for method,path in self.calls))
         self.assertEqual(len(result['coverage']['viewports']),2)
+
+    def test_fetch_loaded_static_script_repairs_native_contact_without_false_claim(self):
+        result=inspect(self.base+'/asset-loader',[],checker=lambda u:u,permission=lambda u:True)
+        self.assertEqual(result['coverage']['status'],'complete')
+        self.assertEqual(result['coverage']['static_asset_reads'],1)
+        self.assertTrue(result['coverage']['phone_checks'])
+        self.assertTrue(all(c['destination_present'] for c in result['coverage']['phone_checks']))
+        self.assertFalse(any(f.get('status')=='verified' for f in result['findings']))
+        self.assertIn(('GET','/widget.js'),self.calls)
+        self.assertFalse(any(method=='POST' for method,path in self.calls))
 
     def test_repeated_mobile_contact_clipping_uses_actual_layout(self):
         result=inspect(self.base+'/mobile-clipped',[],checker=lambda u:u,permission=lambda u:True)

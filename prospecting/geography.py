@@ -9,6 +9,7 @@ STATES = json.loads(Path(__file__).with_name('us-states.json').read_text())['sta
 ZONES = {**dict.fromkeys('AK'.split(), 'America/Anchorage'), **dict.fromkeys('HI'.split(), 'Pacific/Honolulu'), **dict.fromkeys('CA NV WA OR'.split(), 'America/Los_Angeles'), **dict.fromkeys('AZ'.split(), 'America/Phoenix'), **dict.fromkeys('CO UT NM WY MT ID'.split(), 'America/Denver'), **dict.fromkeys('CT DE FL GA IN KY MA MD ME MI NC NH NJ NY OH PA RI SC VA VT WV DC'.split(), 'America/New_York')}
 # Opportunity ordering only breaks ties; least-visited states always come first.
 STATE_ORDER = 'TX FL CA NC GA OH PA IL AZ CO VA TN NY MI MA MD WA SC NJ IN WI MO MN AL LA KY OR OK CT IA MS AR KS NV UT NE NM WV ID NH ME RI HI MT DE SD ND AK DC VT WY'.split()
+INDUSTRIES = {'plumber','hvac','roofer','electrician','landscaper','painter','carpenter'}
 DEFAULT_CONFIG = Path(__file__).with_name('targeting.json')
 
 
@@ -23,11 +24,13 @@ def load_config(path=DEFAULT_CONFIG):
         if type(value) is not int or not 1 <= value <= maximum:
             raise ValueError('Invalid bounded limit: ' + key)
     # A checked-in profile cannot silently activate unbenchmarked bulk research.
-    if config['limits']['screened'] > 100 or config['limits']['qualified'] > 10 or config['limits']['browser_checks'] > 12:
+    if config['limits']['screened'] > 100 or config['limits']['qualified'] > 10 or config['limits']['browser_checks'] > 20:
         raise ValueError('Larger targets require a reviewed capacity benchmark and explicit code/config change')
     states = config['targeting'].get('states', []) or list(STATES)
     if not states or any(s not in STATES for s in states):
         raise ValueError('Unknown U.S. state')
+    if any(i not in INDUSTRIES for i in config['targeting'].get('industries', [])):
+        raise ValueError('Unsupported target industry')
     for region in config['targeting'].get('regions', []):
         validate_region(region)
     return config
@@ -42,6 +45,8 @@ def validate_region(region):
         not region.get('states') or any(s not in STATES for s in region['states']) or
         region.get('kind') not in ('city', 'metro', 'state')):
         raise ValueError('Invalid bounded U.S. geographic target')
+    if any(i not in INDUSTRIES for i in region.get('industries', [])):
+        raise ValueError('Unsupported target industry')
     ZoneInfo(region['timezone'])
     if not region.get('id') or not region.get('name') or region.get('language') != 'en':
         raise ValueError('Target needs a stable ID, name and supported draft language en')
@@ -90,6 +95,8 @@ def select_region(config, state):
         region = {'id': f'{code}-{tile}', 'name': STATES[code]['name'], 'country': 'US',
                   'kind': 'state', 'states': [code], 'bbox': grid[tile],
                   'timezone': ZONES.get(code, 'America/Chicago'), 'language': 'en'}
+    if config['targeting'].get('industries') and not region.get('industries'):
+        region['industries']=config['targeting']['industries']
     validate_region(region)
     return region
 
@@ -109,7 +116,7 @@ def matches(candidate, region):
     geo = candidate.get('geography', {})
     loc = candidate.get('center') or candidate
     west, south, east, north = region['bbox']
-    return (geo.get('country') == 'US' and geo.get('state') in region['states'] and
+    return ((not region.get('industries') or candidate.get('tags',{}).get('craft') in region['industries']) and geo.get('country') == 'US' and geo.get('state') in region['states'] and
             (not region.get('localities') or (geo.get('city') or '').casefold() in [x.casefold() for x in region['localities']]) and
             west <= loc.get('lon', -999) <= east and south <= loc.get('lat', -999) <= north)
 
@@ -117,7 +124,8 @@ def matches(candidate, region):
 def overpass_query(region):
     west, south, east, north = region['bbox']
     states = '|'.join(region['states'])  # validated against the offline state catalog
-    return f'[out:json][timeout:45];nwr["craft"~"^(plumber|electrician|hvac|roofer|carpenter|painter|landscaper)$"]["name"]["addr:country"="US"]["addr:state"~"^({states})$"]({south},{west},{north},{east});out center tags;'
+    trades='|'.join(sorted(region.get('industries') or INDUSTRIES))
+    return f'[out:json][timeout:45];nwr["craft"~"^({trades})$"]["name"]["addr:country"="US"]["addr:state"~"^({states})$"]({south},{west},{north},{east});out center tags;'
 
 
 def osm_geography(candidate, region):

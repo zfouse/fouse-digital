@@ -16,6 +16,7 @@ import urllib.request
 from zoneinfo import ZoneInfo
 
 if __package__:
+    from .funnel import Funnel, failure_reason, rates
     from .reporting import carryover
     from .geography import load_config, select_region, fingerprint, advance, matches
     from .discovery import DiscoveryFailed, validate
@@ -29,6 +30,7 @@ if __package__:
     from .findings import canonical_url, merge_findings, same_business
     from .browser_verify import verify as verify_browser
 else:
+    from funnel import Funnel, failure_reason, rates
     from reporting import carryover
     from geography import load_config, select_region, fingerprint, advance, matches
     from discovery import DiscoveryFailed, validate
@@ -101,7 +103,7 @@ def audit(url, getter=fetch):
 
 
 def run(candidates, state, target=10, auditor=audit, browser_verifier=None, limits=None, region=None, ledger_timezone='America/Chicago', prior_qualified=None):
-    limits = limits or {'screened': 100, 'browser_checks': 12, 'static_seconds': 300, 'total_seconds': 900}
+    limits = limits or {'screened': 100, 'browser_checks': 20, 'static_seconds': 300, 'total_seconds': 900}
     today = dt.datetime.now(ZoneInfo(ledger_timezone)).date().isoformat()
     seen = set(state.get('seen', []))
     legacy_count = state.get('daily', {}).get(today, 0)
@@ -112,6 +114,7 @@ def run(candidates, state, target=10, auditor=audit, browser_verifier=None, limi
     previous_entities = state.get('entities', [])
     previous_findings = set(state.get('finding_seen', []))
     pool, skipped, excluded = [], [], []
+    funnel=Funnel()
     audit_cache = {}
     started = time.monotonic()
     # Reserve browser time after the static sample instead of verifying the first sites encountered.
@@ -122,86 +125,118 @@ def run(candidates, state, target=10, auditor=audit, browser_verifier=None, limi
         if count >= target or screened >= screen_budget or time.monotonic()-started >= limits['static_seconds']:
             break
         screened += 1
+        trace=funnel.start(c)
         if region is not None and not matches(c, region):
-            continue
+            funnel.finish(trace,'outside_target');continue
+        funnel.reached(trace,'geography_pass')
         tags=c.get('tags', {})
         location=c.get('center') or c
         lat,lon=location.get('lat'),location.get('lon')
         if tags.get('craft') not in ('plumber','electrician','hvac','roofer','carpenter','painter','landscaper') or not tags.get('name'):
-            continue
+            funnel.finish(trace,'unsupported_trade_or_missing_name');continue
+        funnel.reached(trace,'service_trade_pass')
         if not isinstance(lat,(float,int)) or not isinstance(lon,(float,int)) or not (-90<=lat<=90 and -180<=lon<=180):
-            continue
+            funnel.finish(trace,'invalid_coordinates');continue
         url=tags.get('website') or tags.get('contact:website')
-        if not url: continue
+        if not url:funnel.finish(trace,'missing_website');continue
+        funnel.reached(trace,'website_present')
         if '://' not in url: url='https://'+url
         c=dict(c,tags=dict(tags,website=url))
         fit=business_fit(c)
         if not fit['eligible']:
-            excluded.append({'name':tags['name'],'website':url,'fit':fit});continue
+            excluded.append({'name':tags['name'],'website':url,'fit':fit});funnel.finish(trace,'discovery_fit_excluded',fit['ownership']);continue
+        funnel.reached(trace,'discovery_fit_pass')
         provider=c.get('provider','osm')
         provider_string=('osm:'+c['type']+':'+str(c['id'])) if provider=='osm' else provider+':'+str(c['id'])
         provider_key=hashlib.sha256(provider_string.encode()).hexdigest()
-        if provider_key in seen: continue
+        if provider_key in seen:funnel.finish(trace,'provider_already_qualified');continue
+        funnel.reached(trace,'not_previously_seen')
         record={'provider':provider,'id':c['id'],'name':tags['name'],'website':url,'geography':c.get('geography',{}),'source':c.get('source') or f"https://www.openstreetmap.org/{c['type']}/{c['id']}"}
         try:
             cached=audit_cache.get(canonical_url(url))
             if cached is None:
+                funnel.reached(trace,'static_audit_attempted')
                 checked+=1
                 result=auditor(url)
                 audit_cache[canonical_url(url)]=copy.deepcopy(result)
             else:
                 result=copy.deepcopy(cached)
+            funnel.reached(trace,'static_audit_completed')
             final,findings,contacts=result
             fit=business_fit(dict(c,tags=dict(c['tags'],website=final)),getattr(result,'coverage',{}).get('source_text',''))
-            if not fit['eligible']: excluded.append({'name':tags['name'],'website':final,'fit':fit});continue
+            if not fit['eligible']:
+                excluded.append({'name':tags['name'],'website':final,'fit':fit});funnel.finish(trace,'post_audit_fit_excluded',fit['ownership']);continue
+            funnel.reached(trace,'post_audit_fit_pass')
             contacts=list(contacts)+c.get('contacts',[])
             for kind in ('email','phone'):
                 value=tags.get(kind) or tags.get('contact:'+kind)
                 if value: contacts.append({'kind':kind,'value':value,'source':record['source']})
             contacts=deduplicate(contacts)
             record['contact_keys']=hashes(contacts)
-            if not contacts or any(same_business(record,old) for old in previous_entities): continue
+            if not contacts:funnel.finish(trace,'no_public_contact');continue
+            funnel.reached(trace,'public_contacts')
+            if any(same_business(record,old) for old in previous_entities):funnel.finish(trace,'identity_already_qualified');continue
+            funnel.reached(trace,'identity_unique')
             # Legacy IDs/domains stay intact. Domain-only legacy suppression applies only to root pages,
             # not named, distinct business paths on a shared operator website.
             legacy_domain=hashlib.sha256(('domain:'+identity(final)).encode()).hexdigest()
             if not previous_entities and legacy_domain in seen and urllib.parse.urlsplit(url).path in ('','/'):
-                skipped.append({'source':record['source'],'reason':'legacy_domain_seen_identity_unknown'});continue
+                skipped.append({'source':record['source'],'reason':'legacy_domain_seen_identity_unknown'});funnel.finish(trace,'legacy_domain_already_seen');continue
             findings=merge_findings(findings)
-            if not findings: continue
+            if not findings:funnel.finish(trace,'no_source_signals');continue
+            funnel.reached(trace,'static_signals_present')
             lead={'name':tags['name'],'category':tags['craft'],'location':{'lat':lat,'lon':lon}, 'geography':c.get('geography',{}),
                   'discovery_source':record['source'],'provider':provider,'provenance':c.get('provenance',{}),
                   'website':final,'checked_at':dt.datetime.now(dt.timezone.utc).isoformat(),'contacts':contacts,
                   'findings':findings,'coverage':getattr(result,'coverage',{}),'fit':fit,'entity':record,
-                  '_result':result,'_keys':keys(c)+hashes(contacts),'related_businesses':[]}
+                  '_trace':trace,'_result':result,'_keys':keys(c)+hashes(contacts),'related_businesses':[]}
             duplicate=next((existing for existing in pool if same_business(existing['entity'],record)),None)
             if duplicate:
+                funnel.finish(trace,'duplicate_in_sample')
                 duplicate['related_businesses'].append(record)
                 duplicate['contacts']=deduplicate(duplicate['contacts']+contacts)
                 duplicate['findings']=merge_findings(duplicate['findings']+findings)
                 continue
             pool.append(lead)
         except (ValueError,OSError,urllib.error.URLError) as e:
-            skipped.append({'source':record['source'],'reason':type(e).__name__})
+            funnel.finish(trace,failure_reason(e))
+            skipped.append({'source':record['source'],'reason':type(e).__name__,'category':failure_reason(e)})
     weights={'broken_cta':60,'empty_contact_link':55,'cta_fragment':35,'form_submit':20,'form_labels':12,'mobile_width':4,'viewport':0,'long_form':0}
     pool.sort(key=lambda lead:-(lead['fit']['score']+max((weights.get(f['code'],0) for f in lead['findings']),default=0)))
     verified_count=0
     browser_outcomes=[]
     for lead in pool:
+        trace=lead['_trace']
         result=lead.pop('_result')
         if browser_verifier and verified_count<browser_budget and time.monotonic()-started<limits['total_seconds']:
+            funnel.reached(trace,'browser_attempted')
             result.findings=lead['findings']
             result=browser_verifier(result)
             lead['findings']=merge_findings(result.findings)
             lead['coverage']=result.coverage
             verified_count+=1
+            status=result.coverage.get('browser',{}).get('status','unknown')
+            if status in ('complete','limited'):funnel.reached(trace,'browser_inspected')
+            if status=='complete':funnel.reached(trace,'browser_complete')
             browser_outcomes.append({'name':lead['name'],'website':lead['website'],
                 'status':result.coverage.get('browser',{}).get('status','unknown'),
                 'confirmed_problems':len(verified(lead['findings'])),
                 'reason':result.coverage.get('browser',{}).get('reason'),
                 'dynamic_requests_blocked':result.coverage.get('browser',{}).get('dynamic_requests_blocked',0),
-                'essential_resources_failed':result.coverage.get('browser',{}).get('essential_resources_failed',0)})
+                'essential_resources_failed':result.coverage.get('browser',{}).get('essential_resources_failed',0),
+                'diagnostics':result.coverage.get('browser',{}).get('diagnostics',[])})
         else:
             lead['findings']=[dict(f,status='potential',impact=0,evidence_strength=8) if f.get('verification')!='browser' else f for f in lead['findings']]
+        if verified(lead['findings']):funnel.reached(trace,'confirmed_problem')
+        if serviceable(lead['findings']):funnel.reached(trace,'serviceable_problem')
+        else:
+            if 'browser_attempted' not in trace['stages']:reason='browser_budget_or_time_not_inspected'
+            else:reason={'complete':'browser_no_confirmed_serviceable_problem','limited':'browser_inconclusive','unavailable':'browser_unavailable'}.get(lead['coverage'].get('browser',{}).get('status'),'browser_unknown')
+            funnel.finish(trace,reason)
+            browser=lead['coverage'].get('browser',{})
+            trace['browser_status']=browser.get('status','not_attempted')
+            trace['browser_diagnostic_counts']=browser.get('diagnostic_counts',{})
+            trace['unavailable_documents']=sum(p.get('status')=='unavailable' for p in browser.get('page_results',[]))
         lead['coverage'].pop('source_text',None)
         lead['ranking']=rank(lead['findings'],lead['contacts'],lead['category'],lead['fit'])
     eligible=sorted((l for l in pool if serviceable(l['findings'])),key=lambda l:(-l['ranking']['score'],l['name']))
@@ -209,14 +244,18 @@ def run(candidates, state, target=10, auditor=audit, browser_verifier=None, limi
     for lead in eligible:
         confirmed=[f for f in serviceable(lead['findings']) if f['root_cause_id'] not in used_roots]
         if not confirmed:
+            funnel.finish(lead['_trace'],'finding_already_reviewed')
             primary=next((p for p in leads if set(f['root_cause_id'] for f in verified(p['findings'])).intersection(f['root_cause_id'] for f in verified(lead['findings']))),None)
             if primary: primary['related_businesses'].append(lead['entity'])
             else: related_identities.append({'entity':lead['entity'],'reason':'Same finding already reviewed for a related business.','root_cause_ids':[f['root_cause_id'] for f in verified(lead['findings'])]})
             continue
-        if len(leads)>=max(0,target-count): continue
+        funnel.reached(lead['_trace'],'new_root_problem')
+        if len(leads)>=max(0,target-count):funnel.finish(lead['_trace'],'daily_qualified_target_reached');continue
         strongest=max(confirmed,key=lambda f:f['impact'])
         lead['draft']=draft(lead['name'],strongest,lead['category'])
-        if not lead['draft']: continue
+        if not lead['draft']:funnel.finish(lead['_trace'],'no_supported_draft');continue
+        funnel.reached(lead['_trace'],'draft_created')
+        funnel.finish(lead['_trace'],'qualified')
         leads.append(lead)
         used_roots.update(f['root_cause_id'] for f in confirmed)
         seen.update(lead['_keys'])
@@ -231,6 +270,7 @@ def run(candidates, state, target=10, auditor=audit, browser_verifier=None, limi
             review_queue.append(lead)
     for lead in pool:
         lead.pop('_keys',None)
+        lead.pop('_trace',None)
     state.setdefault('daily_usage', {})[today] = {'screened': usage.get('screened', 0)+screened, 'browser_checks': usage.get('browser_checks', 0)+verified_count}
     state['seen']=sorted(seen)
     state.setdefault('daily',{})[today]=legacy_count+len(leads)
@@ -242,15 +282,17 @@ def run(candidates, state, target=10, auditor=audit, browser_verifier=None, limi
     for relation in related_identities:
         if relation not in relationships: relationships.append(relation)
     state['related_entities']=relationships
-    return {'date':today,'target':target,'qualified_today':count+len(leads),'qualified_before_run':count,'historical_daily_total':legacy_count+len(leads),
+    report = {'date':today,'target':target,'qualified_today':count+len(leads),'qualified_before_run':count,'historical_daily_total':legacy_count+len(leads),
             'newly_qualified':len(leads),'new_drafts':sum(bool(l.get('draft')) for l in leads),'new_leads':leads,
             'count_explanation':'Verified daily total includes accepted earlier browser-evidenced prospects, not source-only or excluded legacy records. New prospects/drafts belong to this run. Historical daily totals remain preserved separately; carryover is not a live re-verification.',
-            'daily_usage':state['daily_usage'][today],'screened_businesses':screened,'elapsed_seconds':round(time.monotonic()-started,2),'geographic_target':region,'limits':limits,
+            'funnel':funnel.report(),'daily_usage':state['daily_usage'][today],'screened_businesses':screened,'elapsed_seconds':round(time.monotonic()-started,2),'geographic_target':region,'limits':limits,
             'review_queue':review_queue,'audited_sites':checked,'browser_verified_sites':verified_count,'browser_attempts':verified_count,'browser_outcomes':browser_outcomes,
             'sites_with_confirmed_problems':sum(x['confirmed_problems']>0 for x in browser_outcomes),
             'related_identities':related_identities,'excluded_businesses':excluded[:30],'shortfall':max(0,target-count-len(leads)), 'skipped':skipped,
             'ranking_scope':'Serviceable local-fit candidates and browser-confirmed problems in the bounded audited sample.',
-            'attribution':'Overture Maps Foundation https://docs.overturemaps.org/attribution/ ; © OpenStreetMap contributors, ODbL https://www.openstreetmap.org/copyright'},state
+            'attribution':'Overture Maps Foundation https://docs.overturemaps.org/attribution/ ; © OpenStreetMap contributors, ODbL https://www.openstreetmap.org/copyright'}
+    report['qualification_rates']=rates(report)
+    return report,state
 
 
 def main():
