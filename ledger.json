@@ -1,7 +1,8 @@
 {
   "daily": {
     "2026-10-14": 10,
-    "2026-10-15": 1
+    "2026-10-15": 1,
+    "2026-10-16": 0
   },
   "seen": [
     "06ad1184399aab967c113e5969170f6b3685be6ac82fa845c846c57ea4394875",
@@ -43,32 +44,43 @@
     "2026-10-15": {
       "screened": 100,
       "browser_checks": 12
+    },
+    "2026-10-16": {
+      "screened": 100,
+      "browser_checks": 20
     }
   },
   "entities": [],
   "finding_seen": [],
   "related_entities": [],
   "geo_rotation": {
-    "cursor": 1,
+    "cursor": 2,
     "tiles": {
-      "AK": 1
+      "AK": 1,
+      "TX": 1
     },
     "last_completed": {
-      "id": "AK-0",
-      "name": "Alaska",
+      "id": "TX-0",
+      "name": "Texas",
       "country": "US",
       "kind": "state",
       "states": [
-        "AK"
+        "TX"
       ],
       "bbox": [
-        -150.3,
-        60.92,
-        -149.5,
-        61.52
+        -95.77,
+        29.46,
+        -94.97,
+        30.06
       ],
-      "timezone": "America/Anchorage",
+      "timezone": "America/Chicago",
       "language": "en"
+    },
+    "next_tiles": {
+      "TX": 1
     }
+  },
+  "verified_daily": {
+    "2026-10-16": 0
   }
 }
