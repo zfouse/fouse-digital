@@ -2,7 +2,8 @@
   "daily": {
     "2026-10-14": 10,
     "2026-10-15": 1,
-    "2026-10-16": 0
+    "2026-10-16": 0,
+    "2026-10-17": 0
   },
   "seen": [
     "06ad1184399aab967c113e5969170f6b3685be6ac82fa845c846c57ea4394875",
@@ -48,39 +49,46 @@
     "2026-10-16": {
       "screened": 100,
       "browser_checks": 20
+    },
+    "2026-10-17": {
+      "screened": 81,
+      "browser_checks": 20
     }
   },
   "entities": [],
   "finding_seen": [],
   "related_entities": [],
   "geo_rotation": {
-    "cursor": 2,
+    "cursor": 3,
     "tiles": {
       "AK": 1,
-      "TX": 1
+      "TX": 1,
+      "FL": 1
     },
     "last_completed": {
-      "id": "TX-0",
-      "name": "Texas",
+      "id": "FL-0",
+      "name": "Florida",
       "country": "US",
       "kind": "state",
       "states": [
-        "TX"
+        "FL"
       ],
       "bbox": [
-        -95.77,
-        29.46,
-        -94.97,
-        30.06
+        -80.59,
+        25.46,
+        -79.79,
+        26.06
       ],
-      "timezone": "America/Chicago",
+      "timezone": "America/New_York",
       "language": "en"
     },
     "next_tiles": {
-      "TX": 1
+      "TX": 1,
+      "FL": 1
     }
   },
   "verified_daily": {
-    "2026-10-16": 0
+    "2026-10-16": 0,
+    "2026-10-17": 0
   }
 }
