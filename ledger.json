@@ -3,7 +3,8 @@
     "2026-10-14": 10,
     "2026-10-15": 1,
     "2026-10-16": 0,
-    "2026-10-17": 0
+    "2026-10-17": 0,
+    "2026-10-18": 0
   },
   "seen": [
     "06ad1184399aab967c113e5969170f6b3685be6ac82fa845c846c57ea4394875",
@@ -53,42 +54,49 @@
     "2026-10-17": {
       "screened": 81,
       "browser_checks": 20
+    },
+    "2026-10-18": {
+      "screened": 100,
+      "browser_checks": 20
     }
   },
   "entities": [],
   "finding_seen": [],
   "related_entities": [],
   "geo_rotation": {
-    "cursor": 3,
+    "cursor": 4,
     "tiles": {
       "AK": 1,
       "TX": 1,
-      "FL": 1
+      "FL": 1,
+      "CA": 1
     },
     "last_completed": {
-      "id": "FL-0",
-      "name": "Florida",
+      "id": "CA-0",
+      "name": "California",
       "country": "US",
       "kind": "state",
       "states": [
-        "FL"
+        "CA"
       ],
       "bbox": [
-        -80.59,
-        25.46,
-        -79.79,
-        26.06
+        -118.64,
+        33.75,
+        -117.84,
+        34.35
       ],
-      "timezone": "America/New_York",
+      "timezone": "America/Los_Angeles",
       "language": "en"
     },
     "next_tiles": {
       "TX": 1,
-      "FL": 1
+      "FL": 1,
+      "CA": 1
     }
   },
   "verified_daily": {
     "2026-10-16": 0,
-    "2026-10-17": 0
+    "2026-10-17": 0,
+    "2026-10-18": 0
   }
 }
