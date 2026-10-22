@@ -7,7 +7,8 @@
     "2026-10-18": 0,
     "2026-10-19": 0,
     "2026-10-20": 0,
-    "2026-10-21": 0
+    "2026-10-21": 0,
+    "2026-10-22": 0
   },
   "seen": [
     "06ad1184399aab967c113e5969170f6b3685be6ac82fa845c846c57ea4394875",
@@ -73,13 +74,17 @@
     "2026-10-21": {
       "screened": 89,
       "browser_checks": 20
+    },
+    "2026-10-22": {
+      "screened": 100,
+      "browser_checks": 20
     }
   },
   "entities": [],
   "finding_seen": [],
   "related_entities": [],
   "geo_rotation": {
-    "cursor": 7,
+    "cursor": 8,
     "tiles": {
       "AK": 1,
       "TX": 1,
@@ -87,21 +92,22 @@
       "CA": 1,
       "NC": 1,
       "GA": 1,
-      "OH": 1
+      "OH": 1,
+      "PA": 1
     },
     "last_completed": {
-      "id": "OH-0",
-      "name": "Ohio",
+      "id": "PA-0",
+      "name": "Pennsylvania",
       "country": "US",
       "kind": "state",
       "states": [
-        "OH"
+        "PA"
       ],
       "bbox": [
-        -83.39,
-        39.66,
-        -82.59,
-        40.26
+        -75.57,
+        39.65,
+        -74.77,
+        40.25
       ],
       "timezone": "America/New_York",
       "language": "en"
@@ -112,7 +118,8 @@
       "CA": 1,
       "NC": 1,
       "GA": 1,
-      "OH": 1
+      "OH": 1,
+      "PA": 1
     }
   },
   "verified_daily": {
@@ -121,6 +128,7 @@
     "2026-10-18": 0,
     "2026-10-19": 0,
     "2026-10-20": 0,
-    "2026-10-21": 0
+    "2026-10-21": 0,
+    "2026-10-22": 0
   }
 }
