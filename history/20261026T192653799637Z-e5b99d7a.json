@@ -1,0 +1,131 @@
+{
+  "date": "2026-10-26",
+  "target": 10,
+  "qualified_today": 0,
+  "qualified_before_run": 0,
+  "historical_daily_total": 0,
+  "newly_qualified": 0,
+  "new_drafts": 0,
+  "new_leads": [],
+  "count_explanation": "Verified daily total includes accepted earlier browser-evidenced prospects, not source-only or excluded legacy records. New prospects/drafts belong to this run. Historical daily totals remain preserved separately; carryover is not a live re-verification.",
+  "funnel": {
+    "screened": 0,
+    "stages": {},
+    "outcomes": {},
+    "definitions": "Outcomes partition screened candidates exactly once. Stage counts are nonexclusive events, not a single linear chain; limited browsers can confirm an independently inspected page.",
+    "candidates": []
+  },
+  "daily_usage": {
+    "screened": 0,
+    "browser_checks": 0
+  },
+  "screened_businesses": 0,
+  "elapsed_seconds": 0.0,
+  "geographic_target": {
+    "id": "VA-0",
+    "name": "Virginia",
+    "country": "US",
+    "kind": "state",
+    "states": [
+      "VA"
+    ],
+    "bbox": [
+      -77.84,
+      37.24,
+      -77.04,
+      37.84
+    ],
+    "timezone": "America/New_York",
+    "language": "en"
+  },
+  "limits": {
+    "screened": 100,
+    "qualified": 10,
+    "browser_checks": 20,
+    "static_seconds": 300,
+    "total_seconds": 900
+  },
+  "review_queue": [],
+  "audited_sites": 0,
+  "browser_verified_sites": 0,
+  "browser_attempts": 0,
+  "browser_outcomes": [],
+  "sites_with_confirmed_problems": 0,
+  "related_identities": [],
+  "excluded_businesses": [],
+  "shortfall": 10,
+  "skipped": [],
+  "ranking_scope": "Serviceable local-fit candidates and browser-confirmed problems in the bounded audited sample.",
+  "attribution": "Overture Maps Foundation https://docs.overturemaps.org/attribution/ ; © OpenStreetMap contributors, ODbL https://www.openstreetmap.org/copyright",
+  "qualification_rates": {
+    "qualified_per_100_screened": null,
+    "browser_complete_percent": null,
+    "browser_confirmed_problem_percent": null,
+    "browser_attempt_denominator": 0,
+    "screened_denominator": 0
+  },
+  "daily_reconciliation": {
+    "basis": "archived browser evidence; not a live re-verification",
+    "reports_read": 0,
+    "legacy_total": 0,
+    "accepted_carryover": 0,
+    "note": "Source-only, commercially excluded or unproven historical records remain in history and deduplication, but do not fill the verified-prospect quota."
+  },
+  "country_policy": {
+    "enabled": true,
+    "language": "en",
+    "timezone": "America/Chicago",
+    "outreach": "draft_only",
+    "compliance": {
+      "review_required_before_sending": true,
+      "requirements": [
+        "truthful headers and subject",
+        "sender postal address",
+        "opt-out and suppression handling",
+        "federal and applicable state review"
+      ],
+      "source": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business"
+    }
+  },
+  "discovered_businesses": 0,
+  "status": "success",
+  "discovery": {
+    "status": "success",
+    "source": "overpass",
+    "attempts": [
+      {
+        "provider": "overture",
+        "outcome": "failure",
+        "reason": "RuntimeError",
+        "detail": "Overture extraction: HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "provider": "overpass",
+        "outcome": "success",
+        "pool_quality": {
+          "pool_input_records": 0,
+          "missing_website_excluded": 0,
+          "normalized_explicit_websites": 0
+        },
+        "status": "success",
+        "endpoint": "https://overpass-api.de/api/interpreter",
+        "attempts": [
+          {
+            "endpoint": "https://overpass-api.de/api/interpreter",
+            "attempt": 1,
+            "at": "2026-10-26T19:25:35.528655+00:00",
+            "outcome": "failure",
+            "reason": "HTTP 502",
+            "backoff_seconds": 30.039076722018443
+          },
+          {
+            "endpoint": "https://overpass-api.de/api/interpreter",
+            "attempt": 2,
+            "at": "2026-10-26T19:26:06.155831+00:00",
+            "outcome": "success"
+          }
+        ]
+      }
+    ]
+  }
+}

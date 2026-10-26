@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "fetched_at": "2026-10-26T19:25:35.067806+00:00",
+  "candidates": [],
+  "region": {
+    "id": "VA-0",
+    "name": "Virginia",
+    "country": "US",
+    "kind": "state",
+    "states": [
+      "VA"
+    ],
+    "bbox": [
+      -77.84,
+      37.24,
+      -77.04,
+      37.84
+    ],
+    "timezone": "America/New_York",
+    "language": "en"
+  }
+}

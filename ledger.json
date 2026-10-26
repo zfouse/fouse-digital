@@ -11,7 +11,8 @@
     "2026-10-22": 0,
     "2026-10-23": 0,
     "2026-10-24": 0,
-    "2026-10-25": 0
+    "2026-10-25": 0,
+    "2026-10-26": 0
   },
   "seen": [
     "06ad1184399aab967c113e5969170f6b3685be6ac82fa845c846c57ea4394875",
@@ -93,13 +94,17 @@
     "2026-10-25": {
       "screened": 94,
       "browser_checks": 20
+    },
+    "2026-10-26": {
+      "screened": 0,
+      "browser_checks": 0
     }
   },
   "entities": [],
   "finding_seen": [],
   "related_entities": [],
   "geo_rotation": {
-    "cursor": 11,
+    "cursor": 12,
     "tiles": {
       "AK": 1,
       "TX": 1,
@@ -111,23 +116,24 @@
       "PA": 1,
       "IL": 1,
       "AZ": 1,
-      "CO": 1
+      "CO": 1,
+      "VA": 1
     },
     "last_completed": {
-      "id": "CO-0",
-      "name": "Colorado",
+      "id": "VA-0",
+      "name": "Virginia",
       "country": "US",
       "kind": "state",
       "states": [
-        "CO"
+        "VA"
       ],
       "bbox": [
-        -105.39,
-        39.44,
-        -104.59,
-        40.04
+        -77.84,
+        37.24,
+        -77.04,
+        37.84
       ],
-      "timezone": "America/Denver",
+      "timezone": "America/New_York",
       "language": "en"
     },
     "next_tiles": {
@@ -140,7 +146,8 @@
       "PA": 1,
       "IL": 1,
       "AZ": 1,
-      "CO": 1
+      "CO": 1,
+      "VA": 1
     }
   },
   "verified_daily": {
@@ -153,6 +160,7 @@
     "2026-10-22": 0,
     "2026-10-23": 0,
     "2026-10-24": 0,
-    "2026-10-25": 0
+    "2026-10-25": 0,
+    "2026-10-26": 0
   }
 }
