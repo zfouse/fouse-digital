@@ -13,7 +13,8 @@
     "2026-10-24": 0,
     "2026-10-25": 0,
     "2026-10-26": 0,
-    "2026-10-27": 0
+    "2026-10-27": 0,
+    "2026-10-28": 0
   },
   "seen": [
     "06ad1184399aab967c113e5969170f6b3685be6ac82fa845c846c57ea4394875",
@@ -103,13 +104,17 @@
     "2026-10-27": {
       "screened": 91,
       "browser_checks": 20
+    },
+    "2026-10-28": {
+      "screened": 99,
+      "browser_checks": 20
     }
   },
   "entities": [],
   "finding_seen": [],
   "related_entities": [],
   "geo_rotation": {
-    "cursor": 13,
+    "cursor": 14,
     "tiles": {
       "AK": 1,
       "TX": 1,
@@ -123,23 +128,24 @@
       "AZ": 1,
       "CO": 1,
       "VA": 1,
-      "TN": 1
+      "TN": 1,
+      "NY": 1
     },
     "last_completed": {
-      "id": "TN-0",
-      "name": "Tennessee",
+      "id": "NY-0",
+      "name": "New York",
       "country": "US",
       "kind": "state",
       "states": [
-        "TN"
+        "NY"
       ],
       "bbox": [
-        -87.18,
-        35.86,
-        -86.38,
-        36.46
+        -74.41,
+        40.41,
+        -73.61,
+        41.01
       ],
-      "timezone": "America/Chicago",
+      "timezone": "America/New_York",
       "language": "en"
     },
     "next_tiles": {
@@ -154,7 +160,8 @@
       "AZ": 1,
       "CO": 1,
       "VA": 1,
-      "TN": 1
+      "TN": 1,
+      "NY": 1
     }
   },
   "verified_daily": {
@@ -169,6 +176,7 @@
     "2026-10-24": 0,
     "2026-10-25": 0,
     "2026-10-26": 0,
-    "2026-10-27": 0
+    "2026-10-27": 0,
+    "2026-10-28": 0
   }
 }
