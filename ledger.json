@@ -14,7 +14,8 @@
     "2026-10-25": 0,
     "2026-10-26": 0,
     "2026-10-27": 0,
-    "2026-10-28": 0
+    "2026-10-28": 0,
+    "2026-10-29": 1
   },
   "seen": [
     "06ad1184399aab967c113e5969170f6b3685be6ac82fa845c846c57ea4394875",
@@ -25,13 +26,17 @@
     "42bc89eedbe5da0ce8b746ce33a28632cea6e954a9fd74834ec4aa61906be39c",
     "42c240541a3971e3874f7a75d0bc665aeeb310aec3648be820723050495650c6",
     "468fbe782fc12c724996ff8c843d19a2c799fff6c5ef3bfce1ce1ab286462562",
+    "498cdc12beb7364aecbb87b2f798dd7bbd7b141cefdc1de2f9a72845dc9a4c50",
     "4d6764f4627ebc0bf7d1ee25c77a55df0490cdec6aa5b71f3eb7f1db29e46c67",
     "600e2f430ae0af3adc976e7c6ef56967e063867f8f09a6f66c584d64d692af83",
     "606fa3263742cd8a8ee8d8a7d8b34872f05cb4feb78e970f449ac3db0886d15a",
     "66552f0be3e73e2dc37f39a793ec4f2999f62050812d2ec8ab876b1f8fb0fe9f",
+    "68519257ade74a4dfc09f6695d89efdef85316860e8ab80fa043523fe6e95f50",
     "6b62265f6ac2cf23a1f6688f38b21c3731df0e5c7f052389f1a515f79bffe352",
     "736b0a4f19c6444881c0ed2b0763a35eaf25a3af7b35e5cd4897f3cb3f088767",
     "7607cc58df46531dd11c9067e0c85f78d0d0cf6d7d5e959a315820bafbda0e47",
+    "8e86f5083f49c8d2f1c03a35b24cd672caab1b8a25786df56d5853ce71e8b141",
+    "93036a5e59d33ce00d47cd0d262ced3b7f60cdce68474a6da561c82a17e42453",
     "96996e2e99442effd2677f15015a5d463cbcaecd37820dfe5e0f493dd8a2354e",
     "aec2e504c23857e46e9f276e41381557762bc3d6864da2d89576fb5f8df9cffe",
     "b81d2dd37967d2653a36b0ad07eb4da0f36d2d90036957655a056ef2650869f3",
@@ -108,13 +113,40 @@
     "2026-10-28": {
       "screened": 99,
       "browser_checks": 20
+    },
+    "2026-10-29": {
+      "screened": 89,
+      "browser_checks": 20
     }
   },
-  "entities": [],
-  "finding_seen": [],
+  "entities": [
+    {
+      "provider": "overture",
+      "id": "52f4d9cc-ed19-424d-8eb0-02187980aa25",
+      "name": "Dearborn Heating & Cooling",
+      "website": "http://www.dearbornheatingcooling.com/",
+      "geography": {
+        "country": "US",
+        "state": "MI",
+        "city": "Dearborn",
+        "source": "https://explore.overturemaps.org/?id=52f4d9cc-ed19-424d-8eb0-02187980aa25",
+        "language": "en",
+        "timezone": "America/New_York",
+        "target_id": "MI-0"
+      },
+      "source": "https://explore.overturemaps.org/?id=52f4d9cc-ed19-424d-8eb0-02187980aa25",
+      "contact_keys": [
+        "93036a5e59d33ce00d47cd0d262ced3b7f60cdce68474a6da561c82a17e42453",
+        "498cdc12beb7364aecbb87b2f798dd7bbd7b141cefdc1de2f9a72845dc9a4c50"
+      ]
+    }
+  ],
+  "finding_seen": [
+    "5bde9256e106f00537e70fab24efc3098d03a1924513fcd45e5ae70a8bbbe9ef"
+  ],
   "related_entities": [],
   "geo_rotation": {
-    "cursor": 14,
+    "cursor": 15,
     "tiles": {
       "AK": 1,
       "TX": 1,
@@ -129,21 +161,22 @@
       "CO": 1,
       "VA": 1,
       "TN": 1,
-      "NY": 1
+      "NY": 1,
+      "MI": 1
     },
     "last_completed": {
-      "id": "NY-0",
-      "name": "New York",
+      "id": "MI-0",
+      "name": "Michigan",
       "country": "US",
       "kind": "state",
       "states": [
-        "NY"
+        "MI"
       ],
       "bbox": [
-        -74.41,
-        40.41,
-        -73.61,
-        41.01
+        -83.45,
+        42.03,
+        -82.65,
+        42.63
       ],
       "timezone": "America/New_York",
       "language": "en"
@@ -161,7 +194,8 @@
       "CO": 1,
       "VA": 1,
       "TN": 1,
-      "NY": 1
+      "NY": 1,
+      "MI": 1
     }
   },
   "verified_daily": {
@@ -177,6 +211,7 @@
     "2026-10-25": 0,
     "2026-10-26": 0,
     "2026-10-27": 0,
-    "2026-10-28": 0
+    "2026-10-28": 0,
+    "2026-10-29": 1
   }
 }
