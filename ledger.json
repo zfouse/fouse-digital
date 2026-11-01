@@ -17,7 +17,8 @@
     "2026-10-28": 0,
     "2026-10-29": 1,
     "2026-10-30": 0,
-    "2026-10-31": 0
+    "2026-10-31": 0,
+    "2026-11-01": 0
   },
   "seen": [
     "06ad1184399aab967c113e5969170f6b3685be6ac82fa845c846c57ea4394875",
@@ -127,6 +128,10 @@
     "2026-10-31": {
       "screened": 87,
       "browser_checks": 20
+    },
+    "2026-11-01": {
+      "screened": 89,
+      "browser_checks": 20
     }
   },
   "entities": [
@@ -156,7 +161,7 @@
   ],
   "related_entities": [],
   "geo_rotation": {
-    "cursor": 17,
+    "cursor": 18,
     "tiles": {
       "AK": 1,
       "TX": 1,
@@ -174,23 +179,24 @@
       "NY": 1,
       "MI": 1,
       "MA": 1,
-      "MD": 1
+      "MD": 1,
+      "WA": 1
     },
     "last_completed": {
-      "id": "MD-0",
-      "name": "Maryland",
+      "id": "WA-0",
+      "name": "Washington",
       "country": "US",
       "kind": "state",
       "states": [
-        "MD"
+        "WA"
       ],
       "bbox": [
-        -77.01,
-        38.99,
-        -76.21,
-        39.59
+        -122.73,
+        47.31,
+        -121.93,
+        47.91
       ],
-      "timezone": "America/New_York",
+      "timezone": "America/Los_Angeles",
       "language": "en"
     },
     "next_tiles": {
@@ -209,7 +215,8 @@
       "NY": 1,
       "MI": 1,
       "MA": 1,
-      "MD": 1
+      "MD": 1,
+      "WA": 1
     }
   },
   "verified_daily": {
@@ -228,6 +235,7 @@
     "2026-10-28": 0,
     "2026-10-29": 1,
     "2026-10-30": 0,
-    "2026-10-31": 0
+    "2026-10-31": 0,
+    "2026-11-01": 0
   }
 }
