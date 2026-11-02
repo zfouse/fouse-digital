@@ -18,7 +18,8 @@
     "2026-10-29": 1,
     "2026-10-30": 0,
     "2026-10-31": 0,
-    "2026-11-01": 0
+    "2026-11-01": 0,
+    "2026-11-02": 0
   },
   "seen": [
     "06ad1184399aab967c113e5969170f6b3685be6ac82fa845c846c57ea4394875",
@@ -132,6 +133,10 @@
     "2026-11-01": {
       "screened": 89,
       "browser_checks": 20
+    },
+    "2026-11-02": {
+      "screened": 88,
+      "browser_checks": 20
     }
   },
   "entities": [
@@ -161,7 +166,7 @@
   ],
   "related_entities": [],
   "geo_rotation": {
-    "cursor": 18,
+    "cursor": 19,
     "tiles": {
       "AK": 1,
       "TX": 1,
@@ -180,23 +185,24 @@
       "MI": 1,
       "MA": 1,
       "MD": 1,
-      "WA": 1
+      "WA": 1,
+      "SC": 1
     },
     "last_completed": {
-      "id": "WA-0",
-      "name": "Washington",
+      "id": "SC-0",
+      "name": "South Carolina",
       "country": "US",
       "kind": "state",
       "states": [
-        "WA"
+        "SC"
       ],
       "bbox": [
-        -122.73,
-        47.31,
-        -121.93,
-        47.91
+        -81.24,
+        33.7,
+        -80.44,
+        34.3
       ],
-      "timezone": "America/Los_Angeles",
+      "timezone": "America/New_York",
       "language": "en"
     },
     "next_tiles": {
@@ -216,7 +222,8 @@
       "MI": 1,
       "MA": 1,
       "MD": 1,
-      "WA": 1
+      "WA": 1,
+      "SC": 1
     }
   },
   "verified_daily": {
@@ -236,6 +243,7 @@
     "2026-10-29": 1,
     "2026-10-30": 0,
     "2026-10-31": 0,
-    "2026-11-01": 0
+    "2026-11-01": 0,
+    "2026-11-02": 0
   }
 }
