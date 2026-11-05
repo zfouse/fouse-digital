@@ -21,7 +21,8 @@
     "2026-11-01": 0,
     "2026-11-02": 0,
     "2026-11-03": 0,
-    "2026-11-04": 0
+    "2026-11-04": 0,
+    "2026-11-05": 0
   },
   "seen": [
     "06ad1184399aab967c113e5969170f6b3685be6ac82fa845c846c57ea4394875",
@@ -147,6 +148,10 @@
     "2026-11-04": {
       "screened": 99,
       "browser_checks": 20
+    },
+    "2026-11-05": {
+      "screened": 83,
+      "browser_checks": 20
     }
   },
   "entities": [
@@ -176,7 +181,7 @@
   ],
   "related_entities": [],
   "geo_rotation": {
-    "cursor": 21,
+    "cursor": 22,
     "tiles": {
       "AK": 1,
       "TX": 1,
@@ -198,23 +203,24 @@
       "WA": 1,
       "SC": 1,
       "NJ": 1,
-      "IN": 1
+      "IN": 1,
+      "WI": 1
     },
     "last_completed": {
-      "id": "IN-0",
-      "name": "Indiana",
+      "id": "WI-0",
+      "name": "Wisconsin",
       "country": "US",
       "kind": "state",
       "states": [
-        "IN"
+        "WI"
       ],
       "bbox": [
-        -86.56,
-        39.47,
-        -85.76,
-        40.07
+        -88.31,
+        42.74,
+        -87.51,
+        43.34
       ],
-      "timezone": "America/New_York",
+      "timezone": "America/Chicago",
       "language": "en"
     },
     "next_tiles": {
@@ -237,7 +243,8 @@
       "WA": 1,
       "SC": 1,
       "NJ": 1,
-      "IN": 1
+      "IN": 1,
+      "WI": 1
     }
   },
   "verified_daily": {
@@ -260,6 +267,7 @@
     "2026-11-01": 0,
     "2026-11-02": 0,
     "2026-11-03": 0,
-    "2026-11-04": 0
+    "2026-11-04": 0,
+    "2026-11-05": 0
   }
 }
