@@ -26,7 +26,8 @@
     "2026-11-06": 0,
     "2026-11-07": 0,
     "2026-11-08": 0,
-    "2026-11-09": 0
+    "2026-11-09": 0,
+    "2026-11-10": 0
   },
   "seen": [
     "06ad1184399aab967c113e5969170f6b3685be6ac82fa845c846c57ea4394875",
@@ -172,6 +173,10 @@
     "2026-11-09": {
       "screened": 100,
       "browser_checks": 20
+    },
+    "2026-11-10": {
+      "screened": 100,
+      "browser_checks": 20
     }
   },
   "entities": [
@@ -201,7 +206,7 @@
   ],
   "related_entities": [],
   "geo_rotation": {
-    "cursor": 26,
+    "cursor": 27,
     "tiles": {
       "AK": 1,
       "TX": 1,
@@ -228,23 +233,24 @@
       "MO": 1,
       "MN": 1,
       "AL": 1,
-      "LA": 1
+      "LA": 1,
+      "KY": 1
     },
     "last_completed": {
-      "id": "LA-0",
-      "name": "Louisiana",
+      "id": "KY-0",
+      "name": "Kentucky",
       "country": "US",
       "kind": "state",
       "states": [
-        "LA"
+        "KY"
       ],
       "bbox": [
-        -90.47,
-        29.65,
-        -89.67,
-        30.25
+        -86.16,
+        37.95,
+        -85.36,
+        38.55
       ],
-      "timezone": "America/Chicago",
+      "timezone": "America/New_York",
       "language": "en"
     },
     "next_tiles": {
@@ -272,7 +278,8 @@
       "MO": 1,
       "MN": 1,
       "AL": 1,
-      "LA": 1
+      "LA": 1,
+      "KY": 1
     }
   },
   "verified_daily": {
@@ -300,6 +307,7 @@
     "2026-11-06": 0,
     "2026-11-07": 0,
     "2026-11-08": 0,
-    "2026-11-09": 0
+    "2026-11-09": 0,
+    "2026-11-10": 0
   }
 }
